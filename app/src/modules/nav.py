@@ -13,6 +13,19 @@ def HomeNav():
 def AboutPageNav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
+### --------------------- Employer Page ---------------------
+def SearchForCandidates():
+    st.sidebar.page_link(
+        "pages/search_students.py", label="Search For Students", icon="👤")
+
+def JobPostings():
+    st.sidebar.page_link(
+        "pages/job_postings.py", label="My Job Postings", icon="🏦")
+
+def ViewLeaderboard():
+    st.sidebar.page_link(
+        "pages/leaderboard.py", label="Student Leaderboard", icon="🚨")
+
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
 def PolStratAdvHomeNav():
@@ -77,8 +90,14 @@ def SideBarLinks(show_home=False):
     # Show the other page navigators depending on the users' role.
     if st.session_state["authenticated"]:
 
+        # If user role is employer, give access to all pages 
+        if st.session_state["role"] == "employer":
+            SearchForCandidates()
+            JobPostings()
+            ViewLeaderboard()
+
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
-        if st.session_state["role"] == "pol_strat_advisor":
+        if st.session_state["role"] == "pol_strat_advisor": 
             PolStratAdvHomeNav()
             WorldBankVizNav()
             MapDemoNav()
