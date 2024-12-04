@@ -90,4 +90,12 @@ if st.button('Act as Co Op Advisor',
     st.session_state['first_name'] = 'Advisor'
     st.switch_page('pages/70_Advisor_Page.py')
 
+if st.button('Harry Duong - Student', 
+            type = 'primary', 
+            use_container_width=True):
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'student'
+        st.session_state['first_name'] = 'Harry'
+        st.switch_page('pages/73_Student_home_page.py')
+
 
