@@ -30,7 +30,7 @@ def ViewLeaderboard():
 ### --------------------- Student Page ---------------------
 def ShowSkills():
     st.sidebar.page_link(
-        "pages/74_View_skills.py", label="Check Student Skills", icon="👤")
+        "pages/74_View_skills.py", label="Check Student Skills", icon="💪")
 
 def ViewLeaderboard():
     st.sidebar.page_link(
@@ -39,6 +39,11 @@ def ViewLeaderboard():
 def AddSkills():
     st.sidebar.page_link(
         "pages/76_Add_skills.py", label = "Add Skills", icon = "🎯"
+    )
+
+def ViewProfile():
+    st.sidebar.page_link(
+        "pages/77_View_User_Details.py", label = "View Profile", icon = "👤"
     )
 
 
@@ -115,6 +120,7 @@ def SideBarLinks(show_home=False):
             ShowSkills()
             ViewLeaderboard()
             AddSkills()
+            ViewProfile()
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor": 

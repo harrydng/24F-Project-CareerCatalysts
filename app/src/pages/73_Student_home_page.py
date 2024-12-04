@@ -33,7 +33,7 @@ if st.button("View Job Recommendations",
 if st.button("View My Profile", 
              type='primary',
              use_container_width=True):
-    st.switch_page("View_User_Details.py")
+    st.switch_page("pages/77_View_User_Details.py")
 
 # Button to view the leaderboard
 if st.button("View Leaderboard", 
