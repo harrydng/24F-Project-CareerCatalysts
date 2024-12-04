@@ -8,5 +8,5 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-skills = Blueprint('products', __name__)
+skills = Blueprint('skills', __name__)
 

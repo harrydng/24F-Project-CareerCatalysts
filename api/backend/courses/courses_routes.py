@@ -8,12 +8,12 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-courses = Blueprint('products', __name__)
+courses = Blueprint('courses', __name__)
 
 #------------------------------------------------------------
 # GET all the courses from the database, 
 # package them up, and return them to the client
-@courses.route('/jobPostings', methods=['GET'])
+@courses.route('/coursesName', methods=['GET'])
 def get_courses():
     query = '''
         SELECT DISTINCT courseName FROM courses

@@ -8,7 +8,7 @@ from backend.db_connection import db
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
-students = Blueprint('products', __name__)
+students = Blueprint('students', __name__)
 
 #------------------------------------------------------------
 # POST all the top students from the database, package them up,
@@ -18,19 +18,19 @@ def get_products():
     the_data = request.json
     current_app.logger.info(the_data)
 
-    # Extract the limit variable from the JSON body
+    # Extract the limit variable
     limit = the_data['limit']
     
     query = f'''
-        SELECT sp.nuId                                                 AS StudentID,
-            COUNT(DISTINCT ss.skillId)                                 AS TotalSkills,
-            COUNT(DISTINCT sc.courseId)                                AS TotalCourses,
-            (COUNT(DISTINCT ss.skillId) + COUNT(DISTINCT sc.courseId)) AS TotalScore
+        SELECT sp.nuId                                                 AS 'Student ID',
+            COUNT(DISTINCT ss.skillId)                                 AS 'Total Skills',
+            COUNT(DISTINCT sc.courseId)                                AS 'Total Courses',
+            (COUNT(DISTINCT ss.skillId) + COUNT(DISTINCT sc.courseId)) AS 'Total Score'
         FROM student_profile sp
             LEFT JOIN student_skills ss ON sp.nuId = ss.nuId
             LEFT JOIN student_courses sc ON sp.nuId = sc.nuId
         GROUP BY sp.nuId
-        ORDER BY TotalScore DESC, TotalSkills DESC, TotalCourses DESC
+        ORDER BY 'Total Score' DESC, 'Total Skills' DESC, 'Total Courses' DESC
         LIMIT {limit}
     '''
     current_app.logger.info(query)
