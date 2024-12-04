@@ -56,7 +56,7 @@ if st.button("Act as John Doe, a Student",
     # finally, we ask streamlit to switch to another page, in this case, the 
     # landing page for this particular user type
     logger.info("Logging in as Student Persona")
-    st.switch_page('pages/00_Pol_Strat_Home.py') #edit this route
+    st.switch_page('pages/73_Student_home_page.py') 
 
 if st.button('Act as Tony Stark, an Employer', 
             type = 'primary', 
@@ -89,13 +89,5 @@ if st.button('Act as Co Op Advisor',
     st.session_state['role'] = 'advisor'
     st.session_state['first_name'] = 'Advisor'
     st.switch_page('pages/70_Advisor_Page.py')
-
-if st.button('John Doe - Student', 
-            type = 'primary', 
-            use_container_width=True):
-        st.session_state['authenticated'] = True
-        st.session_state['role'] = 'student'
-        st.session_state['first_name'] = 'Harry'
-        st.switch_page('pages/73_Student_home_page.py')
 
 

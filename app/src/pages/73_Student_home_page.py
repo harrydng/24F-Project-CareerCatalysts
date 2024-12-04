@@ -15,13 +15,13 @@ st.write("### What would you like to do today?")
 if st.button("View My Skills and Courses", 
              type='primary',
              use_container_width=True):
-    st.switch_page("View_Skills_and_Courses")
+    st.switch_page("pages/74_View_skills.py")
 
 # Button to add or link skills
 if st.button("Add/Link Skills", 
              type='primary',
              use_container_width=True):
-    st.switch_page("Add_Skills_Page")
+    st.switch_page("mt.py")
 
 # Button to view job recommendations
 if st.button("View Job Recommendations", 
