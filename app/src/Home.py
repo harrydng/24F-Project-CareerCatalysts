@@ -73,5 +73,12 @@ if st.button('Act as System Administrator',
     st.session_state['first_name'] = 'SysAdmin'
     st.switch_page('pages/20_Admin_Home.py')
 
+if st.button('Act as Co Op Advisor', 
+            type = 'primary', 
+            use_container_width=True):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'advisor'
+    st.session_state['first_name'] = 'Advisor'
+    st.switch_page('pages/70_Advisor_Page.py')
 
 
