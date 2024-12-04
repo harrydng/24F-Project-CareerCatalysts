@@ -138,3 +138,36 @@ def addSkill():
         "message": "New skill added and linked to student successfully",
         "skillId": new_skill_id
     }), 201)
+
+
+# Get all details of a student's profile
+@skills.route('/studentProfile', methods=['POST'])
+def student_profile():
+    """
+    Fetch a student's profile using their nuId.
+    """
+    # Parse input JSON
+    data = request.json
+    nu_id = data.get('nuId')  # Safely get the 'nuId' key
+
+    # Validate input
+    if not nu_id:
+        return make_response(jsonify({"error": "Student ID (nuId) is required"}), 400)
+
+    # Initialize cursor
+    cursor = db.get_db().cursor()
+
+    # Query to fetch student details
+    query = '''
+        SELECT u.userId AS nuId, u.firstName, u.lastName, u.email, sp.major, sp.minor, sp.year, sp.advisorId
+        FROM user u
+        JOIN student_profile sp ON u.userId = sp.nuId
+        WHERE u.userId = %s
+    '''
+    cursor.execute(query, (nu_id,))
+    theData = cursor.fetchone()
+    
+    response = make_response(jsonify(theData))
+    response.status_code = 200
+    return response 
+
