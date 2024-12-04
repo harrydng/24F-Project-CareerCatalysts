@@ -25,6 +25,21 @@ def JobPostings():
 def ViewLeaderboard():
     st.sidebar.page_link(
         "pages/leaderboard.py", label="Student Leaderboard", icon="🚨")
+    
+
+### --------------------- Student Page ---------------------
+def ShowSkills():
+    st.sidebar.page_link(
+        "pages/74_View_skills.py", label="Check Student Skills", icon="👤")
+
+def ViewLeaderboard():
+    st.sidebar.page_link(
+        "pages/leaderboard.py", label="Student Leaderboard", icon="🏆")
+
+def AddSkills():
+    st.sidebar.page_link(
+        "pages/76_Add_skills.py", label = "Add Skills", icon = "🎯"
+    )
 
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
@@ -95,6 +110,11 @@ def SideBarLinks(show_home=False):
             SearchForCandidates()
             JobPostings()
             ViewLeaderboard()
+        
+        if st.session_state["role"] == "student":
+            ShowSkills()
+            ViewLeaderboard()
+            AddSkills()
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor": 

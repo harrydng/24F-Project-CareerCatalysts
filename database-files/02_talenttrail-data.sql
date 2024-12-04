@@ -111,7 +111,8 @@ FROM student_profile;
 -- 4) student_skills instances
 INSERT INTO student_skills(nuid, skillId)
 VALUES (3, 1),
-       (4, 2);
+       (4, 2),
+       (3,2);
 
 
 SELECT *

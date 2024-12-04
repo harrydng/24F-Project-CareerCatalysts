@@ -5,8 +5,10 @@ from backend.db_connection import db
 from backend.students.students_routes import students
 from backend.job_postings.job_postings_routes import job_postings
 from backend.courses.courses_routes import courses
-from backend.skills.skills_routes import skills
+# from backend.skills.skills_routes import skills
 from backend.employers.employers_routes import employers
+from backend.student.job_rec_route import job_recommendations
+from backend.student.skill_rec_route import skills
 from backend.advisors.advisor_routes import advisors
 
 import os
@@ -45,8 +47,10 @@ def create_app():
     app.logger.info('current_app(): registering blueprints with Flask app object.')   
     app.register_blueprint(students, url_prefix='/s')
     app.register_blueprint(job_postings, url_prefix='/jp')
-    app.register_blueprint(skills, url_prefix='/sk')
+    # app.register_blueprint(skills, url_prefix='/sk')
     app.register_blueprint(courses, url_prefix='/c')
+    app.register_blueprint(skills, url_prefix = '/sk')
+    # app.register_blueprint(job_recommendations, url_prefix = 'jr')
     app.register_blueprint(advisors, url_prefix='/a')
     app.register_blueprint(employers, url_prefix='/e')
 
