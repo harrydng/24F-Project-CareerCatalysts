@@ -13,7 +13,7 @@ advisors = Blueprint('advisors', __name__)
 
 #------------------------------------------------------------
 # Get a all students which the advisor with the given Id manages
-@advisors.route('/manages/<advisorId>, methods=['GET'])
+@advisors.route('/manages/<advisorId>', methods=['GET'])
 def get_all_advised_student(advisorId):
 
     current_app.logger.info('GET /manages/<advisorId> route')
