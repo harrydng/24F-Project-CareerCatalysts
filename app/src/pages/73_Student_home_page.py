@@ -12,29 +12,31 @@ st.title(f"Welcome Student, {st.session_state['first_name']}.")
 st.write("### What would you like to do today?")
 
 # Button to fetch and view skills
-if st.button("View My Skills and Courses"):
+if st.button("View My Skills and Courses", 
+             type='primary',
+             use_container_width=True):
     st.switch_page("View_Skills_and_Courses")
 
 # Button to add or link skills
-if st.button("Add/Link Skills"):
+if st.button("Add/Link Skills", 
+             type='primary',
+             use_container_width=True):
     st.switch_page("Add_Skills_Page")
 
 # Button to view job recommendations
-if st.button("View Job Recommendations"):
+if st.button("View Job Recommendations", 
+             type='primary',
+             use_container_width=True):
     st.switch_page("View_Job_Recommendations")
 
-# Button to update job opportunities
-if st.button("Update Job Opportunities"):
-    st.switch_page("Update_Job_Opportunities")
-
 # Button to view personal details
-if st.button("View My Profile"):
+if st.button("View My Profile", 
+             type='primary',
+             use_container_width=True):
     st.switch_page("View_User_Details")
 
 # Button to view the leaderboard
-if st.button("View Leaderboard"):
-    st.switch_page("View_Leaderboard")
-
-# Button to view and manage the dashboard
-if st.button("View Dashboard"):
-    st.switch_page("View_Dashboard")
+if st.button("View Leaderboard", 
+             type='primary',
+             use_container_width=True):
+    st.switch_page("pages/leaderboard.py")
