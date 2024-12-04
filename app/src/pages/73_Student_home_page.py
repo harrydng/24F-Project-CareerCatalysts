@@ -18,10 +18,10 @@ if st.button("View My Skills",
     st.switch_page("pages/74_View_skills.py")
 
 # Button to add or link skills
-if st.button("Add/Link Skills", 
+if st.button("Add Skills", 
              type='primary',
              use_container_width=True):
-    st.switch_page("mt.py")
+    st.switch_page("mtfornow.py")
 
 # Button to view job recommendations
 if st.button("View Job Recommendations", 
@@ -33,7 +33,7 @@ if st.button("View Job Recommendations",
 if st.button("View My Profile", 
              type='primary',
              use_container_width=True):
-    st.switch_page("View_User_Details")
+    st.switch_page("View_User_Details.py")
 
 # Button to view the leaderboard
 if st.button("View Leaderboard", 

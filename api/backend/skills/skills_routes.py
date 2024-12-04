@@ -24,10 +24,11 @@ def get_student_skills():
     student_id = the_data('nuId')
     
     query = f'''
-        SELECT s.skillId, s.name, s.description
+        SELECT s.skillId, s.name AS skill_name, s.description AS skill_description
         FROM student_skills ss
         JOIN skills s ON ss.skillId = s.skillId
-        WHERE ss.nuId = {student_id}
+        WHERE 
+        ss.nuId = {student_id};
     '''
     
     # Fetch data

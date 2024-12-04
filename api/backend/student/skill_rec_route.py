@@ -8,36 +8,45 @@ from backend.db_connection import db
 
 ##### Blueprint ######
 
-skills = Blueprint('skillRec', __name__)
+skills = Blueprint('skills', __name__)
 
 
 #### CRUD OPS ######
 
-
-# Function to get all the skills that the student has
-@skills.route('/skillRec', methods=['GET'])
+# Function to get all skills a student has
+@skills.route('/skillRec', methods=['POST'])
 def get_student_skills():
-    """
-    Fetch all skills and courses available to the student.
-    """
-    student_id = request.args.get('nuId')
-    
+    # Read the input JSON payload
+    the_data = request.json
+
+    # Log the incoming data for debugging purposes
+    current_app.logger.info(the_data)
+
+    # Extract the nuId from the payload
+    student_id = the_data.get('nuId')
+
+    # Validate the input
+    if not student_id:
+        return make_response(jsonify({"error": "Student ID (nuId) is required"}), 400)
+
+    # Use parameterized query to avoid SQL injection
     query = f'''
         SELECT s.skillId, s.name, s.description
         FROM student_skills ss
         JOIN skills s ON ss.skillId = s.skillId
         WHERE ss.nuId = {student_id}
     '''
-    
+
     # Fetch data
     cursor = db.get_db().cursor()
     cursor.execute(query)
     skills_data = cursor.fetchall()
-    
+
     # Prepare response
     response = make_response(jsonify(skills_data))
     response.status_code = 200
     return response
+
 
 
 # Function to delete a skill.
