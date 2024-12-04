@@ -51,7 +51,7 @@ def create_app():
     # app.register_blueprint(skills, url_prefix='/sk')
     app.register_blueprint(courses, url_prefix='/c')
     app.register_blueprint(skills, url_prefix = '/sk')
-    app.register_blueprint(job_recommendations, url_prefix = 'jr')
+    # app.register_blueprint(job_recommendations, url_prefix = 'jr')
     # app.register_blueprint(employers, url_prefix='/e')
 
     # Don't forget to return the app object

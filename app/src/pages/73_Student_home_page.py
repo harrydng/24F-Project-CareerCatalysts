@@ -12,7 +12,7 @@ st.title(f"Welcome Student, {st.session_state['first_name']}.")
 st.write("### What would you like to do today?")
 
 # Button to fetch and view skills
-if st.button("View My Skills and Courses", 
+if st.button("View My Skills", 
              type='primary',
              use_container_width=True):
     st.switch_page("pages/74_View_skills.py")
