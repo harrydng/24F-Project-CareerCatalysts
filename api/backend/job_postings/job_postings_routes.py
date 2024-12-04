@@ -62,13 +62,14 @@ def add_new_job_posting():
     description = the_data['description']
     pay = the_data['pay']
     timePeriod = the_data['time_period']
+    positionType = the_data['position_type']
     employmentType = the_data['employment_type']
     workLocation = the_data['work_location']
     employerId = the_data['employer']
     
     query = f'''
         INSERT INTO job_posting (position, description, pay, timePeriod, positionType, employmentType, workLocation, employerId)
-            VALUES ('{position}', '{description}', '{pay}', '{timePeriod}', '{employmentType}', '{workLocation}', '{employerId}');
+            VALUES ('{position}', '{description}', '{pay}', '{timePeriod}', '{positionType}', '{employmentType}', '{workLocation}', '{employerId}');
     '''
  
     current_app.logger.info(query)
@@ -113,6 +114,7 @@ def update_job_posting(jobId):
     description = the_data.get('description')
     pay = the_data.get('pay')
     timePeriod = the_data.get('time_period')
+    positionType = the_data.get('position_type')
     employmentType = the_data.get('employment_type')
     workLocation = the_data.get('work_location')
 
@@ -122,13 +124,14 @@ def update_job_posting(jobId):
             description = %s, 
             pay = %s, 
             timePeriod = %s, 
+            positionType = %s
             employmentType = %s, 
             workLocation = %s
         WHERE jobId = %s
     '''
 
     cursor = db.get_db().cursor()
-    cursor.execute(query, (position, description, pay, timePeriod, employmentType, workLocation, jobId))
+    cursor.execute(query, (position, description, pay, timePeriod, positionType, employmentType, workLocation, jobId))
     db.get_db().commit()
     
     response = make_response(f"Job posting with ID {jobId} successfully updated.")
@@ -140,10 +143,11 @@ def update_job_posting(jobId):
 @job_postings.route('/jobTypes', methods = ['GET'])
 def get_job_type():
     query = '''
-        SELECT DISTINCT jp.positionType AS 'Position Type'
+        SELECT DISTINCT jp.positionType AS 'Position Type',
+            jp.employmentType AS 'Employment Type',
+            jp.workLocation AS 'Work Location'
         FROM job_posting jp
         WHERE positionType IS NOT NULL
-        ORDER BY positionType
     '''
 
     cursor = db.get_db().cursor()

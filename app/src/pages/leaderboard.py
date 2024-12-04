@@ -23,7 +23,7 @@ def fetch_and_display_students(limit):
         # Payload with the limit
         payload = {"limit": limit}
         logger.info(f"Fetching top students with payload: {payload}")
-
+        
         # API request
         response = requests.post('http://api:4000/s/top_students', json=payload)
 
