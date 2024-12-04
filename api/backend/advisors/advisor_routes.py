@@ -18,12 +18,12 @@ def get_all_advised_student(advisorId):
 
     current_app.logger.info('GET /manages/<advisorId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
-                      JOIN advisor_profile ON advisor_profile.advisorId = user.userIdd
+    cursor.execute(f'''SELECT user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
+                      JOIN advisor_profile ON advisor_profile.advisorId = user.userId
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN student_reports ON student_profile.nuId = student_reports.nuId
-                      WHERE advisor_profile.advisorId = %s''', (advisorId,))
+                      WHERE advisor_profile.advisorId = {advisorId}''')
     
     theData = cursor.fetchall()
     
@@ -38,11 +38,11 @@ def get_reports(nuId):
 
     current_app.logger.info('GET /student_reports/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT student_reports.notes, student_reports.status, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+    cursor.execute(f'''SELECT student_reports.notes, student_reports.status, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN student_reports ON student_profile.nuId = student_reports.nuId
-                      WHERE student_profile.nuId = %s''', (nuId,))
+                      WHERE student_profile.nuId = {nuId}''')
     
     theData = cursor.fetchall()
     
@@ -58,7 +58,7 @@ def get_reports_notes(nuId):
     current_app.logger.info('GET /student_reports/<nuId> route')
     cursor = db.get_db().cursor()
     cursor.execute('''SELECT student_reports.status, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN student_reports ON student_profile.nuId = student_reports.nuId
                       WHERE student_profile.nuId = %s''', (nuId,))
@@ -76,11 +76,11 @@ def get_reports_status(nuId):
 
     current_app.logger.info('GET /student_reports/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT student_reports.notes, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+    cursor.execute(f'''SELECT student_reports.notes, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN student_reports ON student_profile.nuId = student_reports.nuId
-                      WHERE student_profile.nuId = %s''', (nuId,))
+                      WHERE student_profile.nuId = {nuId}''')
     
     theData = cursor.fetchall()
     
@@ -105,8 +105,8 @@ def post_reports():
     status = the_data['status']
 
     cursor = db.get_db().cursor()
-    cursor.execute('''INSERT INTO student_reports (nuId, advisorId, notes, status)
-                          VALUES (%s, %s, %s, %s)''', (nuId, advisorId, notes, status))
+    cursor.execute(f'''INSERT INTO student_reports (nuId, advisorId, notes, status)
+                          VALUES ({nuId}, {advisorId}, {notes}, {status})''')
     
     current_app.logger.info("Inserting into student_reports")
     cursor = db.get_db().cursor()
@@ -128,10 +128,10 @@ def update_notes():
     nuId = notes_info['nuId']
 
 
-    query = 'UPDATE student_reports SET notes = %s WHERE nuId = %s'
-    data = (notes, nuId)
+    query = f'UPDATE student_reports SET notes = {notes} WHERE nuId = {nuId}'
+
     cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
+    r = cursor.execute(query)
     db.get_db().commit()
     return 'Advising notes updated!'
 
@@ -146,10 +146,10 @@ def delete_notes():
     nuId = notes_info['nuId']
 
 
-    query = 'UPDATE student_reports SET notes = '' where nuId = %s'
-    data = (nuId)
+    query = f"UPDATE student_reports SET notes = '' where nuId = {nuId}"
+
     cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
+    r = cursor.execute(query)
     db.get_db().commit()
     return 'Advising notes updated!'
 
@@ -164,10 +164,10 @@ def update_advising_status():
     nuId = status_info['nuId']
 
 
-    query = 'UPDATE student_reports SET notes = %s where nuId = %s'
-    data = (status, nuId)
+    query = f'UPDATE student_reports SET status = {status} where nuId = {nuId}'
+
     cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
+    r = cursor.execute(query)
     db.get_db().commit()
     return 'Advising status updated!'
 
@@ -180,10 +180,9 @@ def delete_advising_status():
     status_info = request.json
     nuId = status_info['nuId']
 
-    query = 'UPDATE student_reports SET status = null where nuId = %s'
-    data = (nuId)
+    query = f'UPDATE student_reports SET status = null where nuId = {nuId}'
     cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
+    r = cursor.execute(query)
     db.get_db().commit()
     return 'Advising status set to none!'
 
@@ -194,12 +193,12 @@ def get_student_applied(nuId):
 
     current_app.logger.info('GET /student_profile/applied/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN job_applications ON job_applications.nuId = student_profile.nuId
                       JOIN job_posting ON job_posting.jobId = job_applications.jobId
-                      WHERE student_profile.nuId = %s''', (nuId,))
+                      WHERE student_profile.nuId = {nuId}''')
     
     theData = cursor.fetchall()
     
@@ -214,12 +213,12 @@ def get_student_jobs(nuId):
 
     current_app.logger.info('GET /student_profile/worked/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_students ON job_student.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_student.jobId
-                      WHERE student_profile.nuId = %s''', (nuId,))
+                      JOIN job_students ON job_students.nuId = student_profile.nuId
+                      JOIN job_posting ON job_posting.jobId = job_students.jobId
+                      WHERE student_profile.nuId = {nuId}''')
     
     theData = cursor.fetchall()
     
@@ -234,12 +233,12 @@ def get_job_students(jobId):
 
     current_app.logger.info('GET /student_profile/worked/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_students ON job_student.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_student.jobId
-                      WHERE job_posting.jobId = %s''', (jobId,))
+                      JOIN job_students ON job_students.nuId = student_profile.nuId
+                      JOIN job_posting ON job_posting.jobId = job_students.jobId
+                      WHERE job_posting.jobId = {jobId}''')
     
     theData = cursor.fetchall()
     
@@ -250,16 +249,16 @@ def get_job_students(jobId):
 #------------------------------------------------------------
 # Get all the students which have applied to the job at the job with the given jobId
 @advisors.route('/job_posting/applicants/<jobId>', methods=['GET'])
-def get_job_students(jobId):
+def get_job_applicants(jobId):
 
     current_app.logger.info('GET /student_profile/worked/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN job_applications ON job_application.nuId = student_profile.nuId
                       JOIN job_posting ON job_posting.jobId = job_applications.jobId
-                      WHERE job_applications.jobId = %s''', (jobId,))
+                      WHERE job_applications.jobId = {jobId}''')
     
     theData = cursor.fetchall()
     
@@ -274,11 +273,11 @@ def get_student_qualifications(nuId):
 
     current_app.logger.info('GET /student_profile/applied/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT job_posting.description, courses.courseName, courses.description, 
+    cursor.execute(f'''SELECT job_posting.description, courses.courseName, courses.description, 
                              courses.courseNumber, certifications.name, projects.description, 
                              projects.name, skills.name, skills.description, user.firstName, 
                              user.middleName, user.lastName, student_profile.nuId
-                      FROM users
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN job_applications ON job_applications.nuId = student_profile.nuId
                       JOIN job_posting ON job_posting.jobId = job_applications.jobId
@@ -290,7 +289,7 @@ def get_student_qualifications(nuId):
                       JOIN courses ON student_courses.courseId = courses.courseId
                       JOIN student_skills ON student_skills.nuId = student_profile.nuId
                       JOIN skills ON student_skills.skillId = skills.skillId
-                      WHERE student_profile.nuId = %s''', (nuId,))
+                      WHERE student_profile.nuId = {nuId}''')
     
     theData = cursor.fetchall()
     
