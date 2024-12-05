@@ -12,35 +12,37 @@ system = Blueprint('system', __name__)
 # GET all the metrics and possible alerts from the website
 @system.route('/metrics_and_alerts', methods=['GET'])
 def get_metrics_and_alerts():
-    cursor = db.get_db().cursor()
+    """
+    Retrieve all metrics and alerts from the database and return them in a structured JSON format.
+    """
+    try:
+        # Get a database cursor
+        cursor = db.get_db().cursor()
 
-    # Query to get all metrics
-    metrics_query = '''
-        SELECT * FROM metrics;
-    '''
-    current_app.logger.info(metrics_query)
-    cursor.execute(metrics_query)
-    metrics_columns = [col[0] for col in cursor.description]
-    metrics_data = [dict(zip(metrics_columns, row)) for row in cursor.fetchall()]
+        # Query to get all metrics and alerts
+        metrics_query = 'SELECT metricId, errorRate, serverLoad, responseTime, createdAt FROM metrics;'
+        alerts_query = 'SELECT alertId, messages, priority, title FROM alert;'
 
-    # Query to get all alerts
-    alerts_query = '''
-        SELECT * FROM alert;
-    '''
-    current_app.logger.info(alerts_query)
-    cursor.execute(alerts_query)
-    alerts_columns = [col[0] for col in cursor.description]
-    alerts_data = [dict(zip(alerts_columns, row)) for row in cursor.fetchall()]
+        # Execute the metrics query
+        cursor.execute(metrics_query)
+        metrics_data = cursor.fetchall()
 
-    # Combine the data into a single response
-    response_data = {
-        'metrics': metrics_data,
-        'alerts': alerts_data
-    }
+        # Execute the alerts query
+        cursor.execute(alerts_query)
+        alerts_data = cursor.fetchall()
 
-    response = make_response(jsonify(response_data))
-    response.status_code = 200
-    return response
+        # Combine results into a single response
+        response_data = {
+            'metrics': metrics_data,
+            'alerts': alerts_data
+        }
+
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        current_app.logger.error(f"Error retrieving metrics and alerts: {e}")
+        return jsonify({'error': 'Failed to retrieve metrics and alerts'}), 500
+
 
 #------------------------------------------------------------
 # PUT to update the user role
