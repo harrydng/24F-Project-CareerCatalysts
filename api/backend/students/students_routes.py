@@ -43,22 +43,62 @@ def get_products():
     response.status_code = 200
     return response
 
-#------------------------------------------------------------
-# POST all the students from the database, package them up,
-# and return them to the client based on the given qualities
+#
 @students.route('/filterStudents', methods=['POST'])
 def filter_students():
-    filters = request.json
-    current_app.logger.info(filters)
+    filters = request.json['data']
+    current_app.logger.info("Filters received: %s", filters)
     
+    # Extract and validate input
+    first_name = filters.get("first_name", "")
+    last_name = filters.get("last_name", "")
+    major = filters.get("major", None)
+    nuId = filters.get("nuId", None)
+    year = filters.get("year", None)
+    minor = filters.get("minor", None)
+    email = filters.get("email", "")
     skills = filters.get("skills", [])
     courses = filters.get("courses", [])
-    major = filters.get("major")
-    minor = filters.get("minor")
-    
+
     # Dynamically build the WHERE clause
     conditions = []
     query_params = []
+
+    if first_name:
+        conditions.append("u.firstName = %s")
+        query_params.append(first_name)
+
+    if last_name:
+        conditions.append("u.lastName = %s")
+        query_params.append(last_name)
+
+    if nuId:
+        try:
+            nuId = int(nuId)
+            conditions.append("sp.nuId = %s")
+            query_params.append(nuId)
+        except ValueError:
+            return jsonify({"error": "Invalid nuId format"}), 400
+
+    if year:
+        try:
+            year = int(year)
+            conditions.append("sp.year = %s")
+            query_params.append(year)
+        except ValueError:
+            return jsonify({"error": "Invalid year format"}), 400
+
+    if email:
+        conditions.append("u.email = %s")
+        query_params.append(email)
+
+    if major:
+        conditions.append("sp.major = %s")
+        query_params.append(major)
+
+    if minor:
+        conditions.append("sp.minor = %s")
+        query_params.append(minor)
 
     if skills:
         skills_placeholders = ", ".join(["%s"] * len(skills))
@@ -70,22 +110,16 @@ def filter_students():
         conditions.append(f"c.courseName IN ({courses_placeholders})")
         query_params.extend(courses)
 
-    if major:
-        conditions.append("sp.major = %s")
-        query_params.append(major)
-
-    if minor:
-        conditions.append("sp.minor = %s")
-        query_params.append(minor)
-
     # Combine all conditions with AND
     where_clause = " AND ".join(conditions) if conditions else "1=1"
-    
+
     query = f'''
         SELECT DISTINCT sp.nuId                                          AS StudentID,
                 CONCAT(u.firstName, ' ', u.lastName)                     AS FullName,
                 sp.major                                                 AS Major,
                 sp.minor                                                 AS Minor,
+                sp.year                                                  AS Year,
+                u.email                                                  AS Email,
                 b.badgeName                                              AS Badge,
                 GROUP_CONCAT(DISTINCT s.name)                            AS Skills,
                 GROUP_CONCAT(DISTINCT c.courseName)                      AS Courses,
@@ -102,13 +136,13 @@ def filter_students():
         GROUP BY sp.nuId, FullName, sp.major, sp.minor, b.badgeName
         ORDER BY TotalScore DESC, FullName;
     '''
-    
-    current_app.logger.info(query)
-    
+
+    current_app.logger.info("Executing query: %s", query)
+
     cursor = db.get_db().cursor()
     cursor.execute(query, query_params)
     theData = cursor.fetchall()
-    
+
     response = make_response(jsonify(theData))
     response.status_code = 200
     return response

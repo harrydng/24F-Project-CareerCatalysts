@@ -152,19 +152,28 @@ with col1:
                 elif not new_work_location:
                     st.error("Please select a work location")    
                 else:
+                    try:
+                        formatted_pay = float(new_pay)  # Convert input to float
+                        if formatted_pay < 0:
+                            st.error("Pay must be a positive value.")
+                        else:
+                            formatted_pay = "{:.2f}".format(formatted_pay)  # Format to two decimals
+                    except ValueError:
+                        st.error("Invalid input for pay. Please enter a valid decimal number.")
                     employer_id = find_employer_id(company_name)
                     if employer_id:
                         data = {
                             "position": new_position,
                             "description": new_description,
-                            "pay": new_pay,
+                            "pay": formatted_pay,
                             "time_period": new_time_period,
                             "position_type": new_position_type,
                             "employment_type": new_employment_type,
                             "work_location": new_work_location,
                             "employerId": employer_id,                
                         }
-                        logger.info(f"New Job added: {new_position}")
+                        logger.info(f"New Job added: {data}")
+                        
                         add_job_posting(data)
                     else:
                         st.error("Failed to find a valid employer ID. Please verify the company name.")
@@ -196,29 +205,36 @@ with col2:
                         delete_job_posting(job['jobId'])
                         logger.info(f"Job deleted: {job['jobId']}")
 
+                # Update button in the "Update" section
                 with action_col2:
                     if st.button("Update", key=f"update_{job['jobId']}"):
+                        st.session_state[f"update_{job['jobId']}_clicked"] = not st.session_state.get(f"update_{job['jobId']}_clicked", False)
+
+                    if st.session_state.get(f"update_{job['jobId']}_clicked", False):
                         with st.form(f"Update Job {job['jobId']}"):
                             new_position = st.text_input("Position", value=job["Position"])
                             new_description = st.text_area("Description", value=job["Job Description"])
                             new_pay = st.text_input("Pay", value=job["Pay"])
                             new_time_period = st.text_input("Time Period", value=job["Time Period"])
                             
-                            new_position_type = st.selectbox("Position Type", options=position_type_options, value=job['Position Type'])
-                            new_employment_type = st.selectbox("Employment Type", options=employment_type_options, value=job['Employment Type'])
-                            new_work_location = st.selectbox("Work Location", options=work_location_options, value=job['Location'])
+                            new_position_type = st.selectbox("Position Type", options=position_type_options)
+                            new_employment_type = st.selectbox("Employment Type", options=employment_type_options)
+                            new_work_location = st.selectbox("Work Location", options=work_location_options)
 
-                            submit_update = st.form_submit_button("Submit Update")
-                            if submit_update:
+                            submit_update = st.form_submit_button("Submit Update")  # This is the Submit Button
+                            if submit_update:  # Trigger form submission
                                 updated_data = {
                                     "position": new_position,
                                     "description": new_description,
                                     "pay": new_pay,
                                     "time_period": new_time_period,
+                                    
+                                    "position_type": new_position_type,
                                     "employment_type": new_employment_type,
                                     "work_location": new_work_location,
                                 }
                                 logger.info(f"Job updated: {updated_data}")
                                 update_job_posting(job["jobId"], updated_data)
+                                st.session_state[f"update_{job['jobId']}_clicked"] = False  # Reset the button state after submission
         else:
             st.warning(f"No job postings found for {company_name}.")
