@@ -33,13 +33,13 @@ def get_advisor_info(advisorId):
 # Update username for advisor with specific advisorId
 @advisors.route('/updateUsername/<advisorId>', methods=['PUT'])
 
-def update_advisor_username():
+def update_advisor_username(advisorId):
     current_app.logger.info('PUT /updateUsername/<advisorId>')
     username_info = request.json
     username = username_info['username']
-    userId = username_info['advisorId']
+    #userId = username_info['advisorId']
 
-    query = f'UPDATE student_reports SET username = {username} WHERE userId = {userId}'
+    query = f"UPDATE user SET username = '{username}' WHERE userId = {advisorId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)
@@ -50,13 +50,12 @@ def update_advisor_username():
 # Update email for advisor with specific advisorId
 @advisors.route('/updateEmail/<advisorId>', methods=['PUT'])
 
-def update_advisor_email():
+def update_advisor_email(advisorId):
     current_app.logger.info('PUT /updateEmail/<advisorId>')
     email_info = request.json
     email = email_info['email']
-    userId = email_info['advisorId']
 
-    query = f'UPDATE student_reports SET email = {email} WHERE userId = {userId}'
+    query = f"UPDATE user SET email = '{email}' WHERE userId = {advisorId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)
@@ -64,16 +63,15 @@ def update_advisor_email():
     return 'Email updated!'
 
 #------------------------------------------------------------
-# Update name for advisor with specific advisorId
+# Update first name for advisor with specific advisorId
 @advisors.route('/updateFirstName/<advisorId>', methods=['PUT'])
 
-def update_advisor_firstName():
+def update_advisor_firstName(advisorId):
     current_app.logger.info('PUT /updateName/<advisorId>')
     name_info = request.json
     firstName = name_info['firstName']
-    userId = name_info['advisorId']
 
-    query = f'UPDATE student_reports SET firstName = {firstName} WHERE userId = {userId}'
+    query = f"UPDATE user SET firstName = '{firstName}' WHERE userId = {advisorId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)
@@ -81,16 +79,15 @@ def update_advisor_firstName():
     return 'Name updated!'
 
 #------------------------------------------------------------
-# Update name for advisor with specific advisorId
+# Update middle name for advisor with specific advisorId
 @advisors.route('/updateMiddleName/<advisorId>', methods=['PUT'])
 
-def update_advisor_middleName():
+def update_advisor_middleName(advisorId):
     current_app.logger.info('PUT /updateMiddleName/<advisorId>')
     name_info = request.json
     middleName = name_info['middleName']
-    userId = name_info['advisorId']
 
-    query = f'UPDATE student_reports SET firstName = {middleName} WHERE userId = {userId}'
+    query = f"UPDATE user SET firstName = '{middleName}' WHERE userId = {advisorId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)
@@ -98,16 +95,15 @@ def update_advisor_middleName():
     return 'Name updated!'
 
 #------------------------------------------------------------
-# Update name for advisor with specific advisorId
+# Update last name for advisor with specific advisorId
 @advisors.route('/updateLastName/<advisorId>', methods=['PUT'])
 
-def update_advisor_lastName():
+def update_advisor_lastName(advisorId):
     current_app.logger.info('PUT /updateLastName/<advisorId>')
     name_info = request.json
     lastName = name_info['lastName']
-    userId = name_info['advisorId']
 
-    query = f'UPDATE student_reports SET firstName = {lastName} WHERE userId = {userId}'
+    query = f"UPDATE user SET firstName = '{lastName}' WHERE userId = {advisorId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)

@@ -14,7 +14,7 @@ SideBarLinks()
 st.title("Student Progress")
 st.header("Select a student to manage")
 
-advisorId = 1
+advisorId = 45
 
 def fetch_advisor_students(advisorId):
     """

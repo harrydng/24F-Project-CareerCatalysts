@@ -13,7 +13,27 @@ SideBarLinks()
 st.title("Your Profile")
 st.header("Your info")
 
-advisorId = 1
+# Input field for Student ID
+st.subheader("Enter Advisor ID to view the profile")
+advisor_id = st.text_input("Advisor ID (advisorId):", placeholder="Enter the Advisor ID")
+
+# Placeholder for profile details or error messages
+profile_placeholder = st.empty()
+
+# Initialize advisorId to None
+advisorId = None
+
+# Validate and process the input
+if advisor_id:  # Check if input is not empty
+    try:
+        advisorId = int(advisor_id)  # Try converting to an integer
+        profile_placeholder.success(f"Fetching profile for Advisor ID: {advisorId}")
+    except ValueError:
+        profile_placeholder.error("Invalid Advisor ID. Please enter a valid numeric ID.")
+        advisorId = None
+else:
+    profile_placeholder.info("Please enter an Advisor ID to view the profile.")
+
 
 # Fetch the advisor name
 def fetch_advisor_name(advisorId):
@@ -104,115 +124,99 @@ def fetch_advisor_email(advisorId):
         return "Unknown"
 
 # Display and fetch advisor details
-advisorName = fetch_advisor_name(advisorId)
-advisorFirstName = fetch_advisor_firstName(advisorId)
-advisorMiddleName = fetch_advisor_middleName(advisorId)
-advisorLastName = fetch_advisor_lastName(advisorId)
+#advisorName = fetch_advisor_name(advisorId)
+#advisorFirstName = fetch_advisor_firstName(advisorId)
+#advisorMiddleName = fetch_advisor_middleName(advisorId)
+#advisorLastName = fetch_advisor_lastName(advisorId)
 
-advisorUserName = fetch_advisor_userName(advisorId)
-advisorEmail = fetch_advisor_email(advisorId)
+#advisorUserName = fetch_advisor_userName(advisorId)
+#advisorEmail = fetch_advisor_email(advisorId)
 
-# Display Name Section
-st.subheader("Name")
+# Fetch and display advisor details only if advisorId is valid
+if advisorId is not None:
+    # Fetch and display advisor details
+    st.subheader("Name")
 
-#Update First Name Section
-first_name = st.text_input("Update First Name", value=advisorFirstName)
+    # Update First Name Section
+    first_name = st.text_input("Update First Name", value=fetch_advisor_firstName(advisorId))
+    payloadName1 = {
+        "firstName": first_name,
+        "advisorId": advisorId
+    }
 
-# JSON payload with multiple fields
-payloadName1 = {
-    "firstName": first_name,
-    "advisorId": advisorId
-}
+    if st.button("Update First Name"):
+        try:
+            response = requests.put(f"http://api:4000/adv/updateFirstName/{advisorId}", json=payloadName1)
+            if response.status_code == 200:
+                st.success("Name updated successfully!")
+            else:
+                st.error(f"Error updating name: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to API: {str(e)}")
 
-if st.button("Update First Name"):
-    try:
-        response = requests.put(f"http://api:4000/adv/updateFirstName/{advisorId}", json={payloadName1})
-        if response.status_code == 200:
-            st.success("Name updated successfully!")
-        else:
-            st.error(f"Error updating name: {response.text}")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error connecting to API: {str(e)}")
+    # Update Middle Name Section
+    middle_name = st.text_input("Update Middle Name", value=fetch_advisor_middleName(advisorId))
+    payloadName2 = {
+        "middleName": middle_name,
+        "advisorId": advisorId
+    }
 
-#Update middle name section
-middle_name = st.text_input("Update Middle Name", value=advisorMiddleName)
+    if st.button("Update Middle Name"):
+        try:
+            response = requests.put(f"http://api:4000/adv/updateMiddleName/{advisorId}", json=payloadName2)
+            if response.status_code == 200:
+                st.success("Name updated successfully!")
+            else:
+                st.error(f"Error updating name: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to API: {str(e)}")
 
-#Update the middle name
-# JSON payload with multiple fields
-payloadName2 = {
-    "middleName": middle_name,
-    "advisorId": advisorId
-}
+    # Update Last Name Section
+    last_name = st.text_input("Update Last Name", value=fetch_advisor_lastName(advisorId))
+    payloadName3 = {
+        "lastName": last_name,
+        "advisorId": advisorId
+    }
 
-if st.button("Update Middle Name"):
-    try:
-        response = requests.put(f"http://api:4000/adv/updateMiddleName/{advisorId}", json={payloadName2})
-        if response.status_code == 200:
-            st.success("Name updated successfully!")
-        else:
-            st.error(f"Error updating name: {response.text}")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error connecting to API: {str(e)}")
+    if st.button("Update Last Name"):
+        try:
+            response = requests.put(f"http://api:4000/adv/updateLastName/{advisorId}", json=payloadName3)
+            if response.status_code == 200:
+                st.success("Name updated successfully!")
+            else:
+                st.error(f"Error updating name: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to API: {str(e)}")
 
+    # Update Username Section
+    new_username = st.text_input("Update Username", value=fetch_advisor_userName(advisorId))
+    payload2 = {
+        "userName": new_username,
+        "advisorId": advisorId
+    }
 
+    if st.button("Update Username"):
+        try:
+            response = requests.put(f"http://api:4000/adv/updateUserName/{advisorId}", json=payload2)
+            if response.status_code == 200:
+                st.success("Username updated successfully!")
+            else:
+                st.error(f"Error updating username: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to API: {str(e)}")
 
-last_name = st.text_input("Update Last Name", value=advisorLastName)
-
-#Update the last name section
-# JSON payload with multiple fields
-payloadName3 = {
-    "lastName": last_name,
-    "advisorId": advisorId
-}
-
-if st.button("Update Last Name"):
-    try:
-        response = requests.put(f"http://api:4000/adv/updateLastName/{advisorId}", json={payloadName3})
-        if response.status_code == 200:
-            st.success("Name updated successfully!")
-        else:
-            st.error(f"Error updating name: {response.text}")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error connecting to API: {str(e)}")
-
-# Display Username Section
-st.subheader("Username")
-new_username = st.text_input("Update Username", value=advisorUserName)
-
-# JSON payload with multiple fields
-payload2 = {
-    "userName": new_username,
-    "advisorId": advisorId
-}
-
-if st.button("Update Username"):
-    try:
-        response = requests.put(f"http://api:4000/adv/updateUserName/{advisorId}", json={payload2})
-        if response.status_code == 200:
-            st.success("Username updated successfully!")
-        else:
-            st.error(f"Error updating username: {response.text}")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error connecting to API: {str(e)}")
-
-# Display Email Section
-st.subheader("Email")
-new_email = st.text_input("Update Email", value=advisorEmail)
-
-# JSON payload with multiple fields
-payload3 = {
-    "email": new_email,
-    "advisorId": advisorId
-}
-if st.button("Update Email"):
-    try:
-        response = requests.put(f"http://api:4000/adv/updateEmail/{advisorId}", json={payload3})
-        if response.status_code == 200:
-            st.success("Email updated successfully!")
-        else:
-            st.error(f"Error updating email: {response.text}")
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error connecting to API: {str(e)}")
-
-st.header("Id")
-st.header(f'{advisorId}')
+    # Update Email Section
+    new_email = st.text_input("Update Email", value=fetch_advisor_email(advisorId))
+    payload3 = {
+        "email": new_email,
+        "advisorId": advisorId
+    }
+    if st.button("Update Email"):
+        try:
+            response = requests.put(f"http://api:4000/adv/updateEmail/{advisorId}", json=payload3)
+            if response.status_code == 200:
+                st.success("Email updated successfully!")
+            else:
+                st.error(f"Error updating email: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to API: {str(e)}")
