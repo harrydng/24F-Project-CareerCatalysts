@@ -14,7 +14,7 @@ job_recommendations = Blueprint('jobRec', __name__)
 #### CRUD OPS ######
 
 # Job recommendations
-@job_recommendations.route('/jobsRec', methods=['GET'])
+@job_recommendations.route('/Recs', methods=['GET'])
 def get_job_recommendations():
     """
     Fetch job recommendations based on the student's qualifications (skills).

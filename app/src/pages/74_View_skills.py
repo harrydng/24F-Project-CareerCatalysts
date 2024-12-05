@@ -15,7 +15,7 @@ st.set_page_config(
 SideBarLinks()
 
 # Header
-st.title("View Your Skills")
+st.title("View Skills")
 
 # Input for Student ID
 st.subheader("Enter your Student ID to fetch your skills")
@@ -62,8 +62,3 @@ if st.button("Fetch Skills"):
         fetch_and_display_skills(student_id.strip())
     else:
         st.warning("Please enter a valid Student ID.")
-
-# Button to navigate back to the home page
-if st.button("Go Back to Home"):
-    st.experimental_set_query_params()
-    st.switch_page("Student_Home_Page")
