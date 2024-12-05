@@ -30,3 +30,8 @@ if st.button('View Featured Co Ops',
             type='primary',
             use_container_width=True):
   st.switch_page('pages/61_Job_Postings.py')
+
+if st.button('View Student Skills', 
+            type='primary',
+            use_container_width=True):
+  st.switch_page('pages/74_View_skills.py')

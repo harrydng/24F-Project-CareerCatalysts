@@ -56,7 +56,7 @@ def AdvisorProfile():
     st.sidebar.page_link("pages/71_Advisor_Profile.py", label="Advisor Profile", icon="📊")
     st.sidebar.page_link("pages/72_Advisor_Students.py", label="Students of Advisor", icon="👤")
     st.sidebar.page_link("pages/62_Leaderboard.py", label="Advisor Profile", icon="🎯")
-    st.sidebar.page_link("pages/61_Job_Posting.py", label="Job Postings", icon="🏆")
+    st.sidebar.page_link("pages/61_Job_Postings.py", label="Job Postings", icon="🏆")
 
 
 #### ------------------------ System Admin Role ------------------------
