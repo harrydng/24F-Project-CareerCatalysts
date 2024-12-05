@@ -16,16 +16,40 @@ def AboutPageNav():
 ### --------------------- Employer Page ---------------------
 def SearchForCandidates():
     st.sidebar.page_link(
-        "pages/search_students.py", label="Search For Students", icon="👤")
+        "pages/63_Search_Students.py", label="Search For Students", icon="👤")
 
 def JobPostings():
     st.sidebar.page_link(
-        "pages/job_postings.py", label="My Job Postings", icon="🏦")
+        "pages/61_Job_Postings.py", label="My Job Postings", icon="🏦")
 
 def ViewLeaderboard():
     st.sidebar.page_link(
-        "pages/leaderboard.py", label="Student Leaderboard", icon="🚨")
+        "pages/62_Leaderboard.py", label="Student Leaderboard", icon="🚨")
+    
 
+### --------------------- Student Page ---------------------
+def ShowSkills():
+    st.sidebar.page_link(
+        "pages/74_View_skills.py", label="Check Student Skills", icon="💪")
+
+def ViewLeaderboard():
+    st.sidebar.page_link(
+        "pages/62_Leaderboard.py", label="Student Leaderboard", icon="🏆")
+
+def AddSkills():
+    st.sidebar.page_link(
+        "pages/76_Add_skills.py", label = "Add Skills", icon = "🎯"
+    )
+
+def ViewProfile():
+    st.sidebar.page_link(
+        "pages/77_View_User_Details.py", label = "View Profile", icon = "👤"
+    )
+
+def JobRecs():
+    st.sidebar.page_link(
+        "pages/78_Job_recommendations.py", label = "Job Recommendations", icon = "📊"
+    )
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
 def PolStratAdvHomeNav():
@@ -63,10 +87,8 @@ def ClassificationNav():
 
 #### ------------------------ System Admin Role ------------------------
 def AdminPageNav():
-    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
-    st.sidebar.page_link(
-        "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
-    )
+    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Metrics and Alerts", icon="📊")
+    st.sidebar.page_link("pages/21_Update_User_Role.py", label="Update User Role", icon="🔄")
 
 
 # --------------------------------Links Function -----------------------------------------------
@@ -94,6 +116,13 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "employer":
             SearchForCandidates()
             JobPostings()
+            ViewLeaderboard()
+        
+        if st.session_state["role"] == "student":
+            ShowSkills()
+            AddSkills()
+            JobRecs()
+            ViewProfile()
             ViewLeaderboard()
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.

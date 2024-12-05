@@ -1,9 +1,10 @@
+DROP DATABASE IF EXISTS talentTrail;
 CREATE DATABASE IF NOT EXISTS talentTrail;
 USE talentTrail;
 SHOW TABLES;
 
 
- 
+
 -- Skill Table
 CREATE TABLE IF NOT EXISTS skills
 (
@@ -12,14 +13,14 @@ CREATE TABLE IF NOT EXISTS skills
     description TEXT
 );
 
- 
+
 CREATE TABLE IF NOT EXISTS badge
 (
     badgeId   INT AUTO_INCREMENT PRIMARY KEY,
     badgeName VARCHAR(50)
 );
 
- 
+
 -- Project Table
 CREATE TABLE IF NOT EXISTS projects
 (
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS projects
 );
 
 
- 
+
 -- Certification Table
 CREATE TABLE IF NOT EXISTS certifications
 (
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS certifications
 );
 
 
- 
+
 -- Courses
 CREATE TABLE IF NOT EXISTS courses
 (
@@ -49,7 +50,7 @@ CREATE TABLE IF NOT EXISTS courses
     courseId     INT AUTO_INCREMENT PRIMARY KEY
 );
 
- 
+
 -- System Metrics
 CREATE TABLE IF NOT EXISTS metrics
 (
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS metrics
     createdAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Time the metric was recorded
 );
 
- 
+
 -- Alert
 CREATE TABLE IF NOT EXISTS alert
 (
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS alert
     title    TEXT NOT NULL
 );
 
- 
+
 -- Role
 CREATE TABLE IF NOT EXISTS role
 (
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS role
     roleId   INT AUTO_INCREMENT PRIMARY KEY
 );
 
- 
+
 -- User
 CREATE TABLE IF NOT EXISTS user
 (
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS user
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 -- Advisor
 CREATE TABLE IF NOT EXISTS advisor_profile
 (
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS advisor_profile
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 CREATE TABLE IF NOT EXISTS admin_profile
 (
     adminId INT PRIMARY KEY,
@@ -114,7 +115,7 @@ CREATE TABLE IF NOT EXISTS admin_profile
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 -- Employer
 CREATE TABLE IF NOT EXISTS employer_profile
 (
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS employer_profile
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 -- Student Table
 CREATE TABLE IF NOT EXISTS student_profile
 (
@@ -142,7 +143,7 @@ CREATE TABLE IF NOT EXISTS student_profile
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 -- Student and courses bridge table
 CREATE TABLE IF NOT EXISTS student_courses
 (
@@ -153,7 +154,7 @@ CREATE TABLE IF NOT EXISTS student_courses
     FOREIGN KEY (courseId) REFERENCES courses (courseId) ON DELETE CASCADE
 );
 
- 
+
 -- Job Posting
 CREATE TABLE IF NOT EXISTS job_posting
 (
@@ -163,7 +164,7 @@ CREATE TABLE IF NOT EXISTS job_posting
     createdAt      DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt      DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     pay            DECIMAL(10, 2),
-    timePeriod     VARCHAR(255),
+    timePeriod     VARCHAR(255) DEFAULT NULL,
     positionType   VARCHAR(50), -- Intern, coop, full-time
     employmentType VARCHAR(50), -- Full-time, Part-time
     workLocation   VARCHAR(50), -- Remote, On-site
@@ -174,7 +175,7 @@ CREATE TABLE IF NOT EXISTS job_posting
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 -- Student and skills bridge table
 CREATE TABLE IF NOT EXISTS student_skills
 (
@@ -185,7 +186,7 @@ CREATE TABLE IF NOT EXISTS student_skills
     FOREIGN KEY (skillId) REFERENCES skills (skillId) ON DELETE CASCADE
 );
 
- 
+
 -- Activity Log
 CREATE TABLE IF NOT EXISTS activity_log
 (
@@ -203,7 +204,7 @@ CREATE TABLE IF NOT EXISTS activity_log
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 -- Student Reports
 CREATE TABLE IF NOT EXISTS student_reports
 (
@@ -218,7 +219,7 @@ CREATE TABLE IF NOT EXISTS student_reports
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 CREATE TABLE IF NOT EXISTS job_applications
 (
     jobId INT,
@@ -238,7 +239,7 @@ CREATE TABLE IF NOT EXISTS job_posting_skills
     FOREIGN KEY (skillId) REFERENCES skills (skillId) ON DELETE CASCADE
 );
 
- 
+
 CREATE TABLE IF NOT EXISTS student_badges
 (
     nuId    INT,
@@ -248,7 +249,7 @@ CREATE TABLE IF NOT EXISTS student_badges
     FOREIGN KEY (badgeId) REFERENCES badge (badgeId) ON DELETE CASCADE
 );
 
- 
+
 -- Student Profile and projects Bridge table
 CREATE TABLE IF NOT EXISTS student_projects
 (
@@ -259,7 +260,7 @@ CREATE TABLE IF NOT EXISTS student_projects
     FOREIGN KEY (projectId) REFERENCES projects (projectId) ON DELETE CASCADE
 );
 
- 
+
 -- Personality Table
 CREATE TABLE IF NOT EXISTS personalities
 (
@@ -274,7 +275,7 @@ CREATE TABLE IF NOT EXISTS personalities
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
- 
+
 CREATE TABLE IF NOT EXISTS student_certifications
 (
     nuId            INT,
@@ -283,3 +284,5 @@ CREATE TABLE IF NOT EXISTS student_certifications
     FOREIGN KEY (nuId) REFERENCES student_profile (nuId) ON DELETE CASCADE,
     FOREIGN KEY (certificationId) REFERENCES certifications (certificationId) ON DELETE CASCADE
 );
+
+

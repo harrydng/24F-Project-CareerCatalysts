@@ -1,303 +1,1066 @@
 USE talentTrail;
--- 20) Role Instances
 
-
-INSERT INTO role(roleName)
-VALUES ('Co-op Advisor'),
-       ('Student');
-
-
-INSERT INTO role(roleName)
-VALUES ('Employer'),
-       ('Systems Admin');
-
-
-SELECT *
-FROM role;
-
-
--- 10) Projects Instances
-
-
-INSERT INTO projects(gitRepository, description, name)
-VALUES ('repo1', 'Twitter Sentiment Analysis', 'Sentiment Analysis'),
-       ('repo2', 'Calculator app made using JavaFX', 'Calculator App');
-
-
-SELECT *
-FROM projects;
-
-
--- 12) Certifications Instances
-
-
-INSERT INTO certifications(name)
-VALUES ('AWS Cloud Practitioner'),
-       ('Google Data Analytics');
-
-
-SELECT *
-FROM certifications;
-
--- 5) Skill Instances
-
-
-INSERT INTO skills (name, description)
-VALUES ('Python Programming', 'Proficient in Python for data analysis and development.'),
-       ('Web Development', 'Experienced in building responsive web applications.');
-
-SELECT *
-FROM skills;
-
-
--- 6) Badges Instances
-
-
-INSERT INTO badge(badgeName)
-VALUES ( 'Data Wizard'),
-       ('Web Dev GOAT');
-
-
-SELECT *
-FROM badge;
-
-
--- 1) User Instances
--- advisor
-INSERT INTO user (username, email, status, firstName, middleName, lastName, password_hash, roleId)
-VALUES ('jdoe', 'jdoe@example.com', 1, 'John', 'Michael', 'Doe', 'hashed_password_1', 1),
-       ('asmith', 'asmith@example.com', 1, 'Anna', NULL, 'Smith', 'hashed_password_2', 1),
-       -- student
-       ('Arnav619', 'arnavrathore619@gmail.com', 1, 'Arnav', NULL, 'Rathore', 'password', 2),
-       ('water_bottle', 'waterbottle@gmail.com', 1, 'Water', NULL, 'Bottle', 'password', 2),
-       ('Sean123', 'sean123@gmail.com', 1, 'Sean', 'Narula', 'Isaac', 'password', 2);
-
-
--- admin
-INSERT INTO user (username, email, status, firstName, middleName, lastName, password_hash, roleId)
-VALUES ('DiscordMod', 'Admin1@gmail.com', 1, 'Jonathan', NULL, 'Joestar', 'password', 4),
-       ('Mod2', 'Admin2@gmail.com', 1, 'Joseph', NULL, 'Joestar', 'password', 4);
-
-
--- employer
-INSERT INTO user(username, email, status, firstName, middleName, lastName, password_hash, roleId)
-VALUES ('Emp1', 'Google@gmail.com', 1, 'Sundar', NULL, 'Pichai', 'password', 3),
-       ('Emp2', 'Apple@email.com', 1, 'Tim', NULL, 'Cook', 'password', 3);
-
-
-SELECT *
-FROM user;
-
-
--- 2) Advisor Instances
-INSERT INTO advisor_profile (advisorId, department)
-VALUES (1, 'Computer Science Department'),
-       (2, 'Mechanical Engineering Department');
-
-
-SELECT *
-FROM advisor_profile;
-
-
--- 3) Student Profile Instances
-INSERT INTO student_profile (nuId, dob, major, minor, year, advisorId)
-VALUES (3, '2002-12-05', 'Computer Science', 'Mathematics', 2021, 1),
-       (5, '2003-07-10', 'Mech E', 'DS', 2025, 1),
-       (4, '2003-01-02', 'Data Science', NULL, 2022, 2);
-
-
-SELECT *
-FROM student_profile;
-
-
--- 4) student_skills instances
-INSERT INTO student_skills(nuid, skillId)
-VALUES (3, 1),
-       (5, 2),
-       (4, 2);
-
-
-SELECT *
-FROM student_skills;
-
-
--- 8) Admin Profile instances
-
-
-INSERT INTO admin_profile(adminId)
-VALUES (5),
-       (6);
-
-
-SELECT *
-FROM admin_profile;
-
-
--- 9) Employer Profile Instances
-
-
-INSERT INTO employer_profile(employerId, description, link)
-VALUES (7, 'It is google', 'google.com'),
-       (8, 'It is apple', 'apple.com');
-
-
-SELECT * FROM employer_profile;
-
-
--- 13) Student_Certification Instances
-
-
-INSERT INTO student_certifications(nuid, certificationid)
-VALUES (3, 1),
-       (5, 1),
-       (4, 1);
-
-
-INSERT INTO student_certifications(nuid, certificationid)
-VALUES (3, 2);
-
-
-SELECT *
-FROM student_certifications;
-
-
--- 14) Courses Instances
-
-
-INSERT INTO courses(courseName, description, courseNumber)
-VALUES ('OOD', 'Learn Object Oriented Programming and Design Patters', 3500),
-       ('Database Design', 'Learn SQL', 3200);
-
-
-SELECT *
-FROM courses;
-
-
--- 15) Student_courses Instances
-
-
-INSERT INTO student_courses(nuId, courseId)
-VALUES (3, 1),
-       (5, 2),
-       (4, 2);
-
-
-SELECT *
-FROM student_courses;
-
-
--- 16) Job Posting Instances
-
-
-INSERT INTO job_posting(position, description, pay, timePeriod, positionType,
-                        employmentType, workLocation, employerId, isActive)
-VALUES ('Software Engineering', 'Description1', 25.00, 'July to December', 'Full Stack SWE', 'Co-op',
-        'Remote', 7, 1),
-       ('Financial Analyst','Description2', 69.00, 'July to December', 'Assocaite ML Engineer',
-         'Full Time', 8, 8, 1);
-
-
-SELECT *
-from job_posting;
-
-
--- 18) Alert Instances
-
-
-INSERT INTO alert(messages, priority, title)
-VALUES ('Warning 1', 1, 'Big warning'),
-       ('Warning 2', 2, 'Smaller Warning');
-
-SELECT *
-FROM alert;
-
--- 17) Activity Log Instances
-
-
-INSERT INTO activity_log(alertId, description)
-VALUES (1, 'Activity 1'),
-       (2, 'Activity 2');
-
-
-SELECT *
-FROM activity_log;
-
--- 11) Personalities Instances
-
-
-INSERT INTO personalities(description, interests, softSkills, leadership, nuId)
-VALUES ('Active Listener, patient, and good communicator', 'Design Process',
-        'Presenting and writing', 'Strong', 3),
-       ('Fast Reader and quick Coder', 'Building Web Apps', 'Teamwork', 'Very Strong', 4);
-
-
-SELECT *
-FROM personalities;
-
--- 19) System Metrics Instances
-
-
-INSERT INTO metrics(errorRate, serverLoad, responseTime)
-VALUES (2.55, 5.22, 1.0),
-       (3.11, 4.11, 5.6);
-
-
-SELECT *
-FROM metrics;
-
--- 23) Student Reports Instances
-
-
-INSERT INTO student_reports(nuId, advisorId, notes, status)
-VALUES (3, 1, 'Great Student', 1),
-       (5, 1, NULL, 1),
-       (4, 2, 'Good Student', 2);
-
-
-SELECT *
-FROM student_reports;
-
-
--- 25) Job Application Instances
-
-
-INSERT INTO job_applications(jobId, nuId)
-VALUES (1, 3),
-       (1, 5),
-       (2, 4);
-
-
-SELECT *
-FROM job_applications;
-
-
--- 26) Student_profile_jobs Instances
-INSERT INTO student_projects(nuid, projectid)
-VALUES (3, 1),
-       (5, 1),
-       (4, 2);
-
-
-SELECT *
-FROM student_projects;
-
-
--- 27 Job_Posting_skills Instances
-INSERT INTO job_posting_skills(jobId, skillId)
-VALUES (1, 1),
-       (2, 2);
-
-
-SELECT *
-FROM job_posting_skills;
-
-
--- 28 Student_Badges Instances
-INSERT INTO student_badges(nuid, badgeid)
-VALUES (3, 1),
-       (5, 1),
-       (4, 2);
-
-
-SELECT *
-FROM student_badges;
+INSERT INTO role (roleName) VALUES
+('Admin'),
+('Advisor'),
+('Employer'),
+('Student');
+
+INSERT INTO skills (name, description) VALUES
+('Python', 'Programming language used for software development and data analysis.'),
+('Java', 'Programming language widely used in enterprise applications.'),
+('SQL', 'Query language for managing relational databases.'),
+('JavaScript', 'Scripting language for web development.'),
+('HTML', 'Standard markup language for creating web pages.'),
+('CSS', 'Style sheet language for designing web pages.'),
+('C++', 'General-purpose programming language.'),
+('C#', 'Programming language for Microsoft environments.'),
+('PHP', 'Server-side scripting language for web development.'),
+('Ruby', 'Programming language for web applications.'),
+('R', 'Programming language for statistical computing.'),
+('MATLAB', 'Tool for numerical computing and algorithm development.'),
+('Kotlin', 'Programming language for Android development.'),
+('Swift', 'Programming language for iOS development.'),
+('Go', 'Programming language for large-scale software development.'),
+('React', 'JavaScript library for building user interfaces.'),
+('Angular', 'Framework for building web applications.'),
+('Vue.js', 'JavaScript framework for building UIs.'),
+('Django', 'Python web framework for rapid development.'),
+('Flask', 'Lightweight Python web framework.'),
+('Node.js', 'JavaScript runtime for building server-side applications.'),
+('Express.js', 'Framework for Node.js applications.'),
+('Spring', 'Java framework for enterprise applications.'),
+('Hibernate', 'Framework for mapping Java objects to databases.'),
+('Bootstrap', 'CSS framework for responsive design.'),
+('TensorFlow', 'Library for machine learning.'),
+('PyTorch', 'Machine learning library.'),
+('Keras', 'Deep learning framework.'),
+('Tableau', 'Data visualization tool.'),
+('Power BI', 'Business intelligence tool.'),
+('Docker', 'Tool for containerization.'),
+('Kubernetes', 'Container orchestration platform.'),
+('AWS', 'Amazon Web Services cloud platform.'),
+('Azure', 'Microsoft cloud platform.'),
+('GCP', 'Google Cloud Platform.'),
+('Jenkins', 'Automation server for CI/CD.'),
+('Ansible', 'Configuration management tool.'),
+('Terraform', 'Infrastructure as code tool.'),
+('Linux', 'Open-source operating system.'),
+('Git', 'Version control system.'),
+('GitHub', 'Platform for code hosting.'),
+('Machine Learning', 'Field of AI for predictive models.'),
+('Data Science', 'Field for analyzing data insights.'),
+('Cybersecurity', 'Field for securing systems.'),
+('Ethical Hacking', 'Testing systems for vulnerabilities.'),
+('Networking', 'Field for designing networks.'),
+('Cloud Computing', 'Field for virtual resources.'),
+('Agile', 'Project management methodology.'),
+('Scrum', 'Framework for Agile projects.');
+
+INSERT INTO badge (badgeName) VALUES
+('Python Guru'),
+('Java Master'),
+('SQL Expert'),
+('Web Developer'),
+('Machine Learning Specialist'),
+('Cloud Practitioner'),
+('Cybersecurity Analyst'),
+('Project Manager'),
+('Data Scientist'),
+('Ethical Hacker'),
+('Android Developer'),
+('iOS Developer'),
+('DevOps Engineer'),
+('Full-Stack Developer'),
+('Front-End Specialist'),
+('Back-End Pro'),
+('AI Researcher'),
+('Statistical Analyst'),
+('Game Developer'),
+('Database Administrator'),
+('Data Engineer'),
+('System Architect'),
+('Scrum Master'),
+('UI/UX Designer'),
+('Software Tester'),
+('Product Manager'),
+('Business Analyst'),
+('Technical Writer'),
+('Technical Lead'),
+('Team Player'),
+('Problem Solver'),
+('Quick Learner'),
+('Critical Thinker'),
+('Decision Maker'),
+('Innovative Thinker'),
+('Effective Communicator'),
+('Adaptable Leader'),
+('Time Manager'),
+('Customer Focused'),
+('Sales Strategist'),
+('Negotiator'),
+('Entrepreneur'),
+('Visionary'),
+('Motivator'),
+('Coach'),
+('Mentor'),
+('Collaborator'),
+('Trainer'),
+('Creative Thinker'),
+('Risk Manager'),
+('Financial Analyst');
+
+INSERT INTO projects (gitRepository, description, name) VALUES
+('https://github.com/example/project1', 'Web app for managing tasks.', 'Task Manager'),
+('https://github.com/example/project2', 'E-commerce website for selling products.', 'ShopEasy'),
+('https://github.com/example/project3', 'Mobile app for fitness tracking.', 'FitTrack'),
+('https://github.com/example/project4', 'Chat application for real-time messaging.', 'ChatNow'),
+('https://github.com/example/project5', 'Blog platform for sharing articles.', 'BlogSphere'),
+('https://github.com/example/project6', 'Weather forecasting application.', 'WeatherPro'),
+('https://github.com/example/project7', 'Online learning management system.', 'LearnPlus'),
+('https://github.com/example/project8', 'Portfolio website for showcasing projects.', 'MyPortfolio'),
+('https://github.com/example/project9', 'Recipe sharing platform.', 'CookBook'),
+('https://github.com/example/project10', 'Event management application.', 'EventEase'),
+('https://github.com/example/project11', 'Online library management system.', 'LibManage'),
+('https://github.com/example/project12', 'Travel planning application.', 'TravelMate'),
+('https://github.com/example/project13', 'AI-powered chatbot for customer support.', 'ChatBotAI'),
+('https://github.com/example/project14', 'News aggregation platform.', 'NewsHub'),
+('https://github.com/example/project15', 'Social media platform.', 'SocialSpace'),
+('https://github.com/example/project16', 'Expense tracking application.', 'MoneyWise'),
+('https://github.com/example/project17', 'Job portal for professionals.', 'JobConnect'),
+('https://github.com/example/project18', 'Real estate listing website.', 'PropertyFinder'),
+('https://github.com/example/project19', 'Stock market analysis tool.', 'MarketAnalyzer'),
+('https://github.com/example/project20', 'Crowdfunding platform.', 'FundRaise'),
+('https://github.com/example/project21', 'Music streaming application.', 'TuneStream'),
+('https://github.com/example/project22', 'Language learning application.', 'LinguaLearn'),
+('https://github.com/example/project23', 'Quiz application for educational purposes.', 'QuizMaster'),
+('https://github.com/example/project24', 'Online donation platform.', 'CharityConnect'),
+('https://github.com/example/project25', 'Pet adoption platform.', 'AdoptAPet'),
+('https://github.com/example/project26', 'AI-powered resume builder.', 'ResumeAI'),
+('https://github.com/example/project27', 'Fitness community platform.', 'FitTogether'),
+('https://github.com/example/project28', 'Restaurant reservation app.', 'DineEasy'),
+('https://github.com/example/project29', 'Remote work collaboration tool.', 'TeamSync'),
+('https://github.com/example/project30', 'Virtual classroom platform.', 'EduLive'),
+('https://github.com/example/project31', 'Video editing software.', 'EditPro'),
+('https://github.com/example/project32', 'Personal finance advisor.', 'BudgetBuddy'),
+('https://github.com/example/project33', 'AI-powered translation tool.', 'Translatr'),
+('https://github.com/example/project34', 'Online store for handcrafted items.', 'CraftBazaar'),
+('https://github.com/example/project35', 'Time management application.', 'TimeKeeper'),
+('https://github.com/example/project36', 'Augmented reality game.', 'ARQuest'),
+('https://github.com/example/project37', 'Health tracking platform.', 'WellnessTrack'),
+('https://github.com/example/project38', 'AI-powered personal assistant.', 'SmartAssistant'),
+('https://github.com/example/project39', 'Video conferencing platform.', 'MeetNow'),
+('https://github.com/example/project40', 'Sports analytics tool.', 'PlayAnalyzer'),
+('https://github.com/example/project41', 'Digital art creation platform.', 'ArtMaker'),
+('https://github.com/example/project42', 'Crypto trading platform.', 'CryptoExchange'),
+('https://github.com/example/project43', 'AI-powered code review tool.', 'CodeAI'),
+('https://github.com/example/project44', 'E-book reader application.', 'ReadMore'),
+('https://github.com/example/project45', 'AI-driven hiring platform.', 'TalentScout'),
+('https://github.com/example/project46', 'Volunteer management system.', 'VolunteerHub'),
+('https://github.com/example/project47', 'Virtual reality training platform.', 'VRLearn'),
+('https://github.com/example/project48', 'Customer feedback collection tool.', 'Feedback360'),
+('https://github.com/example/project49', 'Online auction platform.', 'BidSmart'),
+('https://github.com/example/project50', 'Data visualization tool.', 'VizData');
+
+
+INSERT INTO certifications (name) VALUES
+('Certified Python Developer'),
+('AWS Certified Solutions Architect'),
+('Certified Ethical Hacker (CEH)'),
+('Microsoft Certified Azure Administrator'),
+('Certified Data Scientist'),
+('Google Cloud Certified Professional Data Engineer'),
+('Certified Java Developer'),
+('Project Management Professional (PMP)'),
+('Scrum Master Certified (SMC)'),
+('Certified Kubernetes Administrator (CKA)'),
+('Cisco Certified Network Associate (CCNA)'),
+('Certified Machine Learning Specialist'),
+('CompTIA Security+'),
+('Certified DevOps Engineer'),
+('Certified Full-Stack Developer'),
+('Adobe Certified Expert'),
+('Certified Database Administrator'),
+('Certified AI Practitioner'),
+('Certified Financial Analyst'),
+('Salesforce Certified Administrator'),
+('Certified Business Analyst'),
+('Certified Cybersecurity Professional'),
+('Microsoft Power BI Data Analyst'),
+('Certified React Developer'),
+('Certified JavaScript Programmer'),
+('Certified Cloud Practitioner'),
+('Certified Big Data Professional'),
+('Certified Blockchain Developer'),
+('Certified ITIL Expert'),
+('Certified Tableau Professional'),
+('Certified Linux Administrator'),
+('Certified UX Designer'),
+('Certified Game Developer'),
+('Certified Software Tester'),
+('Certified Software Architect'),
+('Certified IoT Developer'),
+('Certified Agile Practitioner'),
+('Certified System Architect'),
+('Certified Mobile App Developer'),
+('Certified Web Developer'),
+('Certified SQL Specialist'),
+('Certified R Programmer'),
+('Certified AWS Machine Learning Specialist'),
+('Certified Automation Engineer'),
+('Certified MATLAB Specialist'),
+('Certified Python for Data Science'),
+('Certified AI Ethics Professional'),
+('Certified Cyber Forensics Analyst'),
+('Certified Data Visualization Specialist'),
+('Certified Cloud Security Professional');
+
+
+INSERT INTO courses (courseName, description, courseNumber) VALUES
+('Introduction to Python', 'Learn the basics of Python programming.', 101),
+('Advanced Java Programming', 'Deep dive into Java development.', 202),
+('Data Structures and Algorithms', 'Learn algorithms and data structures.', 303),
+('Web Development Basics', 'Build your first web application.', 104),
+('Machine Learning Fundamentals', 'Understand the basics of ML.', 305),
+('Deep Learning with TensorFlow', 'Master deep learning with TensorFlow.', 406),
+('AWS Cloud Practitioner', 'Introduction to AWS cloud services.', 107),
+('Database Design and Management', 'Learn to design relational databases.', 208),
+('Networking Essentials', 'Understand basic networking concepts.', 209),
+('Cybersecurity Basics', 'Learn the fundamentals of cybersecurity.', 310),
+('Advanced SQL Queries', 'Master advanced SQL concepts.', 311),
+('iOS App Development', 'Learn to build iOS apps with Swift.', 212),
+('Android App Development', 'Learn to build Android apps with Kotlin.', 213),
+('Introduction to Blockchain', 'Learn the basics of blockchain technology.', 314),
+('Big Data Analytics', 'Understand big data processing techniques.', 415),
+('Introduction to Cloud Computing', 'Basics of cloud platforms.', 116),
+('Agile Methodologies', 'Learn Agile project management.', 217),
+('Scrum Framework Basics', 'Master the Scrum framework.', 218),
+('Statistics for Data Science', 'Learn statistical methods for data science.', 319),
+('Artificial Intelligence Basics', 'Introduction to AI concepts.', 320),
+('Natural Language Processing', 'Basics of NLP with Python.', 421),
+('Frontend Development with React', 'Learn React for building UIs.', 222),
+('Backend Development with Node.js', 'Build backend systems with Node.js.', 223),
+('DevOps Tools and Techniques', 'Master CI/CD pipelines.', 324),
+('Cloud Security Essentials', 'Learn the fundamentals of cloud security.', 325),
+('Introduction to Tableau', 'Create data visualizations with Tableau.', 226),
+('Power BI for Data Visualization', 'Learn Power BI techniques.', 227),
+('Introduction to Git and GitHub', 'Version control basics.', 128),
+('Linux Administration', 'Manage Linux systems.', 229),
+('Introduction to MATLAB', 'Learn MATLAB for numerical computing.', 230),
+('Programming with R', 'R programming for statistics.', 331),
+('AI Ethics and Regulations', 'Learn ethical considerations in AI.', 332),
+('Introduction to IoT', 'Learn the basics of IoT systems.', 333),
+('Advanced C++ Programming', 'Master advanced C++ concepts.', 234),
+('Introduction to Django', 'Learn Django for web development.', 235),
+('Introduction to Flask', 'Learn Flask for web development.', 236),
+('UI/UX Design Basics', 'Understand UI/UX design principles.', 237),
+('Introduction to Game Development', 'Learn the basics of game development.', 338),
+('Software Testing Fundamentals', 'Learn software testing techniques.', 239),
+('Data Visualization with Python', 'Use Python for data visualization.', 240),
+('Introduction to Hadoop', 'Understand big data processing with Hadoop.', 341),
+('Kubernetes for Beginners', 'Learn Kubernetes basics.', 342),
+('Docker Essentials', 'Learn the basics of Docker.', 243),
+('Salesforce Administration Basics', 'Learn Salesforce administration.', 244),
+('Business Analysis Fundamentals', 'Learn the basics of business analysis.', 245),
+('Financial Modeling with Excel', 'Learn to create financial models.', 246),
+('Introduction to Ethical Hacking', 'Understand ethical hacking basics.', 347),
+('Cryptography Basics', 'Learn the fundamentals of cryptography.', 348);
+
+
+INSERT INTO metrics (errorRate, serverLoad, responseTime) VALUES
+(0.5, 20.34, 120.5),
+(1.2, 25.67, 110.3),
+(0.0, 18.20, 98.4),
+(0.8, 30.90, 135.0),
+(0.4, 22.10, 105.2),
+(1.5, 35.75, 140.8),
+(2.0, 40.30, 150.0),
+(0.1, 15.50, 95.0),
+(0.3, 18.00, 100.1),
+(0.6, 28.40, 125.5),
+(0.2, 19.50, 102.3),
+(1.0, 33.00, 145.2),
+(0.7, 27.60, 120.9),
+(1.8, 37.80, 158.0),
+(0.9, 25.40, 130.7),
+(1.3, 31.20, 140.3),
+(0.0, 16.70, 90.4),
+(0.4, 21.50, 101.0),
+(1.6, 38.10, 162.8),
+(2.5, 42.00, 175.0),
+(0.2, 17.80, 97.2),
+(0.5, 22.60, 106.0),
+(0.8, 29.30, 123.9),
+(1.1, 34.70, 145.6),
+(1.9, 39.50, 160.4),
+(0.1, 14.80, 92.1),
+(0.6, 23.10, 108.5),
+(1.7, 36.40, 157.7),
+(2.2, 41.20, 172.0),
+(0.3, 18.70, 99.5),
+(0.9, 26.50, 127.0),
+(1.4, 32.80, 143.8),
+(2.0, 38.60, 165.3),
+(0.0, 15.60, 88.4),
+(0.7, 24.00, 111.2),
+(1.2, 30.10, 137.5),
+(1.8, 37.00, 152.9),
+(2.3, 43.00, 178.5),
+(0.4, 19.40, 101.8),
+(1.0, 28.20, 126.0),
+(1.5, 34.50, 148.2),
+(2.1, 40.40, 170.7),
+(0.2, 17.10, 96.0),
+(0.6, 21.90, 104.3),
+(1.3, 33.60, 142.0),
+(2.4, 44.10, 182.3),
+(0.5, 20.80, 108.4),
+(1.1, 29.90, 135.7),
+(1.9, 39.00, 161.5),
+(0.3, 16.40, 93.0),
+(0.8, 23.80, 110.8);
+
+
+INSERT INTO alert (messages, priority, title) VALUES
+('High CPU usage detected on Server A.', 1, 'Critical CPU Usage'),
+('Database connection error on production.', 1, 'Database Error'),
+('Memory usage exceeded 90% on Server B.', 2, 'Memory Warning'),
+('Unexpected system reboot on Server C.', 1, 'System Reboot'),
+('Failed login attempts exceeded limit.', 2, 'Security Alert'),
+('Network latency exceeds threshold.', 3, 'Network Latency Warning'),
+('Backup job failed for Server D.', 2, 'Backup Failure'),
+('Disk space low on Server E.', 2, 'Disk Space Warning'),
+('Unauthorized access attempt detected.', 1, 'Unauthorized Access'),
+('Application downtime reported.', 1, 'Application Downtime'),
+('API response time is too high.', 3, 'API Latency'),
+('SSL certificate expiration in 7 days.', 2, 'SSL Expiration Warning'),
+('Server F is unreachable.', 1, 'Server Unreachable'),
+('Email delivery failure reported.', 3, 'Email Delivery Error'),
+('High memory usage on Database Server.', 2, 'Database Memory Warning'),
+('Patch update required for Server G.', 3, 'Patch Update'),
+('Critical vulnerability found in App.', 1, 'Security Vulnerability'),
+('Unexpected spike in traffic.', 3, 'Traffic Spike'),
+('Database query timeout exceeded.', 2, 'Database Timeout'),
+('Power failure in data center.', 1, 'Power Failure'),
+('High error rate detected in App.', 2, 'Error Rate Warning'),
+('DNS resolution failure.', 1, 'DNS Error'),
+('Disk IO is too high on Server H.', 2, 'Disk IO Warning'),
+('Backup completed with errors.', 3, 'Backup Error'),
+('High temperature in server rack.', 2, 'Temperature Warning'),
+('Login sessions expired unexpectedly.', 3, 'Session Expiry'),
+('Unexpected app crash reported.', 2, 'Application Crash'),
+('Firewall rule misconfiguration.', 2, 'Firewall Issue'),
+('High swap usage detected.', 3, 'Swap Usage Warning'),
+('Low throughput in network.', 2, 'Throughput Warning'),
+('API key rotation required.', 3, 'API Key Rotation'),
+('High database query rate detected.', 2, 'Query Rate Warning'),
+('File system corruption on Server I.', 1, 'File System Error'),
+('Malware detected on Server J.', 1, 'Malware Alert'),
+('Patch deployment failed.', 2, 'Patch Failure'),
+('Configuration mismatch detected.', 3, 'Configuration Warning'),
+('Unexpected service restart.', 2, 'Service Restart'),
+('Critical process terminated.', 1, 'Process Termination'),
+('Server health degraded.', 2, 'Health Degradation'),
+('Data replication failure.', 1, 'Replication Failure'),
+('Unexpected system behavior.', 3, 'System Behavior Alert'),
+('Web application vulnerability found.', 1, 'Web Vulnerability'),
+('Payment gateway timeout.', 2, 'Payment Gateway Issue'),
+('Database replication lag detected.', 2, 'Replication Lag'),
+('Unauthorized software installed.', 1, 'Software Alert'),
+('Critical log events found.', 3, 'Critical Logs'),
+('Unexpected traffic pattern.', 3, 'Traffic Pattern Warning'),
+('High outbound traffic detected.', 2, 'Outbound Traffic Alert'),
+('Application scaling issue.', 3, 'Scaling Issue'),
+('Load balancer misconfigured.', 1, 'Load Balancer Error');
+
+
+-- Insert 40 Admin Users
+INSERT INTO user (username, email, status, firstName, middleName, lastName, password_hash, roleId) VALUES
+('john_doe', 'john.doe@example.com', 1, 'John', 'A.', 'Doe', 'hashed_password_1', 1),
+('jane_smith', 'jane.smith@example.com', 1, 'Jane', 'B.', 'Smith', 'hashed_password_2', 1),
+('michael_jones', 'michael.jones@example.com', 1, 'Michael', 'C.', 'Jones', 'hashed_password_3', 1),
+('emily_clark', 'emily.clark@example.com', 1, 'Emily', 'D.', 'Clark', 'hashed_password_4', 1),
+('daniel_adams', 'daniel.adams@example.com', 1, 'Daniel', 'E.', 'Adams', 'hashed_password_5', 1),
+('olivia_brown', 'olivia.brown@example.com', 1, 'Olivia', 'F.', 'Brown', 'hashed_password_6', 1),
+('noah_moore', 'noah.moore@example.com', 1, 'Noah', 'G.', 'Moore', 'hashed_password_7', 1),
+('emma_taylor', 'emma.taylor@example.com', 1, 'Emma', 'H.', 'Taylor', 'hashed_password_8', 1),
+('liam_white', 'liam.white@example.com', 1, 'Liam', 'I.', 'White', 'hashed_password_9', 1),
+('sophia_harris', 'sophia.harris@example.com', 1, 'Sophia', 'J.', 'Harris', 'hashed_password_10', 1),
+('james_martin', 'james.martin@example.com', 1, 'James', 'K.', 'Martin', 'hashed_password_11', 1),
+('isabella_thomas', 'isabella.thomas@example.com', 1, 'Isabella', 'L.', 'Thomas', 'hashed_password_12', 1),
+('lucas_jackson', 'lucas.jackson@example.com', 1, 'Lucas', 'M.', 'Jackson', 'hashed_password_13', 1),
+('mia_lee', 'mia.lee@example.com', 1, 'Mia', 'N.', 'Lee', 'hashed_password_14', 1),
+('elijah_walker', 'elijah.walker@example.com', 1, 'Elijah', 'O.', 'Walker', 'hashed_password_15', 1),
+('ava_robinson', 'ava.robinson@example.com', 1, 'Ava', 'P.', 'Robinson', 'hashed_password_16', 1),
+('benjamin_green', 'benjamin.green@example.com', 1, 'Benjamin', 'Q.', 'Green', 'hashed_password_17', 1),
+('amelia_carter', 'amelia.carter@example.com', 1, 'Amelia', 'R.', 'Carter', 'hashed_password_18', 1),
+('ethan_hall', 'ethan.hall@example.com', 1, 'Ethan', 'S.', 'Hall', 'hashed_password_19', 1),
+('harper_wright', 'harper.wright@example.com', 1, 'Harper', 'T.', 'Wright', 'hashed_password_20', 1),
+('logan_king', 'logan.king@example.com', 1, 'Logan', 'U.', 'King', 'hashed_password_21', 1),
+('ella_lopez', 'ella.lopez@example.com', 1, 'Ella', 'V.', 'Lopez', 'hashed_password_22', 1),
+('mason_hill', 'mason.hill@example.com', 1, 'Mason', 'W.', 'Hill', 'hashed_password_23', 1),
+('scarlett_scott', 'scarlett.scott@example.com', 1, 'Scarlett', 'X.', 'Scott', 'hashed_password_24', 1),
+('oliver_perez', 'oliver.perez@example.com', 1, 'Oliver', 'Y.', 'Perez', 'hashed_password_25', 1),
+('sofia_evans', 'sofia.evans@example.com', 1, 'Sofia', 'Z.', 'Evans', 'hashed_password_26', 1),
+('jackson_diaz', 'jackson.diaz@example.com', 1, 'Jackson', 'A.', 'Diaz', 'hashed_password_27', 1),
+('victoria_collins', 'victoria.collins@example.com', 1, 'Victoria', 'B.', 'Collins', 'hashed_password_28', 1),
+('henry_baker', 'henry.baker@example.com', 1, 'Henry', 'C.', 'Baker', 'hashed_password_29', 1),
+('grace_kelly', 'grace.kelly@example.com', 1, 'Grace', 'D.', 'Kelly', 'hashed_password_30', 1),
+('aiden_turner', 'aiden.turner@example.com', 1, 'Aiden', 'E.', 'Turner', 'hashed_password_31', 1),
+('chloe_campbell', 'chloe.campbell@example.com', 1, 'Chloe', 'F.', 'Campbell', 'hashed_password_32', 1),
+('sebastian_wilson', 'sebastian.wilson@example.com', 1, 'Sebastian', 'G.', 'Wilson', 'hashed_password_33', 1),
+('luna_mitchell', 'luna.mitchell@example.com', 1, 'Luna', 'H.', 'Mitchell', 'hashed_password_34', 1),
+('jackson_rivera', 'jackson.rivera@example.com', 1, 'Jackson', 'I.', 'Rivera', 'hashed_password_35', 1),
+('penelope_roberts', 'penelope.roberts@example.com', 1, 'Penelope', 'J.', 'Roberts', 'hashed_password_36', 1),
+('grayson_edwards', 'grayson.edwards@example.com', 1, 'Grayson', 'K.', 'Edwards', 'hashed_password_37', 1),
+('nora_morgan', 'nora.morgan@example.com', 1, 'Nora', 'L.', 'Morgan', 'hashed_password_38', 1),
+('levi_bennett', 'levi.bennett@example.com', 1, 'Levi', 'M.', 'Bennett', 'hashed_password_39', 1),
+('hazel_gray', 'hazel.gray@example.com', 1, 'Hazel', 'N.', 'Gray', 'hashed_password_40', 1);
+
+-- Insert Corresponding Admin Profiles
+INSERT INTO admin_profile (adminId) VALUES
+(1), (2), (3), (4), (5), (6), (7), (8), (9), (10),
+(11), (12), (13), (14), (15), (16), (17), (18), (19), (20),
+(21), (22), (23), (24), (25), (26), (27), (28), (29), (30),
+(31), (32), (33), (34), (35), (36), (37), (38), (39), (40);
+
+
+-- Insert 40 Advisor Users
+INSERT INTO user (username, email, status, firstName, middleName, lastName, password_hash, roleId) VALUES
+('advisor_anna', 'anna.williams@example.com', 1, 'Anna', 'M.', 'Williams', 'hashed_password_41', 2),
+('advisor_bob', 'bob.johnson@example.com', 1, 'Bob', 'N.', 'Johnson', 'hashed_password_42', 2),
+('advisor_chris', 'chris.anderson@example.com', 1, 'Chris', 'O.', 'Anderson', 'hashed_password_43', 2),
+('advisor_diana', 'diana.morris@example.com', 1, 'Diana', 'P.', 'Morris', 'hashed_password_44', 2),
+('advisor_eric', 'eric.taylor@example.com', 1, 'Eric', 'Q.', 'Taylor', 'hashed_password_45', 2),
+('advisor_fiona', 'fiona.lee@example.com', 1, 'Fiona', 'R.', 'Lee', 'hashed_password_46', 2),
+('advisor_george', 'george.white@example.com', 1, 'George', 'S.', 'White', 'hashed_password_47', 2),
+('advisor_hannah', 'hannah.harris@example.com', 1, 'Hannah', 'T.', 'Harris', 'hashed_password_48', 2),
+('advisor_ian', 'ian.clark@example.com', 1, 'Ian', 'U.', 'Clark', 'hashed_password_49', 2),
+('advisor_julia', 'julia.martin@example.com', 1, 'Julia', 'V.', 'Martin', 'hashed_password_50', 2),
+('advisor_kevin', 'kevin.jackson@example.com', 1, 'Kevin', 'W.', 'Jackson', 'hashed_password_51', 2),
+('advisor_lisa', 'lisa.thomas@example.com', 1, 'Lisa', 'X.', 'Thomas', 'hashed_password_52', 2),
+('advisor_mike', 'mike.walker@example.com', 1, 'Mike', 'Y.', 'Walker', 'hashed_password_53', 2),
+('advisor_nancy', 'nancy.green@example.com', 1, 'Nancy', 'Z.', 'Green', 'hashed_password_54', 2),
+('advisor_oliver', 'oliver.robinson@example.com', 1, 'Oliver', 'A.', 'Robinson', 'hashed_password_55', 2),
+('advisor_paula', 'paula.hill@example.com', 1, 'Paula', 'B.', 'Hill', 'hashed_password_56', 2),
+('advisor_quentin', 'quentin.scott@example.com', 1, 'Quentin', 'C.', 'Scott', 'hashed_password_57', 2),
+('advisor_rachel', 'rachel.perez@example.com', 1, 'Rachel', 'D.', 'Perez', 'hashed_password_58', 2),
+('advisor_simon', 'simon.evans@example.com', 1, 'Simon', 'E.', 'Evans', 'hashed_password_59', 2),
+('advisor_tina', 'tina.diaz@example.com', 1, 'Tina', 'F.', 'Diaz', 'hashed_password_60', 2),
+('advisor_ursula', 'ursula.collins@example.com', 1, 'Ursula', 'G.', 'Collins', 'hashed_password_61', 2),
+('advisor_victor', 'victor.baker@example.com', 1, 'Victor', 'H.', 'Baker', 'hashed_password_62', 2),
+('advisor_wendy', 'wendy.kelly@example.com', 1, 'Wendy', 'I.', 'Kelly', 'hashed_password_63', 2),
+('advisor_xander', 'xander.turner@example.com', 1, 'Xander', 'J.', 'Turner', 'hashed_password_64', 2),
+('advisor_yvonne', 'yvonne.campbell@example.com', 1, 'Yvonne', 'K.', 'Campbell', 'hashed_password_65', 2),
+('advisor_zack', 'zack.wilson@example.com', 1, 'Zack', 'L.', 'Wilson', 'hashed_password_66', 2),
+('advisor_alan', 'alan.mitchell@example.com', 1, 'Alan', 'M.', 'Mitchell', 'hashed_password_67', 2),
+('advisor_betty', 'betty.rivera@example.com', 1, 'Betty', 'N.', 'Rivera', 'hashed_password_68', 2),
+('advisor_charles', 'charles.roberts@example.com', 1, 'Charles', 'O.', 'Roberts', 'hashed_password_69', 2),
+('advisor_dorothy', 'dorothy.edwards@example.com', 1, 'Dorothy', 'P.', 'Edwards', 'hashed_password_70', 2),
+('advisor_ellen', 'ellen.morgan@example.com', 1, 'Ellen', 'Q.', 'Morgan', 'hashed_password_71', 2),
+('advisor_frank', 'frank.bennett@example.com', 1, 'Frank', 'R.', 'Bennett', 'hashed_password_72', 2),
+('advisor_grace', 'grace.gray@example.com', 1, 'Grace', 'S.', 'Gray', 'hashed_password_73', 2),
+('advisor_henry', 'henry.moore@example.com', 1, 'Henry', 'T.', 'Moore', 'hashed_password_74', 2),
+('advisor_isabella', 'isabella.hughes@example.com', 1, 'Isabella', 'U.', 'Hughes', 'hashed_password_75', 2),
+('advisor_jake', 'jake.ross@example.com', 1, 'Jake', 'V.', 'Ross', 'hashed_password_76', 2),
+('advisor_karen', 'karen.morris@example.com', 1, 'Karen', 'W.', 'Morris', 'hashed_password_77', 2),
+('advisor_leo', 'leo.hayes@example.com', 1, 'Leo', 'X.', 'Hayes', 'hashed_password_78', 2),
+('advisor_mary', 'mary.price@example.com', 1, 'Mary', 'Y.', 'Price', 'hashed_password_79', 2),
+('advisor_nick', 'nick.wood@example.com', 1, 'Nick', 'Z.', 'Wood', 'hashed_password_80', 2);
+
+-- Insert Corresponding Advisor Profiles
+INSERT INTO advisor_profile (advisorId, department) VALUES
+(41, 'Computer Science'),
+(42, 'Mechanical Engineering'),
+(43, 'Electrical Engineering'),
+(44, 'Business Administration'),
+(45, 'Biology'),
+(46, 'Mathematics'),
+(47, 'Physics'),
+(48, 'Chemistry'),
+(49, 'Civil Engineering'),
+(50, 'Economics'),
+(51, 'Sociology'),
+(52, 'Psychology'),
+(53, 'Environmental Science'),
+(54, 'History'),
+(55, 'Political Science'),
+(56, 'English'),
+(57, 'Philosophy'),
+(58, 'Linguistics'),
+(59, 'Music'),
+(60, 'Theater'),
+(61, 'Art'),
+(62, 'Design'),
+(63, 'Nursing'),
+(64, 'Education'),
+(65, 'Law'),
+(66, 'Medicine'),
+(67, 'Pharmacy'),
+(68, 'Anthropology'),
+(69, 'Astronomy'),
+(70, 'Geology'),
+(71, 'Oceanography'),
+(72, 'Zoology'),
+(73, 'Botany'),
+(74, 'Public Health'),
+(75, 'Agriculture'),
+(76, 'Veterinary Science'),
+(77, 'Sports Science'),
+(78, 'Information Technology'),
+(79, 'Accounting'),
+(80, 'Marketing');
+
+
+-- Insert 40 Employer Users
+INSERT INTO user (username, email, status, firstName, middleName, lastName, password_hash, roleId) VALUES
+('employer_techcorp', 'hr@techcorp.com', 1, 'Tech', NULL, 'Corp', 'hashed_password_81', 3),
+('employer_innovate', 'recruit@innovate.com', 1, 'Innovate', NULL, 'Solutions', 'hashed_password_82', 3),
+('employer_digiplus', 'jobs@digiplus.com', 1, 'Digi', NULL, 'Plus', 'hashed_password_83', 3),
+('employer_softserve', 'careers@softserve.com', 1, 'Soft', NULL, 'Serve', 'hashed_password_84', 3),
+('employer_fintek', 'hr@fintek.com', 1, 'Fin', NULL, 'Tek', 'hashed_password_85', 3),
+('employer_healthmax', 'jobs@healthmax.com', 1, 'Health', NULL, 'Max', 'hashed_password_86', 3),
+('employer_edusmart', 'recruit@edusmart.com', 1, 'Edu', NULL, 'Smart', 'hashed_password_87', 3),
+('employer_globex', 'hr@globex.com', 1, 'Globex', NULL, 'Corp', 'hashed_password_88', 3),
+('employer_nexwave', 'jobs@nexwave.com', 1, 'Nex', NULL, 'Wave', 'hashed_password_89', 3),
+('employer_synergy', 'careers@synergy.com', 1, 'Synergy', NULL, 'Tech', 'hashed_password_90', 3),
+('employer_bluebyte', 'hr@bluebyte.com', 1, 'Blue', NULL, 'Byte', 'hashed_password_91', 3),
+('employer_greencloud', 'recruit@greencloud.com', 1, 'Green', NULL, 'Cloud', 'hashed_password_92', 3),
+('employer_spectrum', 'jobs@spectrum.com', 1, 'Spectrum', NULL, 'Corp', 'hashed_password_93', 3),
+('employer_quantum', 'careers@quantum.com', 1, 'Quantum', NULL, 'Tech', 'hashed_password_94', 3),
+('employer_futureforce', 'hr@futureforce.com', 1, 'Future', NULL, 'Force', 'hashed_password_95', 3),
+('employer_microedge', 'recruit@microedge.com', 1, 'Micro', NULL, 'Edge', 'hashed_password_96', 3),
+('employer_zoetic', 'jobs@zoetic.com', 1, 'Zoetic', NULL, 'Solutions', 'hashed_password_97', 3),
+('employer_nuance', 'careers@nuance.com', 1, 'Nuance', NULL, 'Corp', 'hashed_password_98', 3),
+('employer_clearview', 'hr@clearview.com', 1, 'Clear', NULL, 'View', 'hashed_password_99', 3),
+('employer_elevate', 'recruit@elevate.com', 1, 'Elevate', NULL, 'Tech', 'hashed_password_100', 3),
+('employer_ventureverse', 'jobs@ventureverse.com', 1, 'Venture', NULL, 'Verse', 'hashed_password_101', 3),
+('employer_stellar', 'careers@stellar.com', 1, 'Stellar', NULL, 'Inc', 'hashed_password_102', 3),
+('employer_northstar', 'hr@northstar.com', 1, 'North', NULL, 'Star', 'hashed_password_103', 3),
+('employer_pinnacle', 'recruit@pinnacle.com', 1, 'Pinnacle', NULL, 'Solutions', 'hashed_password_104', 3),
+('employer_cyberdyn', 'jobs@cyberdyn.com', 1, 'Cyber', NULL, 'Dyn', 'hashed_password_105', 3),
+('employer_orbit', 'careers@orbit.com', 1, 'Orbit', NULL, 'Tech', 'hashed_password_106', 3),
+('employer_nimbus', 'hr@nimbus.com', 1, 'Nimbus', NULL, 'Corp', 'hashed_password_107', 3),
+('employer_integral', 'recruit@integral.com', 1, 'Integral', NULL, 'Tech', 'hashed_password_108', 3),
+('employer_hexagon', 'jobs@hexagon.com', 1, 'Hexa', NULL, 'Gon', 'hashed_password_109', 3),
+('employer_photon', 'careers@photon.com', 1, 'Photon', NULL, 'Inc', 'hashed_password_110', 3),
+('employer_magnitude', 'hr@magnitude.com', 1, 'Magnitude', NULL, 'Corp', 'hashed_password_111', 3),
+('employer_transcend', 'recruit@transcend.com', 1, 'Transcend', NULL, 'Tech', 'hashed_password_112', 3),
+('employer_unify', 'jobs@unify.com', 1, 'Unify', NULL, 'Solutions', 'hashed_password_113', 3),
+('employer_novus', 'careers@novus.com', 1, 'Novus', NULL, 'Corp', 'hashed_password_114', 3),
+('employer_ascent', 'hr@ascent.com', 1, 'Ascent', NULL, 'Tech', 'hashed_password_115', 3),
+('employer_cascade', 'recruit@cascade.com', 1, 'Cascade', NULL, 'Solutions', 'hashed_password_116', 3),
+('employer_beacon', 'jobs@beacon.com', 1, 'Beacon', NULL, 'Corp', 'hashed_password_117', 3),
+('employer_zenith', 'careers@zenith.com', 1, 'Zenith', NULL, 'Tech', 'hashed_password_118', 3),
+('employer_neptune', 'hr@neptune.com', 1, 'Neptune', NULL, 'Solutions', 'hashed_password_119', 3),
+('employer_atlas', 'recruit@atlas.com', 1, 'Atlas', NULL, 'Tech', 'hashed_password_120', 3);
+
+-- Insert Corresponding Employer Profiles
+INSERT INTO employer_profile (employerId, description, link) VALUES
+(81, 'TechCorp specializes in software solutions.', 'https://www.techcorp.com'),
+(82, 'Innovate Solutions focuses on cloud services.', 'https://www.innovatesolutions.com'),
+(83, 'DigiPlus is a leader in digital marketing.', 'https://www.digiplus.com'),
+(84, 'SoftServe provides IT consulting.', 'https://www.softserve.com'),
+(85, 'FinTek revolutionizes financial technology.', 'https://www.fintek.com'),
+(86, 'HealthMax pioneers in healthcare systems.', 'https://www.healthmax.com'),
+(87, 'EduSmart leads in educational technology.', 'https://www.edusmart.com'),
+(88, 'Globex Corp is a multinational conglomerate.', 'https://www.globex.com'),
+(89, 'NexWave offers telecommunications solutions.', 'https://www.nexwave.com'),
+(90, 'Synergy Tech develops AI-powered platforms.', 'https://www.synergytech.com'),
+(91, 'BlueByte excels in gaming software.', 'https://www.bluebyte.com'),
+(92, 'GreenCloud promotes green computing.', 'https://www.greencloud.com'),
+(93, 'Spectrum Corp delivers innovative tech.', 'https://www.spectrumcorp.com'),
+(94, 'Quantum Tech works on cutting-edge research.', 'https://www.quantumtech.com'),
+(95, 'FutureForce empowers the next generation.', 'https://www.futureforce.com'),
+(96, 'MicroEdge creates microtechnology solutions.', 'https://www.microedge.com'),
+(97, 'Zoetic Solutions provides sustainable products.', 'https://www.zoeticsolutions.com'),
+(98, 'Nuance Corp innovates in voice AI.', 'https://www.nuance.com'),
+(99, 'ClearView offers clean energy tech.', 'https://www.clearview.com'),
+(100, 'Elevate Tech builds smarter infrastructures.', 'https://www.elevatetech.com'),
+(101, 'VentureVerse funds start-up ventures.', 'https://www.ventureverse.com'),
+(102, 'Stellar Inc excels in space tech.', 'https://www.stellarinc.com'),
+(103, 'NorthStar leads in navigation systems.', 'https://www.northstar.com'),
+(104, 'Pinnacle Solutions provides business consultancy.', 'https://www.pinnaclesolutions.com'),
+(105, 'CyberDyn is a pioneer in robotics.', 'https://www.cyberdyn.com'),
+(106, 'Orbit Tech focuses on satellite systems.', 'https://www.orbittech.com'),
+(107, 'Nimbus Corp develops cloud storage.', 'https://www.nimbuscorp.com'),
+(108, 'Integral Tech provides analytical tools.', 'https://www.integraltech.com'),
+(109, 'Hexagon Inc builds geometric modeling software.', 'https://www.hexagon.com'),
+(110, 'Photon Inc pioneers in quantum computing.', 'https://www.photoninc.com'),
+(111, 'Magnitude Corp offers logistics solutions.', 'https://www.magnitudecorp.com'),
+(112, 'Transcend Tech innovates in VR.', 'https://www.transcendtech.com'),
+(113, 'Unify Solutions builds team collaboration tools.', 'https://www.unifysolutions.com'),
+(114, 'Novus Corp designs futuristic tech.', 'https://www.novus.com'),
+(115, 'Ascent Tech delivers innovative hardware.', 'https://www.ascenttech.com'),
+(116, 'Cascade Solutions provides ERP systems.', 'https://www.cascadesolutions.com'),
+(117, 'Beacon Corp delivers lighting innovations.', 'https://www.beaconcorp.com'),
+(118, 'Zenith Tech offers drone solutions.', 'https://www.zenithtech.com'),
+(119, 'Neptune Solutions builds marine tech.', 'https://www.neptunesolutions.com'),
+(120, 'Atlas Tech provides GPS systems.', 'https://www.atlastech.com');
+
+
+-- Insert 40 Student Users
+INSERT INTO user (username, email, status, firstName, middleName, lastName, password_hash, roleId) VALUES
+('student_john', 'john.student@example.com', 1, 'John', 'A.', 'Doe', 'hashed_password_121', 4),
+('student_jane', 'jane.student@example.com', 1, 'Jane', 'B.', 'Smith', 'hashed_password_122', 4),
+('student_michael', 'michael.student@example.com', 1, 'Michael', 'C.', 'Jones', 'hashed_password_123', 4),
+('student_emily', 'emily.student@example.com', 1, 'Emily', 'D.', 'Clark', 'hashed_password_124', 4),
+('student_daniel', 'daniel.student@example.com', 1, 'Daniel', 'E.', 'Adams', 'hashed_password_125', 4),
+('student_olivia', 'olivia.student@example.com', 1, 'Olivia', 'F.', 'Brown', 'hashed_password_126', 4),
+('student_noah', 'noah.student@example.com', 1, 'Noah', 'G.', 'Moore', 'hashed_password_127', 4),
+('student_emma', 'emma.student@example.com', 1, 'Emma', 'H.', 'Taylor', 'hashed_password_128', 4),
+('student_liam', 'liam.student@example.com', 1, 'Liam', 'I.', 'White', 'hashed_password_129', 4),
+('student_sophia', 'sophia.student@example.com', 1, 'Sophia', 'J.', 'Harris', 'hashed_password_130', 4),
+('student_james', 'james.student@example.com', 1, 'James', 'K.', 'Martin', 'hashed_password_131', 4),
+('student_isabella', 'isabella.student@example.com', 1, 'Isabella', 'L.', 'Thomas', 'hashed_password_132', 4),
+('student_lucas', 'lucas.student@example.com', 1, 'Lucas', 'M.', 'Jackson', 'hashed_password_133', 4),
+('student_mia', 'mia.student@example.com', 1, 'Mia', 'N.', 'Lee', 'hashed_password_134', 4),
+('student_elijah', 'elijah.student@example.com', 1, 'Elijah', 'O.', 'Walker', 'hashed_password_135', 4),
+('student_ava', 'ava.student@example.com', 1, 'Ava', 'P.', 'Robinson', 'hashed_password_136', 4),
+('student_benjamin', 'benjamin.student@example.com', 1, 'Benjamin', 'Q.', 'Green', 'hashed_password_137', 4),
+('student_amelia', 'amelia.student@example.com', 1, 'Amelia', 'R.', 'Carter', 'hashed_password_138', 4),
+('student_ethan', 'ethan.student@example.com', 1, 'Ethan', 'S.', 'Hall', 'hashed_password_139', 4),
+('student_harper', 'harper.student@example.com', 1, 'Harper', 'T.', 'Wright', 'hashed_password_140', 4),
+('student_logan', 'logan.student@example.com', 1, 'Logan', 'U.', 'King', 'hashed_password_141', 4),
+('student_ella', 'ella.student@example.com', 1, 'Ella', 'V.', 'Lopez', 'hashed_password_142', 4),
+('student_mason', 'mason.student@example.com', 1, 'Mason', 'W.', 'Hill', 'hashed_password_143', 4),
+('student_scarlett', 'scarlett.student@example.com', 1, 'Scarlett', 'X.', 'Scott', 'hashed_password_144', 4),
+('student_oliver', 'oliver.student@example.com', 1, 'Oliver', 'Y.', 'Perez', 'hashed_password_145', 4),
+('student_sofia', 'sofia.student@example.com', 1, 'Sofia', 'Z.', 'Evans', 'hashed_password_146', 4),
+('student_jackson', 'jackson.student@example.com', 1, 'Jackson', 'A.', 'Diaz', 'hashed_password_147', 4),
+('student_victoria', 'victoria.student@example.com', 1, 'Victoria', 'B.', 'Collins', 'hashed_password_148', 4),
+('student_henry', 'henry.student@example.com', 1, 'Henry', 'C.', 'Baker', 'hashed_password_149', 4),
+('student_grace', 'grace.student@example.com', 1, 'Grace', 'D.', 'Kelly', 'hashed_password_150', 4),
+('student_aiden', 'aiden.student@example.com', 1, 'Aiden', 'E.', 'Turner', 'hashed_password_151', 4),
+('student_chloe', 'chloe.student@example.com', 1, 'Chloe', 'F.', 'Campbell', 'hashed_password_152', 4),
+('student_sebastian', 'sebastian.student@example.com', 1, 'Sebastian', 'G.', 'Wilson', 'hashed_password_153', 4),
+('student_luna', 'luna.student@example.com', 1, 'Luna', 'H.', 'Mitchell', 'hashed_password_154', 4),
+('student_jaxon', 'jaxon.student@example.com', 1, 'Jaxon', 'I.', 'Rivera', 'hashed_password_155', 4),
+('student_penelope', 'penelope.student@example.com', 1, 'Penelope', 'J.', 'Roberts', 'hashed_password_156', 4),
+('student_grayson', 'grayson.student@example.com', 1, 'Grayson', 'K.', 'Edwards', 'hashed_password_157', 4),
+('student_nora', 'nora.student@example.com', 1, 'Nora', 'L.', 'Morgan', 'hashed_password_158', 4),
+('student_levi', 'levi.student@example.com', 1, 'Levi', 'M.', 'Bennett', 'hashed_password_159', 4),
+('student_hazel', 'hazel.student@example.com', 1, 'Hazel', 'N.', 'Gray', 'hashed_password_160', 4);
+
+-- Insert Corresponding Student Profiles
+INSERT INTO student_profile (nuId, dob, major, minor, year, advisorId) VALUES
+(121, '2000-01-15', 'Computer Science', 'Mathematics', 2023, 41),
+(122, '2001-02-20', 'Mechanical Engineering', 'Physics', 2024, 42),
+(123, '2002-03-25', 'Electrical Engineering', 'Computer Science', 2025, 43),
+(124, '2000-04-10', 'Biology', 'Chemistry', 2023, 44),
+(125, '2001-05-18', 'Economics', 'Statistics', 2024, 45),
+(126, '2002-06-22', 'Physics', 'Mathematics', 2025, 46),
+(127, '2000-07-12', 'Sociology', 'Psychology', 2023, 47),
+(128, '2001-08-14', 'Political Science', 'History', 2024, 48),
+(129, '2002-09-30', 'Environmental Science', 'Geology', 2025, 49),
+(130, '2000-10-05', 'Art', 'Design', 2023, 50),
+(131, '2001-11-09', 'Law', 'Public Policy', 2024, 41),
+(132, '2002-12-21', 'Medicine', 'Biology', 2025, 42),
+(133, '2000-01-07', 'Nursing', 'Public Health', 2023, 43),
+(134, '2001-02-11', 'Engineering', 'Economics', 2024, 44),
+(135, '2002-03-15', 'Accounting', 'Finance', 2025, 45),
+(136, '2000-04-20', 'Marketing', 'Business', 2023, 46),
+(137, '2001-05-25', 'Agriculture', 'Botany', 2024, 47),
+(138, '2002-06-30', 'Astronomy', 'Physics', 2025, 48),
+(139, '2000-07-10', 'Information Technology', 'Mathematics', 2023, 49),
+(140, '2001-08-15', 'Sports Science', 'Biology', 2024, 50),
+(141, '2002-09-20', 'Veterinary Science', 'Zoology', 2025, 41),
+(142, '2000-10-25', 'Theater', 'Music', 2023, 42),
+(143, '2001-11-30', 'Philosophy', 'Linguistics', 2024, 43),
+(144, '2002-12-12', 'Education', 'History', 2025, 44),
+(145, '2000-01-05', 'Business Administration', 'Economics', 2023, 45),
+(146, '2001-02-18', 'Computer Science', 'Physics', 2024, 46),
+(147, '2002-03-22', 'Mechanical Engineering', 'Mathematics', 2025, 47),
+(148, '2000-04-27', 'Electrical Engineering', 'Computer Science', 2023, 48),
+(149, '2001-05-09', 'Biology', 'Chemistry', 2024, 49),
+(150, '2002-06-14', 'Economics', 'Statistics', 2025, 50),
+(151, '2000-07-19', 'Physics', 'Mathematics', 2023, 41),
+(152, '2001-08-24', 'Sociology', 'Psychology', 2024, 42),
+(153, '2002-09-28', 'Political Science', 'History', 2025, 43),
+(154, '2000-10-03', 'Environmental Science', 'Geology', 2023, 44),
+(155, '2001-11-08', 'Art', 'Design', 2024, 45),
+(156, '2002-12-19', 'Law', 'Public Policy', 2025, 46),
+(157, '2000-01-12', 'Medicine', 'Biology', 2023, 47),
+(158, '2001-02-28', 'Nursing', 'Public Health', 2024, 48),
+(159, '2002-03-16', 'Engineering', 'Economics', 2025, 49),
+(160, '2000-04-25', 'Accounting', 'Finance', 2023, 50);
+
+
+INSERT INTO student_courses (nuId, courseId) VALUES
+(121, 1), (121, 2), (121, 3), (121, 4), (121, 5),
+(122, 6), (122, 7), (122, 8), (122, 9), (122, 10),
+(123, 11), (123, 12), (123, 13), (123, 14), (123, 15),
+(124, 16), (124, 17), (124, 18), (124, 19), (124, 20),
+(125, 21), (125, 22), (125, 23), (125, 24), (125, 25),
+(126, 26), (126, 27), (126, 28), (126, 29), (126, 30),
+(127, 31), (127, 32), (127, 33), (127, 34), (127, 35),
+(128, 36), (128, 37), (128, 38), (128, 39), (128, 40),
+(129, 41), (129, 42), (129, 43), (129, 44), (129, 45),
+(130, 46), (130, 47), (130, 48), (130, 44), (130, 5),
+(131, 1), (131, 2), (131, 3), (131, 4), (131, 5),
+(132, 6), (132, 7), (132, 8), (132, 9), (132, 10),
+(133, 11), (133, 12), (133, 13), (133, 14), (133, 15),
+(134, 16), (134, 17), (134, 18), (134, 19), (134, 20),
+(135, 21), (135, 22), (135, 23), (135, 24), (135, 25),
+(136, 26), (136, 27), (136, 28), (136, 29), (136, 30),
+(137, 31), (137, 32), (137, 33), (137, 34), (137, 35),
+(138, 36), (138, 37), (138, 38), (138, 39), (138, 40),
+(139, 41), (139, 42), (139, 43), (139, 44), (139, 45),
+(140, 46), (140, 47), (140, 48), (140, 4), (140, 5);
+
+
+INSERT INTO student_skills (nuId, skillId) VALUES
+(121, 1), (121, 2), (121, 3), (121, 4), (121, 5),
+(122, 6), (122, 7), (122, 8), (122, 9), (122, 10),
+(123, 11), (123, 12), (123, 13), (123, 14), (123, 15),
+(124, 16), (124, 17), (124, 18), (124, 19), (124, 20),
+(125, 21), (125, 22), (125, 23), (125, 24), (125, 25),
+(126, 26), (126, 27), (126, 28), (126, 29), (126, 30),
+(127, 31), (127, 32), (127, 33), (127, 34), (127, 35),
+(128, 36), (128, 37), (128, 38), (128, 39), (128, 40),
+(129, 41), (129, 42), (129, 43), (129, 44), (129, 45),
+(130, 46), (130, 47), (130, 48), (130, 49), (130, 5),
+(131, 1), (131, 2), (131, 3), (131, 4), (131, 5),
+(132, 6), (132, 7), (132, 8), (132, 9), (132, 10),
+(133, 11), (133, 12), (133, 13), (133, 14), (133, 15),
+(134, 16), (134, 17), (134, 18), (134, 19), (134, 20),
+(135, 21), (135, 22), (135, 23), (135, 24), (135, 25),
+(136, 26), (136, 27), (136, 28), (136, 29), (136, 30),
+(137, 31), (137, 32), (137, 33), (137, 34), (137, 35),
+(138, 36), (138, 37), (138, 38), (138, 39), (138, 40),
+(139, 41), (139, 42), (139, 43), (139, 44), (139, 45),
+(140, 46), (140, 47), (140, 48), (140, 49), (140, 5);
+
+INSERT INTO student_badges (nuId, badgeId) VALUES
+(121, 1), (121, 2), (121, 3), (121, 4), (121, 5),
+(121, 6), (122, 7), (122, 8), (122, 9), (122, 10),
+(122, 11), (123, 12), (123, 13), (123, 14), (123, 15),
+(124, 16), (124, 17), (124, 18), (124, 19), (124, 20),
+(121, 21), (125, 22), (125, 23), (125, 24), (125, 25),
+(126, 26), (126, 27), (121, 28), (126, 29), (126, 30),
+(127, 31), (127, 32), (127, 33), (127, 34), (127, 35),
+(152, 36), (128, 37), (128, 38), (128, 39), (128, 40),
+(129, 41), (129, 42), (121, 43), (129, 44), (129, 45),
+(130, 46), (130, 47), (130, 48), (130, 49), (130, 50),
+(131, 1), (131, 2), (131, 3), (131, 4), (131, 5),
+(132, 6), (132, 7), (132, 8), (132, 9), (132, 10),
+(155, 11), (133, 12), (133, 13), (133, 14), (133, 15),
+(134, 16), (134, 17), (134, 18), (134, 19), (134, 20),
+(158, 21), (130, 22), (135, 23), (135, 24), (135, 25),
+(136, 26), (136, 27), (136, 28), (136, 29), (136, 30),
+(137, 31), (137, 32), (137, 33), (137, 34), (137, 35),
+(159, 36), (131, 37), (138, 38), (138, 39), (138, 40),
+(139, 41), (139, 42), (139, 43), (139, 44), (139, 45),
+(140, 46), (145, 47), (140, 48), (140, 49), (140, 50);
+
+INSERT INTO student_projects (nuId, projectId) VALUES
+(121, 1), (121, 2), (121, 3), (121, 4), (121, 5),
+(121, 6), (122, 7), (122, 8), (122, 9), (122, 10),
+(122, 11), (123, 12), (123, 13), (123, 14), (123, 15),
+(124, 16), (124, 17), (124, 18), (124, 19), (124, 20),
+(121, 21), (125, 22), (125, 23), (125, 24), (125, 25),
+(126, 26), (126, 27), (121, 28), (126, 29), (126, 30),
+(127, 31), (127, 32), (127, 33), (127, 34), (127, 35),
+(152, 36), (128, 37), (128, 38), (128, 39), (128, 40),
+(129, 41), (129, 42), (121, 43), (129, 44), (129, 45),
+(130, 46), (130, 47), (130, 48), (130, 49), (130, 50),
+(131, 1), (131, 2), (131, 3), (131, 4), (131, 5),
+(132, 6), (132, 7), (132, 8), (132, 9), (132, 10),
+(155, 11), (133, 12), (133, 13), (133, 14), (133, 15),
+(134, 16), (134, 17), (134, 18), (134, 19), (134, 20),
+(158, 21), (130, 22), (135, 23), (135, 24), (135, 25),
+(136, 26), (136, 27), (136, 28), (136, 29), (136, 30),
+(137, 31), (137, 32), (137, 33), (137, 34), (137, 35),
+(159, 36), (131, 37), (138, 38), (138, 39), (138, 40),
+(139, 41), (139, 42), (139, 43), (139, 44), (139, 45),
+(140, 46), (145, 47), (140, 48), (140, 49), (140, 50);
+
+INSERT INTO student_certifications (nuId, certificationId) VALUES
+(121, 1), (121, 2), (121, 3), (121, 4), (121, 5),
+(122, 6), (122, 7), (122, 8), (122, 9), (122, 10),
+(123, 11), (123, 12), (123, 13), (123, 14), (123, 15),
+(124, 16), (124, 17), (124, 18), (124, 19), (124, 20),
+(125, 21), (125, 22), (125, 23), (125, 24), (125, 25),
+(126, 26), (126, 27), (126, 28), (126, 29), (126, 30),
+(127, 31), (127, 32), (127, 33), (127, 34), (127, 35),
+(128, 36), (128, 37), (128, 38), (128, 39), (128, 40),
+(129, 41), (129, 42), (129, 43), (129, 44), (129, 45),
+(130, 46), (130, 47), (130, 48), (130, 49), (130, 50),
+(131, 1), (131, 2), (131, 3), (131, 4), (131, 5),
+(132, 6), (132, 7), (132, 8), (132, 9), (132, 10),
+(133, 11), (133, 12), (133, 13), (133, 14), (133, 15),
+(134, 16), (134, 17), (134, 18), (134, 19), (134, 20),
+(135, 21), (135, 22), (135, 23), (135, 24), (135, 25),
+(136, 26), (136, 27), (136, 28), (136, 29), (136, 30),
+(137, 31), (137, 32), (137, 33), (137, 34), (137, 35),
+(138, 36), (138, 37), (138, 38), (138, 39), (138, 40),
+(139, 41), (139, 42), (139, 43), (139, 44), (139, 45),
+(140, 46), (140, 47), (140, 48), (140, 49), (140, 50);
+
+
+-- Job Posting Table Creation
+CREATE TABLE IF NOT EXISTS job_posting
+(
+    jobId          INT AUTO_INCREMENT PRIMARY KEY,
+    position       VARCHAR(100),
+    description    TEXT,
+    createdAt      DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt      DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    pay            DECIMAL(10, 2),
+    timePeriod     VARCHAR(255),
+    positionType   VARCHAR(50), -- Intern, coop, full-time
+    employmentType VARCHAR(50), -- Full-time, Part-time
+    workLocation   VARCHAR(50), -- Remote, On-site, Hybrid
+    employerId     INT,
+    isActive       BOOL DEFAULT 1,
+    FOREIGN KEY (employerId) REFERENCES employer_profile (employerId)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- Insert Statements for job_posting
+INSERT INTO job_posting (position, description, createdAt, updatedAt, pay, positionType, employmentType, workLocation, employerId) VALUES
+('Software Engineer Intern', 'Internship for software development projects.', NOW(), NOW(), 25000.00, 'Intern', 'Full-time', 'Remote', 81),
+('Data Analyst Intern', 'Internship for data analysis and visualization.', NOW(), NOW(), 20000.00,  'Intern', 'Full-time', 'Remote', 82),
+('Marketing Specialist', 'Full-time position for digital marketing.', NOW(), NOW(), 40000.00, 'Permanent', 'Full-time', 'On-site', 83),
+('Project Manager', 'Managing large-scale IT projects.', NOW(), NOW(), 60000.00, 'Permanent', 'Full-time', 'Hybrid', 84),
+('UX Designer', 'Designing user-friendly interfaces.', NOW(), NOW(), 45000.00, 'Permanent', 'Full-time', 'On-site', 85),
+('Cybersecurity Analyst', 'Ensure security of IT systems.', NOW(), NOW(), 55000.00, 'Permanent', 'Full-time', 'Hybrid', 86),
+('Cloud Engineer', 'Develop cloud-based solutions.', NOW(), NOW(), 70000.00, 'Permanent', 'Full-time', 'On-site', 87),
+('AI Researcher', 'Research in AI and ML projects.', NOW(), NOW(), 75000.00, 'Permanent', 'Full-time', 'Remote', 88),
+('Backend Developer', 'Develop backend systems for web apps.', NOW(), NOW(), 65000.00, 'Permanent', 'Full-time', 'On-site', 89),
+('Front-End Developer', 'Develop user interfaces for web apps.', NOW(), NOW(), 60000.00, 'Permanent', 'Full-time', 'Hybrid', 90),
+('Mobile App Developer', 'Develop mobile applications for iOS/Android.', NOW(), NOW(), 65000.00, 'Permanent', 'Full-time', 'On-site', 91),
+('DevOps Engineer', 'Maintain CI/CD pipelines.', NOW(), NOW(), 75000.00, 'Permanent', 'Full-time', 'Hybrid', 92),
+('IT Support Engineer', 'Provide IT support to clients.', NOW(), NOW(), 40000.00, 'Permanent', 'Full-time', 'On-site', 93),
+('Product Manager', 'Manage product development lifecycle.', NOW(), NOW(), 80000.00, 'Permanent', 'Full-time', 'Remote', 94),
+('Game Developer', 'Develop engaging video games.', NOW(), NOW(), 70000.00, 'Permanent', 'Full-time', 'Hybrid', 95),
+('Blockchain Developer', 'Develop blockchain-based solutions.', NOW(), NOW(), 85000.00, 'Permanent', 'Full-time', 'Remote', 96),
+('Network Engineer', 'Manage and optimize company networks.', NOW(), NOW(), 60000.00, 'Permanent', 'Full-time', 'Hybrid', 97),
+('Data Scientist', 'Analyze and process large datasets.', NOW(), NOW(), 90000.00, 'Permanent', 'Full-time', 'Remote', 98),
+('Technical Writer', 'Create documentation for software.', NOW(), NOW(), 45000.00, 'Permanent', 'Full-time', 'On-site', 99),
+('QA Engineer', 'Ensure software quality through testing.', NOW(), NOW(), 55000.00, 'Permanent', 'Full-time', 'Hybrid', 100),
+('Business Analyst', 'Analyze business processes and suggest improvements.', NOW(), NOW(), 70000.00, 'Permanent', 'Full-time', 'Remote', 101),
+('Research Scientist', 'Perform research in cutting-edge tech fields.', NOW(), NOW(), 85000.00, 'Permanent', 'Full-time', 'Hybrid', 102),
+('System Architect', 'Design and implement system architectures.', NOW(), NOW(), 95000.00, 'Permanent', 'Full-time', 'On-site', 103),
+('HR Manager', 'Oversee recruitment and employee management.', NOW(), NOW(), 60000.00, 'Permanent', 'Full-time', 'On-site', 104),
+('Digital Marketing Manager', 'Plan and execute digital marketing strategies.', NOW(), NOW(), 65000.00, 'Permanent', 'Full-time', 'Remote', 105),
+('Software Tester', 'Develop and execute software test plans.', NOW(), NOW(), 50000.00, 'Permanent', 'Full-time', 'On-site', 106),
+('Full-Stack Developer', 'Develop full-stack web applications.', NOW(), NOW(), 80000.00, 'Permanent', 'Full-time', 'Remote', 107),
+('Database Administrator', 'Manage and maintain company databases.', NOW(), NOW(), 75000.00, 'Permanent', 'Full-time', 'Hybrid', 108),
+('UI/UX Specialist', 'Enhance user experience through design.', NOW(), NOW(), 70000.00, 'Permanent', 'Full-time', 'On-site', 109),
+('Cloud Security Engineer', 'Ensure security of cloud systems.', NOW(), NOW(), 85000.00, 'Permanent', 'Full-time', 'Hybrid', 110),
+('AI Developer', 'Build AI-driven applications.', NOW(), NOW(), 95000.00, 'Permanent', 'Full-time', 'Remote', 111),
+('Python Developer', 'Develop applications using Python.', NOW(), NOW(), 65000.00, 'Permanent', 'Full-time', 'On-site', 112),
+('Machine Learning Engineer', 'Develop and deploy ML models.', NOW(), NOW(), 95000.00, 'Permanent', 'Full-time', 'Hybrid', 113),
+('Customer Support Specialist', 'Assist customers with technical issues.', NOW(), NOW(), 40000.00, 'Permanent', 'Full-time', 'On-site', 114),
+('Sales Manager', 'Manage and grow sales teams.', NOW(), NOW(), 75000.00, 'Permanent', 'Full-time', 'Remote', 115),
+('Social Media Manager', 'Oversee social media accounts and engagement.', NOW(), NOW(), 55000.00, 'Permanent', 'Full-time', 'On-site', 116),
+('VR Developer', 'Develop virtual reality applications.', NOW(), NOW(), 80000.00, 'Permanent', 'Full-time', 'Hybrid', 117),
+('Robotics Engineer', 'Design and develop robotic systems.', NOW(), NOW(), 90000.00, 'Permanent', 'Full-time', 'Remote', 118),
+('Graphic Designer', 'Create graphic designs for clients.', NOW(), NOW(), 45000.00, 'Permanent', 'Full-time', 'On-site', 119),
+('Business Consultant', 'Provide strategic business advice.', NOW(), NOW(), 85000.00, 'Permanent', 'Full-time', 'Remote', 120);
+
+
+INSERT INTO job_posting_skills (jobId, skillId) VALUES
+(1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
+(2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+(3, 11), (3, 12), (3, 13), (3, 14), (3, 15),
+(4, 16), (4, 17), (4, 18), (4, 19), (4, 20),
+(5, 21), (5, 22), (5, 23), (5, 24), (5, 25),
+(6, 26), (6, 27), (6, 28), (6, 29), (6, 30),
+(7, 31), (7, 32), (7, 33), (7, 34), (7, 35),
+(8, 36), (8, 37), (8, 38), (8, 39), (8, 40),
+(9, 41), (9, 42), (9, 43), (9, 44), (9, 45),
+(10, 46), (10, 47), (10, 48), (10, 49), (10, 5),
+(11, 1), (11, 2), (11, 3), (11, 4), (11, 5),
+(12, 6), (12, 7), (12, 8), (12, 9), (12, 10),
+(13, 11), (13, 12), (13, 13), (13, 14), (13, 15),
+(14, 16), (14, 17), (14, 18), (14, 19), (14, 20),
+(15, 21), (15, 22), (15, 23), (15, 24), (15, 25),
+(16, 26), (16, 27), (16, 28), (16, 29), (16, 30),
+(17, 31), (17, 32), (17, 33), (17, 34), (17, 35),
+(18, 36), (18, 37), (18, 38), (18, 39), (18, 40),
+(19, 41), (19, 42), (19, 43), (19, 44), (19, 45),
+(20, 46), (20, 47), (20, 48), (20, 49), (20, 5);
+
+
+INSERT INTO job_applications (jobId, nuId) VALUES
+(1, 121), (1, 122), (1, 123), (1, 124), (1, 125),
+(2, 126), (2, 127), (2, 128), (2, 129), (2, 130),
+(3, 131), (3, 132), (3, 133), (3, 134), (3, 135),
+(4, 136), (4, 137), (4, 138), (4, 139), (4, 140),
+(5, 121), (5, 122), (5, 123), (5, 124), (5, 125),
+(6, 126), (6, 127), (6, 128), (6, 129), (6, 130),
+(7, 131), (7, 132), (7, 133), (7, 134), (7, 135),
+(8, 136), (8, 137), (8, 138), (8, 139), (8, 140),
+(9, 121), (9, 122), (9, 123), (9, 124), (9, 125),
+(10, 126), (10, 127), (10, 128), (10, 129), (10, 130),
+(11, 131), (11, 132), (11, 133), (11, 134), (11, 135),
+(12, 136), (12, 137), (12, 138), (12, 139), (12, 140),
+(13, 121), (13, 122), (13, 123), (13, 124), (13, 125),
+(14, 126), (14, 127), (14, 128), (14, 129), (14, 130),
+(15, 131), (15, 132), (15, 133), (15, 134), (15, 135),
+(16, 136), (16, 137), (16, 138), (16, 139), (16, 140),
+(17, 121), (17, 122), (17, 123), (17, 124), (17, 125),
+(18, 126), (18, 127), (18, 128), (18, 129), (18, 130),
+(19, 131), (19, 132), (19, 133), (19, 134), (19, 135),
+(20, 136), (20, 137), (20, 138), (20, 139), (20, 140);
+
+
+INSERT INTO activity_log (alertId, createdAt, description, adminId, metricId) VALUES
+(1, NOW(), 'CPU usage exceeded 90%.', 1, 1),
+(2, NOW(), 'Database connection error detected.', 2, 2),
+(3, NOW(), 'Memory usage threshold breached.', 3, 3),
+(4, NOW(), 'Unexpected server reboot occurred.', 4, 4),
+(5, NOW(), 'Failed login attempts exceeded the limit.', 5, 5),
+(6, NOW(), 'Network latency is above normal.', 6, 6),
+(7, NOW(), 'Backup job failed to complete.', 7, 7),
+(8, NOW(), 'Low disk space on Server A.', 8, 8),
+(9, NOW(), 'Unauthorized access attempt detected.', 9, 9),
+(10, NOW(), 'Application experienced downtime.', 10, 10),
+(11, NOW(), 'High API response time recorded.', 11, 11),
+(12, NOW(), 'SSL certificate expiration warning.', 12, 12),
+(13, NOW(), 'Server F is unreachable.', 13, 13),
+(14, NOW(), 'Email delivery failures logged.', 14, 14),
+(15, NOW(), 'Critical vulnerability in app identified.', 15, 15),
+(16, NOW(), 'Traffic spike detected in the system.', 16, 16),
+(17, NOW(), 'Query timeout errors reported.', 17, 17),
+(18, NOW(), 'Power outage in data center.', 18, 18),
+(19, NOW(), 'High error rate detected in app logs.', 19, 19),
+(20, NOW(), 'DNS resolution failures.', 20, 20),
+(21, NOW(), 'Disk IO reached critical levels.', 21, 21),
+(22, NOW(), 'Backup completed with warnings.', 22, 22),
+(23, NOW(), 'High temperature in server racks.', 23, 23),
+(24, NOW(), 'Unexpected application crash occurred.', 24, 24),
+(25, NOW(), 'Firewall misconfiguration detected.', 25, 25),
+(26, NOW(), 'Swap usage reached high levels.', 26, 26),
+(27, NOW(), 'Low throughput in network traffic.', 27, 27),
+(28, NOW(), 'API key rotation required soon.', 28, 28),
+(29, NOW(), 'High database query rate detected.', 29, 29),
+(30, NOW(), 'File system corruption on Server C.', 30, 30),
+(31, NOW(), 'Malware infection reported.', 31, 31),
+(32, NOW(), 'Patch deployment failed.', 32, 32),
+(33, NOW(), 'Unexpected configuration changes detected.', 33, 33),
+(34, NOW(), 'Critical process terminated unexpectedly.', 34, 34),
+(35, NOW(), 'Server health degraded over time.', 35, 35),
+(36, NOW(), 'Replication failures in the database.', 36, 36),
+(37, NOW(), 'Unexpected traffic patterns detected.', 37, 37),
+(38, NOW(), 'Vulnerability found in web application.', 38, 38),
+(39, NOW(), 'Payment gateway timeout reported.', 39, 39),
+(40, NOW(), 'Unauthorized software installation detected.', 40, 40),
+(41, NOW(), 'High outbound traffic detected.', 1, 41),
+(42, NOW(), 'High memory usage warning.', 4, 42),
+(43, NOW(), 'Abnormal login patterns observed.', 4, 43),
+(44, NOW(), 'Database connection pool exhausted.', 4, 44),
+(45, NOW(), 'Patch required for critical vulnerability.', 5, 45),
+(46, NOW(), 'API key misuse detected.', 6, 46),
+(47, NOW(), 'Unauthorized file access detected.', 7, 47),
+(48, NOW(), 'Suspicious email traffic.', 4, 48),
+(49, NOW(), 'Firewall rules updated successfully.', 9, 49),
+(50, NOW(), 'Disk cleanup process initiated.', 5, 50);
+
+
+INSERT INTO student_reports (reportId, nuId, advisorId, notes, status) VALUES
+(1, 121, 41, 'Excellent progress in coursework.', 1),
+(2, 122, 42, 'Needs improvement in project submissions.', 1),
+(3, 123, 43, 'Struggling with time management.', 0),
+(4, 124, 44, 'Exceptional performance in exams.', 1),
+(5, 125, 45, 'Recommended for additional tutoring.', 1),
+(6, 126, 46, 'Shows strong leadership skills.', 1),
+(7, 127, 47, 'Frequent absenteeism noted.', 0),
+(8, 128, 48, 'Strong analytical skills displayed.', 1),
+(9, 129, 49, 'Struggling with technical courses.', 0),
+(10, 130, 50, 'Outstanding performance in group projects.', 1),
+(11, 131, 41, 'Needs to focus on practical assignments.', 1),
+(12, 132, 42, 'Strong programming skills observed.', 1),
+(13, 133, 43, 'Challenges with understanding theoretical concepts.', 0),
+(14, 134, 44, 'Shows great potential for research.', 1),
+(15, 135, 45, 'Needs to participate more in class discussions.', 1),
+(16, 136, 46, 'Excellent coding and debugging abilities.', 1),
+(17, 137, 47, 'Poor communication with peers.', 0),
+(18, 138, 48, 'Consistently meets deadlines.', 1),
+(19, 139, 49, 'Requires additional help with assignments.', 1),
+(20, 140, 50, 'Active participation in extracurricular activities.', 1),
+(21, 121, 41, 'Impressive technical report writing skills.', 1),
+(22, 122, 42, 'Needs improvement in analytical reasoning.', 0),
+(23, 123, 43, 'Exceptional teamwork abilities.', 1),
+(24, 124, 44, 'Requires more attention to detail.', 1),
+(25, 125, 45, 'Great progress observed over the semester.', 1),
+(26, 126, 46, 'Demonstrates innovative problem-solving skills.', 1),
+(27, 127, 47, 'Struggling with course deadlines.', 0),
+(28, 128, 48, 'Recommended for advanced level courses.', 1),
+(29, 129, 49, 'Needs to improve class attendance.', 0),
+(30, 130, 50, 'Shows great enthusiasm in learning.', 1),
+(31, 131, 41, 'Excellent presentation skills.', 1),
+(32, 132, 42, 'Lacks consistency in performance.', 0),
+(33, 133, 43, 'Demonstrates potential for leadership roles.', 1),
+(34, 134, 44, 'Strong grasp of complex concepts.', 1),
+(35, 135, 45, 'Needs to improve writing skills.', 1),
+(36, 136, 46, 'Highly recommended for internships.', 1),
+(37, 137, 47, 'Needs guidance on prioritizing tasks.', 0),
+(38, 138, 48, 'Outstanding performance in coding challenges.', 1),
+(39, 139, 49, 'Improvement in grades observed recently.', 1),
+(40, 140, 50, 'Engages actively in research activities.', 1),
+(41, 121, 41, 'Displays great aptitude for critical thinking.', 1),
+(42, 122, 42, 'Struggles with maintaining deadlines.', 0),
+(43, 123, 43, 'Excellent collaboration in team projects.', 1),
+(44, 124, 44, 'Requires additional training in statistics.', 1),
+(45, 125, 45, 'Strong leadership skills noted.', 1),
+(46, 126, 46, 'Consistently performs above expectations.', 1),
+(47, 127, 47, 'Needs improvement in practical application.', 0),
+(48, 128, 48, 'Demonstrates creativity in problem-solving.', 1),
+(49, 129, 49, 'Frequent delays in submissions.', 0),
+(50, 130, 50, 'Highly motivated and self-driven.', 1);
+
+
+INSERT INTO personalities (description, personalityId, interests, softSkills, leadership, nuId) VALUES
+('Highly motivated and goal-oriented.', 1, 'Programming, Music', 'Time Management, Communication', 'Team Leader', 121),
+('Creative thinker with a passion for design.', 2, 'Graphic Design, Art', 'Problem Solving, Collaboration', 'Creative Leader', 122),
+('Analytical and detail-oriented.', 3, 'Data Analysis, Reading', 'Critical Thinking, Organization', 'None', 123),
+('Empathetic and supportive team player.', 4, 'Counseling, Volunteer Work', 'Empathy, Patience', 'Team Member', 124),
+('Dynamic and adaptable in challenging situations.', 5, 'Sports, Traveling', 'Adaptability, Leadership', 'Sports Captain', 125),
+('Innovative problem solver.', 6, 'Robotics, Technology', 'Creative Thinking, Decision Making', 'Project Manager', 126),
+('Calm under pressure and reliable.', 7, 'Gaming, Writing', 'Stress Management, Reliability', 'None', 127),
+('Strong leadership qualities.', 8, 'Public Speaking, Teaching', 'Confidence, Public Speaking', 'Class Representative', 128),
+('Highly disciplined and goal-driven.', 9, 'Fitness, Reading', 'Discipline, Focus', 'None', 129),
+('Great interpersonal and negotiation skills.', 10, 'Debating, Networking', 'Interpersonal Skills, Negotiation', 'Team Leader', 130),
+('Curious and passionate about learning.', 11, 'Research, Reading', 'Curiosity, Adaptability', 'Research Coordinator', 131),
+('Extremely organized and efficient.', 12, 'Planning, Event Management', 'Organization, Multi-tasking', 'Event Manager', 132),
+('Natural leader and motivator.', 13, 'Leadership Training, Sports', 'Motivation, Conflict Resolution', 'Sports Captain', 133),
+('Highly collaborative and supportive.', 14, 'Group Activities, Charity', 'Collaboration, Team Spirit', 'Volunteer Coordinator', 134),
+('Innovative and resourceful.', 15, 'Entrepreneurship, Tech Blogs', 'Resourcefulness, Strategic Thinking', 'Startup Founder', 135),
+('Detail-oriented and practical.', 16, 'Crafting, DIY Projects', 'Attention to Detail, Practicality', 'None', 136),
+('Visionary thinker with a creative approach.', 17, 'Photography, Design', 'Vision, Innovation', 'Creative Director', 137),
+('Logical and systematic.', 18, 'Chess, Mathematics', 'Logic, Systematic Thinking', 'None', 138),
+('Compassionate and empathetic.', 19, 'Community Service, Writing', 'Empathy, Communication', 'Community Leader', 139),
+('Highly innovative and curious.', 20, 'Robotics, AI', 'Curiosity, Innovation', 'Hackathon Winner', 140),
+('Adaptable and quick learner.', 21, 'Travel, Culture', 'Adaptability, Learning', 'None', 121),
+('Practical and efficient.', 22, 'Gardening, Science', 'Efficiency, Practicality', 'Team Leader', 122),
+('Resilient and hardworking.', 23, 'Running, Photography', 'Resilience, Work Ethic', 'Club Secretary', 123),
+('Outgoing and sociable.', 24, 'Parties, Event Planning', 'Sociability, Networking', 'Event Coordinator', 124),
+('Innovative with a focus on results.', 25, 'Coding, Puzzle Solving', 'Focus, Creativity', 'Project Coordinator', 125),
+('Highly curious and experimental.', 26, 'DIY Projects, Science', 'Experimentation, Learning', 'None', 126),
+('Organized and methodical.', 27, 'Journaling, Organization', 'Planning, Organization', 'None', 127),
+('Ambitious and driven.', 28, 'Entrepreneurship, Investing', 'Ambition, Strategy', 'Startup Leader', 128),
+('Social and engaging personality.', 29, 'Public Speaking, Debates', 'Confidence, Communication', 'Club President', 129),
+('Detail-focused and precise.', 30, 'Architecture, Modeling', 'Precision, Creativity', 'None', 130),
+('Creative and imaginative.', 31, 'Painting, Writing', 'Creativity, Storytelling', 'Creative Head', 131),
+('Collaborative and cooperative.', 32, 'Team Sports, Networking', 'Teamwork, Collaboration', 'Sports Coordinator', 132),
+('Disciplined and self-motivated.', 33, 'Fitness, Productivity', 'Focus, Self-Motivation', 'None', 133),
+('Critical thinker with logical skills.', 34, 'Science, Philosophy', 'Critical Thinking, Analysis', 'None', 134),
+('Artistic and visually talented.', 35, 'Drawing, Graphic Design', 'Artistic Talent, Vision', 'Design Lead', 135),
+('Compassionate and warm-hearted.', 36, 'Charity Work, Teaching', 'Empathy, Patience', 'Community Helper', 136),
+('Innovative and problem-focused.', 37, 'Technology, Engineering', 'Problem Solving, Creativity', 'Team Leader', 137),
+('Strategic thinker with long-term vision.', 38, 'Chess, Strategy Games', 'Strategic Planning, Logic', 'Strategy Head', 138),
+('Empathetic and encouraging.', 39, 'Counseling, Writing', 'Empathy, Encouragement', 'None', 139),
+('Bold and confident personality.', 40, 'Acting, Public Speaking', 'Confidence, Leadership', 'Drama Captain', 140),
+('Humble and hardworking.', 41, 'Gardening, Writing', 'Humility, Dedication', 'None', 121),
+('Inventive and creative.', 42, 'Inventions, DIY', 'Creativity, Innovation', 'Innovation Leader', 122),
+('Independent and self-reliant.', 43, 'Solo Travel, Writing', 'Independence, Planning', 'None', 123),
+('Energetic and positive.', 44, 'Motivational Speaking, Sports', 'Positivity, Energy', 'Sports Captain', 124),
+('Goal-oriented and productive.', 45, 'Project Management, Time Management', 'Productivity, Focus', 'Team Coordinator', 125),
+('Versatile and adaptive.', 46, 'Multiple Hobbies, Learning', 'Adaptability, Versatility', 'None', 126),
+('Bold risk-taker.', 47, 'Adventure Sports, Entrepreneurship', 'Courage, Decision-Making', 'None', 127),
+('Reliable and trustworthy.', 48, 'Writing, Planning', 'Reliability, Honesty', 'None', 128),
+('Leader and motivator.', 49, 'Leadership, Teamwork', 'Leadership, Communication', 'Class Representative', 129),
+('Innovative strategist.', 50, 'Research, Development', 'Strategy, Analysis', 'Research Leader', 130);

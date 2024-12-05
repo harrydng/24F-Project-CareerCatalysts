@@ -4,7 +4,7 @@ from flask import jsonify
 from flask import make_response
 from flask import current_app
 from backend.db_connection import db
-#from backend.ml_models.model01 import predict
+
 
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
@@ -354,18 +354,18 @@ def get_job_applicants(jobId):
 
     current_app.logger.info('GET /student_profile/worked/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM user
+    cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+                      FROM users
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN job_applications ON job_application.nuId = student_profile.nuId
                       JOIN job_posting ON job_posting.jobId = job_applications.jobId
-                      WHERE job_applications.jobId = {jobId}''')
+                      WHERE job_applications.jobId = %s''', (jobId,))
     
-    theData = cursor.fetchall()
+#     theData = cursor.fetchall()
     
-    the_response = make_response(jsonify(theData))
-    the_response.status_code = 200
-    return the_response
+#     the_response = make_response(jsonify(theData))
+#     the_response.status_code = 200
+#     return the_response
 
 #------------------------------------------------------------
 # Get all the qualifiications the student with the given nuId has

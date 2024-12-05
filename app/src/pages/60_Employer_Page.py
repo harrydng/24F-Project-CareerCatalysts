@@ -17,14 +17,14 @@ st.write('### What would you like to do today?')
 if st.button('Search For Students', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/search_students.py')
+  st.switch_page('pages/63_Search_Students.py')
 
 if st.button('Your Job Postings', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/job_postings.py')
+  st.switch_page('pages/61_Job_Postings.py')
 
 if st.button('The Student Leaderboard', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/leaderboard.py')
+  st.switch_page('pages/62_Leaderboard.py')

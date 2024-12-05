@@ -20,16 +20,18 @@ def get_employer_id():
     companyName = the_data.get('company_name')
     
     query = f'''
-    SELECT e.employerId
+    SELECT ep.employerId
     FROM employer_profile ep JOIN user u ON ep.employerId = u.userId
-    WHERE u.firstName = {companyName}
+    WHERE u.firstName = %s
     '''
     
     current_app.logger.info(f'GET /employerId query={query}')
 
     
     cursor = db.get_db().cursor()
-    cursor.execute(query)
-    theData = cursor.fetchAll()
+    cursor.execute(query, (companyName,))
+    theData = cursor.fetchall()
     
-    response = make_response 
+    response = make_response(jsonify(theData))
+    response.status_code = 200
+    return response
