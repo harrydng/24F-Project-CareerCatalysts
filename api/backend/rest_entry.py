@@ -4,11 +4,11 @@ from backend.db_connection import db
 
 from backend.students.students_routes import students
 from backend.job_postings.job_postings_routes import job_postings
-# from backend.skills.skills_routes import skills
 from backend.employers.employers_routes import employers
 from backend.student.job_rec_route import job_recommendations
 from backend.student.skill_rec_route import skills
 from backend.advisors.advisor_routes import advisors
+from backend.systemAdmin.websitePerformance import system
 
 import os
 from dotenv import load_dotenv
@@ -51,6 +51,8 @@ def create_app():
     # app.register_blueprint(job_recommendations, url_prefix = 'jr')
     app.register_blueprint(advisors, url_prefix='/a')
     app.register_blueprint(employers, url_prefix='/e')
+    app.register_blueprint(system, url_prefix='/system')
+
 
     # Don't forget to return the app object
     return app
