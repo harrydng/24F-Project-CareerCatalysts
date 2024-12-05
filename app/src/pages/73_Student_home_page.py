@@ -39,4 +39,4 @@ if st.button("View My Profile",
 if st.button("View Leaderboard", 
              type='primary',
              use_container_width=True):
-    st.switch_page("pages/leaderboard.py")
+    st.switch_page("pages/62_Leaderboard.py")

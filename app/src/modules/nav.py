@@ -16,15 +16,15 @@ def AboutPageNav():
 ### --------------------- Employer Page ---------------------
 def SearchForCandidates():
     st.sidebar.page_link(
-        "pages/search_students.py", label="Search For Students", icon="👤")
+        "pages/63_Search_Students.py", label="Search For Students", icon="👤")
 
 def JobPostings():
     st.sidebar.page_link(
-        "pages/job_postings.py", label="My Job Postings", icon="🏦")
+        "pages/61_Job_Postings.py", label="My Job Postings", icon="🏦")
 
 def ViewLeaderboard():
     st.sidebar.page_link(
-        "pages/leaderboard.py", label="Student Leaderboard", icon="🚨")
+        "pages/62_Leaderboard.py", label="Student Leaderboard", icon="🚨")
     
 
 ### --------------------- Student Page ---------------------
@@ -34,7 +34,7 @@ def ShowSkills():
 
 def ViewLeaderboard():
     st.sidebar.page_link(
-        "pages/leaderboard.py", label="Student Leaderboard", icon="🏆")
+        "pages/62_Leaderboard.py", label="Student Leaderboard", icon="🏆")
 
 def AddSkills():
     st.sidebar.page_link(
