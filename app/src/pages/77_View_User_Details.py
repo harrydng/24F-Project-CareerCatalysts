@@ -72,8 +72,3 @@ if st.button("Fetch Profile"):
         fetch_student_profile(student_id.strip())
     else:
         st.warning("Please enter a valid Student ID.")
-
-# Button to navigate back to the home page
-if st.button("Go Back to Home"):
-    st.experimental_set_query_params()
-    st.switch_page("Student_Home_Page")

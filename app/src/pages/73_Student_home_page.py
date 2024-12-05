@@ -12,7 +12,7 @@ st.title(f"Welcome Student, {st.session_state['first_name']}.")
 st.write("### What would you like to do today?")
 
 # Button to fetch and view skills
-if st.button("View My Skills", 
+if st.button("View Skills", 
              type='primary',
              use_container_width=True):
     st.switch_page("pages/74_View_skills.py")
@@ -27,10 +27,10 @@ if st.button("Add Skills",
 if st.button("View Job Recommendations", 
              type='primary',
              use_container_width=True):
-    st.switch_page("View_Job_Recommendations")
+    st.switch_page("pages/78_Job_recommendations.py")
 
 # Button to view personal details
-if st.button("View My Profile", 
+if st.button("View Profiles", 
              type='primary',
              use_container_width=True):
     st.switch_page("pages/77_View_User_Details.py")
