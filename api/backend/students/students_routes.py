@@ -30,7 +30,7 @@ def get_products():
             LEFT JOIN student_skills ss ON sp.nuId = ss.nuId
             LEFT JOIN student_courses sc ON sp.nuId = sc.nuId
         GROUP BY sp.nuId
-        ORDER BY 'Total Score' DESC, 'Total Skills' DESC, 'Total Courses' DESC
+        ORDER BY 'Total Score' DESC
         LIMIT {limit}
     '''
     current_app.logger.info(query)

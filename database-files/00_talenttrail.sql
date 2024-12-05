@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS talentTrail;
 CREATE DATABASE IF NOT EXISTS talentTrail;
 USE talentTrail;
 SHOW TABLES;
