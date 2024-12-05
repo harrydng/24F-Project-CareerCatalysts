@@ -12,7 +12,7 @@ employers = Blueprint('employers', __name__)
 
 #------------------------------------------------------------
 # GET the if of the employer based on the given name
-@employers.route('/employerId', method=['GET'])
+@employers.route('/employerId', methods=['GET'])
 def get_employer_id():
     the_data = request.json
     current_app.logger.info(the_data)

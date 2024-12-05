@@ -69,7 +69,8 @@ VALUES ('jdoe', 'jdoe@example.com', 1, 'John', 'Michael', 'Doe', 'hashed_passwor
        ('asmith', 'asmith@example.com', 1, 'Anna', NULL, 'Smith', 'hashed_password_2', 1),
        -- student
        ('Arnav619', 'arnavrathore619@gmail.com', 1, 'Arnav', NULL, 'Rathore', 'password', 2),
-       ('water_bottle', 'waterbottle@gmail.com', 1, 'Water', NULL, 'Bottle', 'password', 2);
+       ('water_bottle', 'waterbottle@gmail.com', 1, 'Water', NULL, 'Bottle', 'password', 2),
+       ('Sean123', 'sean123@gmail.com', 1, 'Sean', 'Narula', 'Isaac', 'password', 2);
 
 
 -- admin
@@ -101,6 +102,7 @@ FROM advisor_profile;
 -- 3) Student Profile Instances
 INSERT INTO student_profile (nuId, dob, major, minor, year, advisorId)
 VALUES (3, '2002-12-05', 'Computer Science', 'Mathematics', 2021, 1),
+       (5, '2003-07-10', 'Mech E', 'DS', 2025, 1),
        (4, '2003-01-02', 'Data Science', NULL, 2022, 2);
 
 
@@ -111,6 +113,7 @@ FROM student_profile;
 -- 4) student_skills instances
 INSERT INTO student_skills(nuid, skillId)
 VALUES (3, 1),
+       (5, 2),
        (4, 2);
 
 
@@ -146,6 +149,7 @@ SELECT * FROM employer_profile;
 
 INSERT INTO student_certifications(nuid, certificationid)
 VALUES (3, 1),
+       (5, 1),
        (4, 1);
 
 
@@ -174,6 +178,7 @@ FROM courses;
 
 INSERT INTO student_courses(nuId, courseId)
 VALUES (3, 1),
+       (5, 2),
        (4, 2);
 
 
@@ -245,6 +250,7 @@ FROM metrics;
 
 INSERT INTO student_reports(nuId, advisorId, notes, status)
 VALUES (3, 1, 'Great Student', 1),
+       (5, 1, NULL, 1),
        (4, 2, 'Good Student', 2);
 
 
@@ -257,6 +263,7 @@ FROM student_reports;
 
 INSERT INTO job_applications(jobId, nuId)
 VALUES (1, 3),
+       (1, 5),
        (2, 4);
 
 
@@ -267,6 +274,7 @@ FROM job_applications;
 -- 26) Student_profile_jobs Instances
 INSERT INTO student_projects(nuid, projectid)
 VALUES (3, 1),
+       (5, 1),
        (4, 2);
 
 
@@ -287,6 +295,7 @@ FROM job_posting_skills;
 -- 28 Student_Badges Instances
 INSERT INTO student_badges(nuid, badgeid)
 VALUES (3, 1),
+       (5, 1),
        (4, 2);
 
 

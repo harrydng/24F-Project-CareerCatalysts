@@ -4,12 +4,115 @@ from flask import jsonify
 from flask import make_response
 from flask import current_app
 from backend.db_connection import db
-from backend.ml_models.model01 import predict
+#from backend.ml_models.model01 import predict
 
 #------------------------------------------------------------
 # Create a new Blueprint object, which is a collection of 
 # routes.
 advisors = Blueprint('advisors', __name__)
+
+#------------------------------------------------------------
+# Get a all the advisor information of the advisor with the advisorId
+@advisors.route('/info/<advisorId>', methods=['GET'])
+def get_advisor_info(advisorId):
+
+    current_app.logger.info('GET /info/<advisorId> route')
+    cursor = db.get_db().cursor()
+    cursor.execute(f'''SELECT user.username, user.email, user.firstName, user.middleName, user.lastName
+                      FROM user
+                      JOIN advisor_profile ON advisor_profile.advisorId = user.userId
+                      WHERE advisor_profile.advisorId = {advisorId}''')
+    
+    theData = cursor.fetchall()
+    
+    the_response = make_response(jsonify(theData))
+    the_response.status_code = 200
+    return the_response
+
+#------------------------------------------------------------
+# Update username for advisor with specific advisorId
+@advisors.route('/updateUsername/<advisorId>', methods=['PUT'])
+
+def update_advisor_username():
+    current_app.logger.info('PUT /updateUsername/<advisorId>')
+    username_info = request.json
+    username = username_info['username']
+    userId = username_info['advisorId']
+
+    query = f'UPDATE student_reports SET username = {username} WHERE userId = {userId}'
+
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query)
+    db.get_db().commit()
+    return 'Username updated!'
+
+#------------------------------------------------------------
+# Update email for advisor with specific advisorId
+@advisors.route('/updateEmail/<advisorId>', methods=['PUT'])
+
+def update_advisor_email():
+    current_app.logger.info('PUT /updateEmail/<advisorId>')
+    email_info = request.json
+    email = email_info['email']
+    userId = email_info['advisorId']
+
+    query = f'UPDATE student_reports SET email = {email} WHERE userId = {userId}'
+
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query)
+    db.get_db().commit()
+    return 'Email updated!'
+
+#------------------------------------------------------------
+# Update name for advisor with specific advisorId
+@advisors.route('/updateFirstName/<advisorId>', methods=['PUT'])
+
+def update_advisor_firstName():
+    current_app.logger.info('PUT /updateName/<advisorId>')
+    name_info = request.json
+    firstName = name_info['firstName']
+    userId = name_info['advisorId']
+
+    query = f'UPDATE student_reports SET firstName = {firstName} WHERE userId = {userId}'
+
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query)
+    db.get_db().commit()
+    return 'Name updated!'
+
+#------------------------------------------------------------
+# Update name for advisor with specific advisorId
+@advisors.route('/updateMiddleName/<advisorId>', methods=['PUT'])
+
+def update_advisor_middleName():
+    current_app.logger.info('PUT /updateMiddleName/<advisorId>')
+    name_info = request.json
+    middleName = name_info['middleName']
+    userId = name_info['advisorId']
+
+    query = f'UPDATE student_reports SET firstName = {middleName} WHERE userId = {userId}'
+
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query)
+    db.get_db().commit()
+    return 'Name updated!'
+
+#------------------------------------------------------------
+# Update name for advisor with specific advisorId
+@advisors.route('/updateLastName/<advisorId>', methods=['PUT'])
+
+def update_advisor_lastName():
+    current_app.logger.info('PUT /updateLastName/<advisorId>')
+    name_info = request.json
+    lastName = name_info['lastName']
+    userId = name_info['advisorId']
+
+    query = f'UPDATE student_reports SET firstName = {lastName} WHERE userId = {userId}'
+
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query)
+    db.get_db().commit()
+    return 'Name updated!'
 
 #------------------------------------------------------------
 # Get a all students which the advisor with the given Id manages
@@ -18,12 +121,11 @@ def get_all_advised_student(advisorId):
 
     current_app.logger.info('GET /manages/<advisorId> route')
     cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM user
-                      JOIN advisor_profile ON advisor_profile.advisorId = user.userId
-                      JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN student_reports ON student_profile.nuId = student_reports.nuId
-                      WHERE advisor_profile.advisorId = {advisorId}''')
+    cursor.execute(f'''SELECT user.firstName, user.middleName, user.lastName, student_profile.nuId
+                       FROM user
+                       JOIN student_profile ON student_profile.nuId = user.userId
+                       JOIN advisor_profile ON advisor_profile.advisorId = student_profile.advisorId
+                       WHERE advisor_profile.advisorId = {advisorId}''')
     
     theData = cursor.fetchall()
     
@@ -57,11 +159,11 @@ def get_reports_notes(nuId):
 
     current_app.logger.info('GET /student_reports/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT student_reports.status, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+    cursor.execute('''SELECT student_reports.notes 
                       FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN student_reports ON student_profile.nuId = student_reports.nuId
-                      WHERE student_profile.nuId = %s''', (nuId,))
+                      WHERE student_profile.nuId = %s''', (nuId))
     
     theData = cursor.fetchall()
     
@@ -74,13 +176,13 @@ def get_reports_notes(nuId):
 @advisors.route('/student_reports/status/<nuId>', methods=['GET'])
 def get_reports_status(nuId):
 
-    current_app.logger.info('GET /student_reports/<nuId> route')
+    current_app.logger.info('GET /student_reports/status/<nuId> route')
     cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT student_reports.notes, user.firstName, user.middleName, user.lastName, student_profile.nuId 
+    cursor.execute('''SELECT student_reports.status 
                       FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN student_reports ON student_profile.nuId = student_reports.nuId
-                      WHERE student_profile.nuId = {nuId}''')
+                      WHERE student_profile.nuId = %s''', (nuId))
     
     theData = cursor.fetchall()
     
@@ -92,30 +194,29 @@ def get_reports_status(nuId):
 # Add a student to the dashboard or create a new dashboard
 @advisors.route('/student_reports', methods=['POST'])
 def post_reports():
-
-    # In a POST request, there is a 
-    # collecting data from the request object 
     the_data = request.json
     current_app.logger.info(the_data)
 
-    #extracting the variable
+    # Extracting variables
     nuId = the_data['nuId']
     advisorId = the_data['advisorId']
     notes = the_data['notes']
     status = the_data['status']
 
-    cursor = db.get_db().cursor()
-    cursor.execute(f'''INSERT INTO student_reports (nuId, advisorId, notes, status)
-                          VALUES ({nuId}, {advisorId}, {notes}, {status})''')
-    
-    current_app.logger.info("Inserting into student_reports")
-    cursor = db.get_db().cursor()
-    #cursor.execute(query)
-    db.get_db().commit()
-    
-    the_response = make_response("Successfully added new student to dashboard")
-    the_response.status_code = 200
-    return the_response
+    # Use parameterized query
+    query = '''INSERT INTO student_reports (nuId, advisorId, notes, status)
+               VALUES (%s, %s, %s, %s)'''
+    values = (nuId, advisorId, notes, status)
+
+    try:
+        cursor = db.get_db().cursor()
+        cursor.execute(query, values)
+        db.get_db().commit()
+        current_app.logger.info("Inserted into student_reports successfully.")
+        return make_response("Successfully added new student to dashboard", 200)
+    except Exception as e:
+        current_app.logger.error(f"Error inserting into student_reports: {e}")
+        return make_response(str(e), 400)
 
 #------------------------------------------------------------
 # Update notes info for student with particular nuId
@@ -124,11 +225,11 @@ def post_reports():
 def update_notes():
     current_app.logger.info('PUT /student_reports route')
     notes_info = request.json
-    notes = notes_info['note']
+    notes = notes_info['notes']
     nuId = notes_info['nuId']
 
 
-    query = f'UPDATE student_reports SET notes = {notes} WHERE nuId = {nuId}'
+    query = f"UPDATE student_reports SET notes = '{notes}' WHERE nuId = {nuId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)
@@ -146,12 +247,12 @@ def delete_notes():
     nuId = notes_info['nuId']
 
 
-    query = f"UPDATE student_reports SET notes = '' where nuId = {nuId}"
+    query = f"UPDATE student_reports SET notes = NULL where nuId = {nuId}"
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query)
     db.get_db().commit()
-    return 'Advising notes updated!'
+    return 'Advising notes deleted!'
 
 #------------------------------------------------------------
 # Update the advising status for student with particular nuId
