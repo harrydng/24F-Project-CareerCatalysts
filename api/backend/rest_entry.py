@@ -10,6 +10,7 @@ from backend.student.skill_rec_route import skills
 from backend.advisors.advisor_routes import advisors
 from backend.systemAdmin.websitePerformance import system
 
+
 import os
 from dotenv import load_dotenv
 
@@ -46,8 +47,8 @@ def create_app():
     app.logger.info('current_app(): registering blueprints with Flask app object.')   
     app.register_blueprint(students, url_prefix='/s')
     app.register_blueprint(job_postings, url_prefix='/jp')
+    app.register_blueprint(advisors, url_prefix='/adv')
     app.register_blueprint(skills, url_prefix = '/sk')
-    app.register_blueprint(advisors, url_prefix='/a')
     app.register_blueprint(employers, url_prefix='/e')
     app.register_blueprint(system, url_prefix='/system')
     app.register_blueprint(job_recommendations, url_prefix='/jr')

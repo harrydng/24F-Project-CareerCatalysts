@@ -65,14 +65,14 @@ if st.button('Act as Tony Stark, an Employer',
     st.session_state['role'] = 'employer'
     st.session_state['first_name'] = 'Tony'
     st.switch_page('pages/60_Employer_Page.py')
-
+    
 if st.button('Act as Emily, an Advisor', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'advisor'
     st.session_state['first_name'] = 'Emily'
-    st.switch_page('pages/20_Admin_Home.py') #edit this route
+    st.switch_page('pages/70_Advisor_Page.py') #edit this route
 
 if st.button('Act as Alex, a System Administrator', 
             type = 'primary', 
@@ -81,5 +81,7 @@ if st.button('Act as Alex, a System Administrator',
     st.session_state['role'] = 'administrator'
     st.session_state['first_name'] = 'Alex'
     st.switch_page('pages/19_Administrator.py') #edit this route
+    
 
+    
 

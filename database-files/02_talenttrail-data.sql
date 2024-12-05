@@ -1,4 +1,3 @@
-
 USE talentTrail;
 
 INSERT INTO role (roleName) VALUES

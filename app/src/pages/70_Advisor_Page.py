@@ -16,7 +16,17 @@ if st.button('View Your profile',
              use_container_width=True):
   st.switch_page('pages/71_Advisor_Profile.py')
 
-if st.button('View Students', 
+if st.button('Manage your students', 
              type='primary',
              use_container_width=True):
   st.switch_page('pages/72_Advisor_Students.py')
+
+if st.button('View the Leaderboard', 
+             type='primary',
+             use_container_width=True):
+  st.switch_page('pages/leaderboard.py')
+
+if st.button('View Featured Co Ops', 
+            type='primary',
+            use_container_width=True):
+  st.switch_page('pages/job_postings.py')
