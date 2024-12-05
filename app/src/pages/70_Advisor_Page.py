@@ -24,9 +24,9 @@ if st.button('Manage your students',
 if st.button('View the Leaderboard', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/leaderboard.py')
+  st.switch_page('pages/62_Leaderboard.py')
 
 if st.button('View Featured Co Ops', 
             type='primary',
             use_container_width=True):
-  st.switch_page('pages/job_postings.py')
+  st.switch_page('pages/61_Job_Postings.py')
