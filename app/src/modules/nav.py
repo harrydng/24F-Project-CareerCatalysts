@@ -46,6 +46,10 @@ def ViewProfile():
         "pages/77_View_User_Details.py", label = "View Profile", icon = "👤"
     )
 
+def JobRecs():
+    st.sidebar.page_link(
+        "pages/78_Job_recommendations.py", label = "Job Recommendations", icon = "📊"
+    )
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
 def PolStratAdvHomeNav():
@@ -116,9 +120,10 @@ def SideBarLinks(show_home=False):
         
         if st.session_state["role"] == "student":
             ShowSkills()
-            ViewLeaderboard()
             AddSkills()
+            JobRecs()
             ViewProfile()
+            ViewLeaderboard()
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor": 
