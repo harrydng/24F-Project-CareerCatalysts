@@ -43,7 +43,7 @@ Currently, there are three major components which will each run in their own Doc
 ### Setting Up
 
 1. Make a new File in `api ` folder named `.env` based on the `.env.template` file.
-1. Start the docker containers. 
+2. Start the docker containers. 
 
 ## Controlling the Containers
 
@@ -54,6 +54,20 @@ Currently, there are three major components which will each run in their own Doc
   
 
 
-### Getting Started with the RBAC 
+## Getting Started with the RBAC 
 
-1. The pages are organized by Role.  Pages that start with a `2` are related to the *System Administration* role.  Pages that start with a `6` are related to the *Employer* role.  Pages that start with a `7` are related to The *Advisor* role. And, pages that start with a `8` are related to The *Student* role 
+1. The pages are organized by Role.  Pages that start with a `2` are related to the *System Administration* role.  Pages that start with a `6` are related to the *Employer* role.  Pages that start with a `7` are related to The *Advisor* role. And, pages that start with a `8` are related to The *Student* role
+
+## Database User ID Ranges
+
+In our database, the `userId` is structured to correspond to specific user profiles. The ranges are defined as follows:
+
+- **Admin Profiles:** `userId` from **1 to 40**
+- **Advisor Profiles:** `userId` from **41 to 80**
+- **Employer Profiles:** `userId` from **81 to 120**
+- **Student Profiles:** `userId` from **121 to 160**
+
+### Important Note:
+- When referencing primary keys (`pk`) related to specific user profiles, ensure the `userId` falls within the appropriate range for the respective profile type.
+- For example, if working with a **Student Profile**, use a `userId` between **121 and 160**. Similarly, follow the same convention for Admin, Advisor, and Employer profiles.
+
