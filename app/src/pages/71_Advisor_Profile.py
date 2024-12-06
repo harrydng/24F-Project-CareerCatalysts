@@ -35,44 +35,55 @@ else:
     profile_placeholder.info("Please enter an Advisor ID to view the profile.")
 
 
-# Fetch the advisor name
 def fetch_advisor_name(advisorId):
     try:
         logger.info(f"Fetching info for advisor ID: {advisorId}")
         response = requests.get(f"http://api:4000/adv/info/{advisorId}")
         if response.status_code == 200:
             rows = response.json()
-            return f"{rows[0]['firstName']} {rows[0]['middleName']} {rows[0]['lastName']}"
+            if rows:  # Check if rows contain data
+                return f"{rows[0]['firstName']} {rows[0]['middleName']} {rows[0]['lastName']}"
+            else:
+                st.warning("No data found for the given Advisor ID.")
+                return "Please chose an advisor which exists"
         else:
             st.error(f"Error fetching advisor info: {response.text}")
             return "Unknown"
     except requests.exceptions.RequestException as e:
         st.error(f"Error connecting to API: {str(e)}")
         return "Unknown"
+
     
-# Fetch the advisor first name
 def fetch_advisor_firstName(advisorId):
     try:
         logger.info(f"Fetching info for advisor ID: {advisorId}")
         response = requests.get(f"http://api:4000/adv/info/{advisorId}")
         if response.status_code == 200:
             rows = response.json()
-            return f"{rows[0]['firstName']}"
+            if rows:  # Check if rows contain data
+                return f"{rows[0]['firstName']}"
+            else:
+                st.warning("No data found for the given Advisor ID.")
+                return "Please chose an advisor which exists"
         else:
             st.error(f"Error fetching advisor info: {response.text}")
             return "Unknown"
     except requests.exceptions.RequestException as e:
         st.error(f"Error connecting to API: {str(e)}")
         return "Unknown"
+
     
-# Fetch the advisor middle name
 def fetch_advisor_middleName(advisorId):
     try:
         logger.info(f"Fetching info for advisor ID: {advisorId}")
         response = requests.get(f"http://api:4000/adv/info/{advisorId}")
         if response.status_code == 200:
             rows = response.json()
-            return f"{rows[0]['middleName']}"
+            if rows:
+                return f"{rows[0]['middleName']}"
+            else:
+                st.warning("No data found for the given Advisor ID.")
+                return "Please chose an advisor which exists"
         else:
             st.error(f"Error fetching advisor info: {response.text}")
             return "Unknown"
@@ -80,14 +91,17 @@ def fetch_advisor_middleName(advisorId):
         st.error(f"Error connecting to API: {str(e)}")
         return "Unknown"
     
-# Fetch the advisor last name
 def fetch_advisor_lastName(advisorId):
     try:
         logger.info(f"Fetching info for advisor ID: {advisorId}")
         response = requests.get(f"http://api:4000/adv/info/{advisorId}")
         if response.status_code == 200:
             rows = response.json()
-            return f"{rows[0]['lastName']}"
+            if rows:
+                return f"{rows[0]['lastName']}"
+            else:
+                st.warning("No data found for the given Advisor ID.")
+                return "Please chose an advisor which exists"
         else:
             st.error(f"Error fetching advisor info: {response.text}")
             return "Unknown"
@@ -95,13 +109,16 @@ def fetch_advisor_lastName(advisorId):
         st.error(f"Error connecting to API: {str(e)}")
         return "Unknown"
 
-# Fetch the advisor username
 def fetch_advisor_userName(advisorId):
     try:
         response = requests.get(f"http://api:4000/adv/info/{advisorId}")
         if response.status_code == 200:
             rows = response.json()
-            return rows[0]['username']
+            if rows:
+                return rows[0]['username']
+            else:
+                st.warning("No data found for the given Advisor ID.")
+                return "Please chose an advisor which exists"
         else:
             st.error(f"Error fetching advisor info: {response.text}")
             return "Unknown"
@@ -109,13 +126,16 @@ def fetch_advisor_userName(advisorId):
         st.error(f"Error connecting to API: {str(e)}")
         return "Unknown"
 
-# Fetch the advisor email
 def fetch_advisor_email(advisorId):
     try:
         response = requests.get(f"http://api:4000/adv/info/{advisorId}")
         if response.status_code == 200:
             rows = response.json()
-            return rows[0]['email']
+            if rows:
+                return rows[0]['email']
+            else:
+                st.warning("No data found for the given Advisor ID.")
+                return "Please chose an advisor which exists"
         else:
             st.error(f"Error fetching advisor info: {response.text}")
             return "Unknown"
@@ -197,7 +217,7 @@ if advisorId is not None:
 
     if st.button("Update Username"):
         try:
-            response = requests.put(f"http://api:4000/adv/updateUserName/{advisorId}", json=payload2)
+            response = requests.put(f"http://api:4000/adv/updateUsername/{advisorId}", json=payload2)
             if response.status_code == 200:
                 st.success("Username updated successfully!")
             else:
