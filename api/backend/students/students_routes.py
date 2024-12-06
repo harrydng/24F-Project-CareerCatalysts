@@ -22,16 +22,24 @@ def get_products():
     limit = the_data['limit']
     
     query = f'''
-        SELECT sp.nuId                                                 AS 'Student ID',
-            COUNT(DISTINCT ss.skillId)                                 AS 'Total Skills',
-            COUNT(DISTINCT sc.courseId)                                AS 'Total Courses',
+    SELECT *
+    FROM (
+        SELECT 
+            sp.nuId                                                 AS 'Student ID',
+            COUNT(DISTINCT ss.skillId)                              AS 'Total Skills',
+            sp.major                                                AS 'Major',
+            sp.minor                                                AS 'Minor',
+            CONCAT(u.firstName, ' ', u.lastName)                    AS 'Full Name',
+            COUNT(DISTINCT sc.courseId)                             AS 'Total Courses',
             (COUNT(DISTINCT ss.skillId) + COUNT(DISTINCT sc.courseId)) AS 'Total Score'
         FROM student_profile sp
             LEFT JOIN student_skills ss ON sp.nuId = ss.nuId
             LEFT JOIN student_courses sc ON sp.nuId = sc.nuId
+            JOIN user u ON sp.nuId = u.userId
         GROUP BY sp.nuId
-        ORDER BY 'Total Score' DESC
-        LIMIT {limit}
+    ) AS subquery
+    ORDER BY `Total Score` DESC
+    LIMIT {limit};
     '''
     current_app.logger.info(query)
     
@@ -114,15 +122,16 @@ def filter_students():
     where_clause = " AND ".join(conditions) if conditions else "1=1"
 
     query = f'''
-        SELECT DISTINCT sp.nuId                                          AS StudentID,
+        SELECT DISTINCT 
+                sp.nuId                                                  AS StudentID,
                 CONCAT(u.firstName, ' ', u.lastName)                     AS FullName,
                 sp.major                                                 AS Major,
                 sp.minor                                                 AS Minor,
                 sp.year                                                  AS Year,
                 u.email                                                  AS Email,
-                b.badgeName                                              AS Badge,
-                GROUP_CONCAT(DISTINCT s.name)                            AS Skills,
-                GROUP_CONCAT(DISTINCT c.courseName)                      AS Courses,
+                GROUP_CONCAT(DISTINCT b.badgeName ORDER BY b.badgeName)  AS Badge,
+                GROUP_CONCAT(DISTINCT s.name ORDER BY s.name)            AS Skills,
+                GROUP_CONCAT(DISTINCT c.courseName ORDER BY c.courseName)AS Courses,
                 COUNT(DISTINCT ss.skillId) + COUNT(DISTINCT sc.courseId) AS TotalScore
         FROM student_profile sp
             JOIN user u ON sp.nuId = u.userId
@@ -133,7 +142,7 @@ def filter_students():
             LEFT JOIN student_courses sc ON sp.nuId = sc.nuId
             LEFT JOIN courses c ON sc.courseId = c.courseId
         WHERE {where_clause}
-        GROUP BY sp.nuId, FullName, sp.major, sp.minor, b.badgeName
+        GROUP BY sp.nuId, FullName, sp.major, sp.minor, sp.year, u.email
         ORDER BY TotalScore DESC, FullName;
     '''
 
