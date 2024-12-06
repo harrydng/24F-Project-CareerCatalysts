@@ -17,4 +17,9 @@ The `database-files` folder contains all the SQL scripts required to set up, ini
 3. **`03_add_to_talenttrail.sql`**  
    This file contains additional data inserts or updates that extend the database with more specific entries, such as predefined job postings, student profiles, and activity logs to support advanced use cases.
 
+To reset and reinitialize the database, simply start the database service by running:
+
+```bash
+docker compose up db -d
+```
 ---
