@@ -155,20 +155,42 @@ def update_job_posting(jobId):
 
 # ------------------------------------------------------------
 # Get all Job Types
-@job_postings.route('/jobTypes', methods = ['GET'])
+@job_postings.route('/jobTypes', methods=['GET'])
 def get_job_type():
-    query = '''
-        SELECT DISTINCT jp.positionType AS 'Position Type',
-            jp.employmentType AS 'Employment Type',
-            jp.workLocation AS 'Work Location'
-        FROM job_posting jp
-        WHERE positionType IS NOT NULL
-    '''
-
     cursor = db.get_db().cursor()
-    cursor.execute(query)
-    theData = cursor.fetchall()
-        
-    response = make_response(jsonify(theData))
+    
+    # Fetch unique Position Types
+    cursor.execute('''
+        SELECT DISTINCT jp.positionType AS 'Position Type'
+        FROM job_posting jp
+        WHERE jp.positionType IS NOT NULL
+    ''')
+    position_types = cursor.fetchall()
+
+    # Fetch unique Employment Types
+    cursor.execute('''
+        SELECT DISTINCT jp.employmentType AS 'Employment Type'
+        FROM job_posting jp
+        WHERE jp.employmentType IS NOT NULL
+    ''')
+    employment_types = cursor.fetchall()
+
+    # Fetch unique Work Locations
+    cursor.execute('''
+        SELECT DISTINCT jp.workLocation AS 'Work Location'
+        FROM job_posting jp
+        WHERE jp.workLocation IS NOT NULL
+    ''')
+    work_locations = cursor.fetchall()
+
+    # Combine results into a single dictionary
+    result = {
+        "Position Types": [row['Position Type'] for row in position_types],
+        "Employment Types": [row['Employment Type'] for row in employment_types],
+        "Work Locations": [row['Work Location'] for row in work_locations]
+    }
+
+    response = make_response(jsonify(result))
     response.status_code = 200
     return response
+

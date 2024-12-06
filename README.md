@@ -53,16 +53,14 @@ Currently, there are three major components which will each run in their own Doc
 - `docker compose down` to shutdown and delete the containers
 - `docker compose up db -d` only start the database container (replace db with the other services as needed)
 - `docker compose stop` to "turn off" the containers but not delete them.
-  
-
 
 ## RBAC in TalentTrail
 
 The pages are organized by Role.  Pages that start with a `2` are related to the *System Administration* role.  Pages that start with a `6` are related to the *Employer* role.  Pages that start with a `7` are related to The *Advisor* role. And, pages from `83` onwards are related to The *Student* role
 
-## Database User ID Ranges
+## Database User ID Ranges (For Testing Purposes)
 
-In our database, the `userId` is structured to correspond to specific user profiles. The ranges are defined as follows:
+In our database, the `userId` is structured to correspond to specific user profiles, associateed with their role. The ranges are defined as follows:
 
 - **Admin Profiles:** `userId` from **1 to 40**
 - **Advisor Profiles:** `userId` from **41 to 80**

@@ -100,9 +100,9 @@ try:
     responses = requests.get('http://api:4000/jp/jobTypes')
     if responses.status_code == 200:
         responses_data = responses.json()
-        employment_type_options = [""] + [response['Position Type'] for response in responses_data]
-        position_type_options = [""] + [response['Employment Type'] for response in responses_data]
-        work_location_options = [""] + [response['Work Location'] for response in responses_data]
+        employment_type_options = [""] + responses_data["Employment Types"]
+        position_type_options = [""] + responses_data["Position Types"]
+        work_location_options = [""] + responses_data["Work Locations"]
     else:
         st.error("Failed to fetch job types")
         employment_type_options = []
@@ -116,7 +116,7 @@ except requests.exceptions.RequestException as e:
 
 # Input Form for Company Name
 st.write("### Search for Job Postings")
-company_name = st.text_input("Enter the company name:", placeholder="Enter a company name (e.g., Sundar)")
+company_name = st.text_input("Enter the company name:", placeholder="Enter a company name (e.g., Innovate)")
 
 col1, col2 = st.columns(2)
 
@@ -197,6 +197,7 @@ with col2:
                 st.write(f"**Location:** {job['Location']}")
                 st.write(f"**Company:** {job['Company']}")
                 st.write(f"**Created At:** {job['Created At']}")
+                st.write(f"**Updated At:** {job['Updated At']}")
 
                 action_col1, action_col2 = st.columns(2)
                 

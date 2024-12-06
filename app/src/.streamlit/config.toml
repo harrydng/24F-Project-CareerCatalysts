@@ -18,3 +18,6 @@ base="light"
 primaryColor="#6550e6"
 font="monospace"
 
+[server]
+# Enabling static file serving from the "static" folder
+enableStaticServing = true
