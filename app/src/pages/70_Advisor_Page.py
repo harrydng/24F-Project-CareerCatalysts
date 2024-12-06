@@ -34,7 +34,7 @@ if st.button('View Job Postings',
 if st.button('View Students', 
             type='primary',
             use_container_width=True):
-  st.switch_page('pages/77_View_User_Details.py')
+  st.switch_page('pages/87_View_User_Details.py')
 
 if st.button('View Co Op Placement Statistics', 
             type='primary',
