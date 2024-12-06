@@ -1,7 +1,3 @@
-# `database-files` Folder
-
-TODO: Put some notes here about how this works.  include how to re-bootstrap the db. 
-
 # Database Files Folder Explanation
 
 The `database-files` folder contains all the SQL scripts required to set up, initialize, and maintain the database for the TalentTrail web application. Each file serves a specific purpose in ensuring the proper functionality and data structure of the app.
