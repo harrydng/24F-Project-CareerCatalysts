@@ -269,132 +269,6 @@ def update_advising_status():
     return 'Advising status updated!'
 
 #------------------------------------------------------------
-# Delete the advising status for student with particular nuId
-@advisors.route('/student_reports/status', methods=['DELETE'])
-
-def delete_advising_status():
-    current_app.logger.info('PUT /student_reports route')
-    status_info = request.json
-    nuId = status_info['nuId']
-
-    query = f'UPDATE student_reports SET status = null where nuId = {nuId}'
-    cursor = db.get_db().cursor()
-    r = cursor.execute(query)
-    db.get_db().commit()
-    return 'Advising status set to none!'
-
-#------------------------------------------------------------
-# Get all the jobs the student with the given nuId applied to
-@advisors.route('/student_profile/applied/<nuId>', methods=['GET'])
-def get_student_applied(nuId):
-
-    current_app.logger.info('GET /student_profile/applied/<nuId> route')
-    cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM user
-                      JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_applications ON job_applications.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_applications.jobId
-                      WHERE student_profile.nuId = {nuId}''')
-    
-    theData = cursor.fetchall()
-    
-    the_response = make_response(jsonify(theData))
-    the_response.status_code = 200
-    return the_response
-
-#------------------------------------------------------------
-# Get all the jobs the student with the given nuId has worked at
-@advisors.route('/student_profile/jobs/<nuId>', methods=['GET'])
-def get_student_jobs(nuId):
-
-    current_app.logger.info('GET /student_profile/worked/<nuId> route')
-    cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM user
-                      JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_students ON job_students.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_students.jobId
-                      WHERE student_profile.nuId = {nuId}''')
-    
-    theData = cursor.fetchall()
-    
-    the_response = make_response(jsonify(theData))
-    the_response.status_code = 200
-    return the_response
-
-#------------------------------------------------------------
-# Get all the students which have worked at the job at the job with the given jobId
-@advisors.route('/job_posting/students/<jobId>', methods=['GET'])
-def get_job_students(jobId):
-
-    current_app.logger.info('GET /student_profile/worked/<nuId> route')
-    cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM user
-                      JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_students ON job_students.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_students.jobId
-                      WHERE job_posting.jobId = {jobId}''')
-    
-    theData = cursor.fetchall()
-    
-    the_response = make_response(jsonify(theData))
-    the_response.status_code = 200
-    return the_response
-
-#------------------------------------------------------------
-# Get all the students which have applied to the job at the job with the given jobId
-@advisors.route('/job_posting/applicants/<jobId>', methods=['GET'])
-def get_job_applicants(jobId):
-
-    current_app.logger.info('GET /student_profile/worked/<nuId> route')
-    cursor = db.get_db().cursor()
-    cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM user
-                      JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_applications ON job_application.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_applications.jobId
-                      WHERE job_applications.jobId = %s''', (jobId,))
-    
-#     theData = cursor.fetchall()
-    
-#     the_response = make_response(jsonify(theData))
-#     the_response.status_code = 200
-#     return the_response
-
-#------------------------------------------------------------
-# Get all the qualifiications the student with the given nuId has
-@advisors.route('/qualifications/<nuId>', methods=['GET'])
-def get_student_qualifications(nuId):
-
-    current_app.logger.info('GET /student_profile/applied/<nuId> route')
-    cursor = db.get_db().cursor()
-    cursor.execute(f'''SELECT job_posting.description, courses.courseName, courses.description, 
-                             courses.courseNumber, certifications.name, projects.description, 
-                             projects.name, skills.name, skills.description, user.firstName, 
-                             user.middleName, user.lastName, student_profile.nuId
-                      FROM user
-                      JOIN student_profile ON student_profile.nuId = user.userId
-                      JOIN job_applications ON job_applications.nuId = student_profile.nuId
-                      JOIN job_posting ON job_posting.jobId = job_applications.jobId
-                      NATURAL JOIN student_projects
-                      NATURAL JOIN projects
-                      NATURAL JOIN student_certifications
-                      NATURAL JOIN certifications
-                      JOIN student_courses ON student_courses.nuId = student_profile.nuId
-                      JOIN courses ON student_courses.courseId = courses.courseId
-                      JOIN student_skills ON student_skills.nuId = student_profile.nuId
-                      JOIN skills ON student_skills.skillId = skills.skillId
-                      WHERE student_profile.nuId = {nuId}''')
-    
-    theData = cursor.fetchall()
-    
-    the_response = make_response(jsonify(theData))
-    the_response.status_code = 200
-    return the_response
-
-#------------------------------------------------------------
 # Get all the qualifiications count the student with the given nuId has
 @advisors.route('/qualifications/count/<nuId>', methods=['GET'])
 def get_student_qualifications_count(nuId):
@@ -433,10 +307,10 @@ def get_student_qualifications_count(nuId):
 #------------------------------------------------------------
 # Get the year, the number of students, and the number of co ops applied to by
 # Students in that year
-@advisors.route('/job_posting/year/avg', methods=['GET'])
+@advisors.route('/job_posting/year_avg', methods=['GET'])
 def get_avg_jobs():
 
-    current_app.logger.info('GET /job_posting/year/avg route')
+    current_app.logger.info('GET /job_posting/year_avg route')
     cursor = db.get_db().cursor()
     cursor.execute('''SELECT
                         sp.year AS student_year,

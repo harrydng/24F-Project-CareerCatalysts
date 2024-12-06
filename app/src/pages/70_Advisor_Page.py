@@ -21,11 +21,6 @@ if st.button('Manage your students',
              use_container_width=True):
   st.switch_page('pages/72_Advisor_Students.py')
 
-if st.button('View the Leaderboard', 
-             type='primary',
-             use_container_width=True):
-  st.switch_page('pages/62_Leaderboard.py')
-
 if st.button('View Job Postings', 
             type='primary',
             use_container_width=True):
@@ -40,3 +35,13 @@ if st.button('View Co Op Placement Statistics',
             type='primary',
             use_container_width=True):
   st.switch_page('pages/80_Co_Op_Placements.py')
+
+if st.button('View Job Recommendations', 
+            type='primary',
+            use_container_width=True):
+  st.switch_page('pages/88_Job_recommendations.py')
+
+if st.button('View the Leaderboard', 
+             type='primary',
+             use_container_width=True):
+  st.switch_page('pages/62_Leaderboard.py')

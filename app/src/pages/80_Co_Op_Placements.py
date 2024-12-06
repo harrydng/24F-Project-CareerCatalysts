@@ -28,7 +28,7 @@ def get_avg_jobs():
         list of dict: A list of dictionaries with year and average jobs per student.
     """
     try:
-        response = requests.get(f"http://api:4000/adv/job_posting/year/avg")
+        response = requests.get(f"http://api:4000/adv/job_posting/year_avg")
         if response.status_code == 200:
             data = response.json()  # Assuming the response is in JSON format
             avg_jobs_per_student = []
