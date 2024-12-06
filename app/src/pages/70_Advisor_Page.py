@@ -26,7 +26,7 @@ if st.button('View the Leaderboard',
              use_container_width=True):
   st.switch_page('pages/62_Leaderboard.py')
 
-if st.button('View Featured Co Ops', 
+if st.button('View Job Postings', 
             type='primary',
             use_container_width=True):
   st.switch_page('pages/61_Job_Postings.py')
@@ -35,3 +35,8 @@ if st.button('View Students',
             type='primary',
             use_container_width=True):
   st.switch_page('pages/77_View_User_Details.py')
+
+if st.button('View Co Op Placement Statistics', 
+            type='primary',
+            use_container_width=True):
+  st.switch_page('pages/80_Co_Op_Placements.py')

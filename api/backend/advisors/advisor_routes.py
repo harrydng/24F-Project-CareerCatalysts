@@ -36,7 +36,7 @@ def get_advisor_info(advisorId):
 def update_advisor_username(advisorId):
     current_app.logger.info('PUT /updateUsername/<advisorId>')
     username_info = request.json
-    username = username_info['username']
+    username = username_info['userName']
     #userId = username_info['advisorId']
 
     query = f"UPDATE user SET username = '{username}' WHERE userId = {advisorId}"
@@ -351,7 +351,7 @@ def get_job_applicants(jobId):
     current_app.logger.info('GET /student_profile/worked/<nuId> route')
     cursor = db.get_db().cursor()
     cursor.execute('''SELECT job_posting.position, user.firstName, user.middleName, user.lastName, student_profile.nuId 
-                      FROM users
+                      FROM user
                       JOIN student_profile ON student_profile.nuId = user.userId
                       JOIN job_applications ON job_application.nuId = student_profile.nuId
                       JOIN job_posting ON job_posting.jobId = job_applications.jobId
@@ -388,6 +388,34 @@ def get_student_qualifications(nuId):
                       JOIN skills ON student_skills.skillId = skills.skillId
                       WHERE student_profile.nuId = {nuId}''')
     
+    theData = cursor.fetchall()
+    
+    the_response = make_response(jsonify(theData))
+    the_response.status_code = 200
+    return the_response
+
+#------------------------------------------------------------
+# Get the year, the number of students, and the number of co ops applied to by
+# Students in that year
+@advisors.route('/job_posting/year/avg', methods=['GET'])
+def get_avg_jobs():
+
+    current_app.logger.info('GET /job_posting/year/avg route')
+    cursor = db.get_db().cursor()
+    cursor.execute('''SELECT
+                        sp.year AS student_year,
+                    COUNT(DISTINCT sp.nuId) AS student_count, -- Count distinct students for each year
+                    COUNT(jp.jobId) AS job_count                  -- Count job postings for each year
+                    FROM
+                        student_profile sp
+                    LEFT JOIN
+                        job_applications sja ON sp.nuId = sja.nuId
+                    LEFT JOIN
+                        job_posting jp ON sja.jobId = jp.jobId
+                    GROUP BY
+                        sp.year
+                    ORDER BY
+                        sp.year''')
     theData = cursor.fetchall()
     
     the_response = make_response(jsonify(theData))
