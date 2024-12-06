@@ -22,20 +22,24 @@ def get_products():
     limit = the_data['limit']
     
     query = f'''
-        SELECT sp.nuId                                                 AS 'Student ID',
-            COUNT(DISTINCT ss.skillId)                                 AS 'Total Skills',
-            sp.major                                                   AS 'Major',
-            sp.minor                                                   AS 'Minor',
-            CONCAT(u.firstName, ' ', u.lastName)                       AS FullName,
-            COUNT(DISTINCT sc.courseId)                                AS 'Total Courses',
+    SELECT *
+    FROM (
+        SELECT 
+            sp.nuId                                                 AS 'Student ID',
+            COUNT(DISTINCT ss.skillId)                              AS 'Total Skills',
+            sp.major                                                AS 'Major',
+            sp.minor                                                AS 'Minor',
+            CONCAT(u.firstName, ' ', u.lastName)                    AS 'Full Name',
+            COUNT(DISTINCT sc.courseId)                             AS 'Total Courses',
             (COUNT(DISTINCT ss.skillId) + COUNT(DISTINCT sc.courseId)) AS 'Total Score'
         FROM student_profile sp
             LEFT JOIN student_skills ss ON sp.nuId = ss.nuId
             LEFT JOIN student_courses sc ON sp.nuId = sc.nuId
             JOIN user u ON sp.nuId = u.userId
         GROUP BY sp.nuId
-        ORDER BY 'Total Score' DESC
-        LIMIT {limit}
+    ) AS subquery
+    ORDER BY `Total Score` DESC
+    LIMIT {limit};
     '''
     current_app.logger.info(query)
     
