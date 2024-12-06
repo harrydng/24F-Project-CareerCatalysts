@@ -1,6 +1,6 @@
 # Talent Trail
 Team: CarrerCatalysts
-Contributed Members: Harry Duong, Arnav Rathore, Yuvraj Kapoor, Sean Issac
+Contributed Members: Harry Duong, Arnav Rathore, Yuvraj Kapoor, Sean Isaac
 
 ## Our Project
 
@@ -56,9 +56,9 @@ Currently, there are three major components which will each run in their own Doc
   
 
 
-## Getting Started with the RBAC 
+## RBAC in TalentTrail
 
-1. The pages are organized by Role.  Pages that start with a `2` are related to the *System Administration* role.  Pages that start with a `6` are related to the *Employer* role.  Pages that start with a `7` are related to The *Advisor* role. And, pages that start with a `8` are related to The *Student* role
+1. The pages are organized by Role.  Pages that start with a `2` are related to the *System Administration* role.  Pages that start with a `6` are related to the *Employer* role.  Pages that start with a `7` are related to The *Advisor* role. And, pages from `83` onwards are related to The *Student* role
 
 ## Database User ID Ranges
 
