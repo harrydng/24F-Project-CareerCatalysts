@@ -15,13 +15,13 @@ These pages demonstrate the application's modular structure, utilizing Streamlit
 3. 62_Leaderboard.py: Return the top number of students based on their skills gained
 4. 63_Search_Students.py: Look for the student with given attributes
 
-# Advisor Pages
+## Advisor Pages
 1. 70_Advisor_Page.py: Advisor dashboard for student management.
 2. 71_Advisor_Profile.py: Advisor profile and related settings.
 3. 72_Advisor_Students.py: Look for all the students of the given Advisor and their info
 4. 80_Co_Op_Placements.py: View Co Op Placement Statistics
 
-# Student Pages
+## Student Pages
 1. 83_Student_home_page.py: Student-specific homepage.
 2. 84_View_skills.py: Page for students to view their skills.
 3. 86_Add_skills.py: Page to add new skills to a student.
