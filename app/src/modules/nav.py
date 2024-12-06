@@ -55,10 +55,12 @@ def JobRecs():
 def AdvisorProfile():
     st.sidebar.page_link("pages/71_Advisor_Profile.py", label="Your Profile", icon="👤")
     st.sidebar.page_link("pages/72_Advisor_Students.py", label="Your Students", icon="👨‍🎓")
-    st.sidebar.page_link("pages/62_Leaderboard.py", label="Leaderboard", icon="🏆")
     st.sidebar.page_link("pages/61_Job_Postings.py", label="Job Postings", icon="💼")
     st.sidebar.page_link("pages/77_View_User_Details.py", label="View Students", icon="🔲")
-    st.sidebar.page_link("pages/80_Co_Op_Placements.py", label="View Statistics", icon="📊")
+    st.sidebar.page_link("pages/80_Co_Op_Placements.py", label="Job Statistics", icon="📊")
+    st.sidebar.page_link("pages/78_Job_recommendations.py", label="Job Recommendations", icon="🌟")
+    st.sidebar.page_link("pages/62_Leaderboard.py", label="Leaderboard", icon="🏆")
+    
 
     
 
