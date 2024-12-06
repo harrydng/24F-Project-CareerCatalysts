@@ -5,3 +5,12 @@ This folder contains all the pages that will be part of the application. Details
 These pages are meant to show you an example of some of the features of Streamlit and the way we will limit functionality access by role/persona. It is not meant to represent a complete application.
 
 TODO: Describe the pages folder and include link to documentation. Don't forget about ordering of pages.
+
+----------------- Student -------------------------
+Explain what happens in your screen, with input for each so TA can follow along
+----------------- Employer ------------------------
+Explain
+----------------- Advisor -------------------------
+...
+----------------- Administrator -------------------
+...
