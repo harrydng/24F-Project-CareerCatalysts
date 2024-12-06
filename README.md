@@ -1,6 +1,6 @@
 # Talent Trail
 Team: CarrerCatalysts
-Contributed Members: Harry Duong, Arnav Rathore, Yuvraj Kapoor, Sean Issac
+Contributed Members: Harry Duong, Arnav Rathore, Yuvraj Kapoor, Sean Isaac
 
 ## Our Project
 
