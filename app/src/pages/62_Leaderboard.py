@@ -33,6 +33,9 @@ def fetch_and_display_students(limit):
                 # Rearrange data for display
                 reordered_data = [
                     {
+                        'Major': student['Major'],
+                        'Minor': student['Minor'],
+                        'Full Name': student['Full Name'],
                         'Student ID': student['Student ID'],
                         'Total Courses': student['Total Courses'],
                         'Total Skills': student['Total Skills'],
