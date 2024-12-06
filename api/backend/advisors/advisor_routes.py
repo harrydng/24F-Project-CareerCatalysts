@@ -395,6 +395,42 @@ def get_student_qualifications(nuId):
     return the_response
 
 #------------------------------------------------------------
+# Get all the qualifiications count the student with the given nuId has
+@advisors.route('/qualifications/count/<nuId>', methods=['GET'])
+def get_student_qualifications_count(nuId):
+
+    current_app.logger.info('GET /qualifications/count/<nuId> route')
+    cursor = db.get_db().cursor()
+    cursor.execute(f'''SELECT
+                            COUNT(DISTINCT ja.jobId) AS Jobs,
+                            COUNT(DISTINCT sc.courseId) AS Courses,
+                            COUNT(DISTINCT stc.certificationId) AS Certifications,
+                            COUNT(DISTINCT spj.projectId) AS Projects,
+                            COUNT(DISTINCT ssk.skillId) AS Skills
+                        FROM
+                            student_profile sp
+                        LEFT JOIN
+                            job_applications ja ON sp.nuId = ja.nuId
+                        LEFT JOIN
+                            student_courses sc ON sp.nuId = sc.nuId
+                        LEFT JOIN
+                            student_certifications stc ON sp.nuId = stc.nuId
+                        LEFT JOIN
+                            student_projects spj ON sp.nuId = spj.nuId
+                        LEFT JOIN
+                            student_skills ssk ON sp.nuId = ssk.nuId
+                        WHERE
+                            sp.nuId = {nuId}
+                        GROUP BY
+                            sp.nuId;''')
+    
+    theData = cursor.fetchall()
+    
+    the_response = make_response(jsonify(theData))
+    the_response.status_code = 200
+    return the_response
+
+#------------------------------------------------------------
 # Get the year, the number of students, and the number of co ops applied to by
 # Students in that year
 @advisors.route('/job_posting/year/avg', methods=['GET'])

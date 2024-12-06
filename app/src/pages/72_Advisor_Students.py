@@ -248,5 +248,32 @@ if students:
             except requests.exceptions.RequestException as e:
                 st.error(f"Error connecting to API: {str(e)}")
 
+    st.write("")
+    st.header("Summary of qualifications")
+
+    #Summarizes qualifications
+    def summarize_qualifications(selected_nuId): 
+        try:
+            response = requests.get(f"http://api:4000/adv/qualifications/count/{selected_nuId}")
+            if response.status_code == 200:
+                data = response.json()
+                return data
+            else:
+                st.error(f"Error fetching qualidications: {response.text}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to API: {str(e)}")
+            
+    # Call the method and display the result
+    data = summarize_qualifications(selected_nuId)
+    if data and isinstance(data, list):  # Check if data is not None and is a list
+        record = data[0]  # Since there is only one entry, get the first item
+        st.markdown(f"""
+        - **Certifications**: {record['Certifications']}  
+        - **Courses**: {record['Courses']}  
+        - **Jobs**: {record['Jobs']}  
+        - **Projects**: {record['Projects']}  
+        - **Skills**: {record['Skills']}  
+        """)
+
 
 
