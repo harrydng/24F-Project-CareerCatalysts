@@ -41,12 +41,14 @@ Currently, there are three major components which will each run in their own Doc
 - SQL files for your data model and data base in the `./database-files` directory
 
 ### Setting Up
-
-1. Make a new File in `api ` folder named `.env` based on the `.env.template` file.
-2. Start the docker containers. 
+1. Clone the repository in bash
+2. cd into the repository
+3. Make a new File in `api ` folder named `.env` based on the `.env.template` file.
+4. Start the docker containers. 
 
 ## Controlling the Containers
 
+- `docker compose build` to build all the containers
 - `docker compose up -d` to start all the containers in the background
 - `docker compose down` to shutdown and delete the containers
 - `docker compose up db -d` only start the database container (replace db with the other services as needed)
