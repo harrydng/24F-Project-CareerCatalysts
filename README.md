@@ -73,3 +73,7 @@ In our database, the `userId` is structured to correspond to specific user profi
 - When referencing primary keys (`pk`) related to specific user profiles, ensure the `userId` falls within the appropriate range for the respective profile type.
 - For example, if working with a **Student Profile**, use a `userId` between **121 and 160**. Similarly, follow the same convention for Admin, Advisor, and Employer profiles.
 
+## Video presentation of our app
+
+https://www.youtube.com/watch?v=TnS3DpNNGBI&ab_channel=SeanIsaac
+
