@@ -30,7 +30,7 @@ def ViewLeaderboard():
 ### --------------------- Student Page ---------------------
 def ShowSkills():
     st.sidebar.page_link(
-        "pages/74_View_skills.py", label="Check Student Skills", icon="💪")
+        "pages/84_View_skills.py", label="Check Student Skills", icon="💪")
 
 def ViewLeaderboard():
     st.sidebar.page_link(
@@ -38,17 +38,17 @@ def ViewLeaderboard():
 
 def AddSkills():
     st.sidebar.page_link(
-        "pages/76_Add_skills.py", label = "Add Skills", icon = "🎯"
+        "pages/86_Add_skills.py", label = "Add Skills", icon = "🎯"
     )
 
 def ViewProfile():
     st.sidebar.page_link(
-        "pages/77_View_User_Details.py", label = "View Profile", icon = "👤"
+        "pages/87_View_User_Details.py", label = "View Profile", icon = "👤"
     )
 
 def JobRecs():
     st.sidebar.page_link(
-        "pages/78_Job_recommendations.py", label = "Job Recommendations", icon = "📊"
+        "pages/88_Job_recommendations.py", label = "Job Recommendations", icon = "📊"
     )
 
 #### ------------------------ System Admin Role ------------------------
@@ -56,11 +56,10 @@ def AdvisorProfile():
     st.sidebar.page_link("pages/71_Advisor_Profile.py", label="Your Profile", icon="👤")
     st.sidebar.page_link("pages/72_Advisor_Students.py", label="Your Students", icon="👨‍🎓")
     st.sidebar.page_link("pages/61_Job_Postings.py", label="Job Postings", icon="💼")
-    st.sidebar.page_link("pages/77_View_User_Details.py", label="View Students", icon="🔲")
+    st.sidebar.page_link("pages/87_View_User_Details.py", label="View Students", icon="🔲")
     st.sidebar.page_link("pages/80_Co_Op_Placements.py", label="Job Statistics", icon="📊")
-    st.sidebar.page_link("pages/78_Job_recommendations.py", label="Job Recommendations", icon="🌟")
+    st.sidebar.page_link("pages/88_Job_recommendations.py", label="Job Recommendations", icon="🌟")
     st.sidebar.page_link("pages/62_Leaderboard.py", label="Leaderboard", icon="🏆")
-    
 
     
 

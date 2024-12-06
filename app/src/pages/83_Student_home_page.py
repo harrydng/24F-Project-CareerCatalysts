@@ -15,25 +15,25 @@ st.write("### What would you like to do today?")
 if st.button("View Skills", 
              type='primary',
              use_container_width=True):
-    st.switch_page("pages/74_View_skills.py")
+    st.switch_page("pages/84_View_skills.py")
 
 # Button to add or link skills
 if st.button("Add Skills", 
              type='primary',
              use_container_width=True):
-    st.switch_page("pages/76_Add_skills.py")
+    st.switch_page("pages/86_Add_skills.py")
 
 # Button to view job recommendations
 if st.button("View Job Recommendations", 
              type='primary',
              use_container_width=True):
-    st.switch_page("pages/78_Job_recommendations.py")
+    st.switch_page("pages/88_Job_recommendations.py")
 
 # Button to view personal details
 if st.button("View Profiles", 
              type='primary',
              use_container_width=True):
-    st.switch_page("pages/77_View_User_Details.py")
+    st.switch_page("pages/87_View_User_Details.py")
 
 # Button to view the leaderboard
 if st.button("View Leaderboard", 
