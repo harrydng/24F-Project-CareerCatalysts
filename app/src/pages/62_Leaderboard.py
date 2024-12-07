@@ -25,7 +25,7 @@ def fetch_and_display_students(limit):
         logger.info(f"Fetching top students with payload: {payload}")
 
         # API request
-        response = requests.post('http://api:4000/s/top_students', json=payload)
+        response = requests.post('http://api:4000/e/top_students', json=payload)
 
         if response.status_code == 200:
             students_data = response.json()

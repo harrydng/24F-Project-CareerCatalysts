@@ -8,13 +8,13 @@ from backend.db_connection import db
 
 ##### Blueprint ######
 
-skills = Blueprint('skills', __name__)
+recommendations = Blueprint('recommendations', __name__)
 
 
 #### CRUD OPS ######
 
 # Function to get all skills a student has
-@skills.route('/skillGet', methods=['POST'])
+@recommendations.route('/skillGet', methods=['POST'])
 def get_student_skills():
     # Read the input JSON payload
     the_data = request.json
@@ -50,7 +50,7 @@ def get_student_skills():
 
 
 # Function to delete a skill.
-@skills.route('/skillRec', methods=['DELETE'])
+@recommendations.route('/skillRec', methods=['DELETE'])
 def delete_student_skill():
     """
     Delete a skill from the student's profile.
@@ -73,7 +73,7 @@ def delete_student_skill():
 
 
 #### FUNCTION TO ADD SKILLS #####
-@skills.route('/skillAdd', methods=['POST'])
+@recommendations.route('/skillAdd', methods=['POST'])
 def addSkill():
     """
     Add a new skill or link an existing skill to a student.
@@ -141,7 +141,7 @@ def addSkill():
 
 
 # Get all details of a student's profile
-@skills.route('/studentProfile', methods=['POST'])
+@recommendations.route('/studentProfile', methods=['POST'])
 def student_profile():
     """
     Fetch a student's profile using their nuId.
@@ -171,3 +171,80 @@ def student_profile():
     response.status_code = 200
     return response 
 
+
+
+# Job recommendations
+@recommendations.route('/Recs', methods=['GET'])
+def get_job_recommendations():
+    """
+    Fetch job recommendations based on the student's qualifications (skills).
+    """
+    student_id = request.args.get('nuId')  # Expecting 'nuId' as a query parameter
+    
+    query = f'''
+        SELECT jp.jobId,
+               jp.description,
+               jp.pay,
+               jp.timePeriod,
+               jp.positionType,
+               jp.employmentType,
+               jp.workLocation,
+               COUNT(DISTINCT jps.skillId) AS MatchingSkills,
+               jp.createdAt
+        FROM job_posting jp
+        JOIN job_posting_skills jps ON jp.jobId = jps.jobId
+        JOIN student_skills ss ON jps.skillId = ss.skillId
+        WHERE ss.nuId = {student_id}
+          AND jp.isActive = TRUE
+        GROUP BY jp.jobId, jp.description, jp.pay, jp.timePeriod,
+                 jp.positionType, jp.employmentType, jp.workLocation, jp.createdAt
+        ORDER BY MatchingSkills DESC, jp.createdAt DESC
+    '''
+    
+    # Execute the query
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    job_recommendations = cursor.fetchall()
+    
+    # Prepare response
+    response = make_response(jsonify(job_recommendations))
+    response.status_code = 200
+    return response
+
+
+
+# Updating job Opportunities
+@recommendations.route('/jobsRec', methods=['PUT'])
+def update_job_opportunities():
+    """
+    Update the job list with new opportunities.
+    """
+    data = request.json 
+    job_id = data.get('jobId')
+    description = data.get('description')
+    pay = data.get('pay')
+    time_period = data.get('timePeriod')
+    position_type = data.get('positionType')
+    employment_type = data.get('employmentType')
+    work_location = data.get('workLocation')
+    is_active = data.get('isActive', True)
+
+    query = f'''
+        UPDATE job_posting
+        SET description = "{description}",
+            pay = {pay},
+            timePeriod = "{time_period}",
+            positionType = "{position_type}",
+            employmentType = "{employment_type}",
+            workLocation = "{work_location}",
+            isActive = {is_active}
+        WHERE jobId = {job_id}
+    '''
+    
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    response = make_response("Job opportunities updated successfully.")
+    response.status_code = 200
+    return response

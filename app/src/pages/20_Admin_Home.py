@@ -19,7 +19,7 @@ def fetch_and_display_metrics_and_alerts():
         logger.info("Fetching metrics and alerts")
         
         # API request to get metrics and alerts
-        response = requests.get('http://api:4000/system/metrics_and_alerts')
+        response = requests.get('http://api:4000/e/metrics_and_alerts')
 
         if response.status_code == 200:
             data = response.json()

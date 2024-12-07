@@ -12,7 +12,7 @@ def filter(data):
     try:
         # Send request to Flask backend
         payload = {"data" : data}
-        response = requests.post("http://api:4000/s/filterStudents", json=payload)
+        response = requests.post("http://api:4000/e/filterStudents", json=payload)
         if response.status_code == 200:
             students = response.json()
             st.success("Students found:")

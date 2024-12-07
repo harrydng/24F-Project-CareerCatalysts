@@ -35,7 +35,7 @@ def fetch_and_display_jobs(student_id):
 
         # API request
         response = requests.get(
-            'http://api:4000/jr/Recs', 
+            'http://api:4000/r/Recs', 
             params={"nuId": student_id}
         )
 

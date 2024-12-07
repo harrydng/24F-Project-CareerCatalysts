@@ -38,7 +38,7 @@ def add_skill(student_id, skill_name, description):
         logger.info(f"Adding skill with payload: {payload}")
 
         # API request
-        response = requests.post('http://api:4000/sk/skillAdd', json=payload)
+        response = requests.post('http://api:4000/r/skillAdd', json=payload)
 
         if response.status_code == 201:
             data = response.json()

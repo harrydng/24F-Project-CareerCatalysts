@@ -32,7 +32,7 @@ def fetch_student_profile(student_id):
         logger.info(f"Fetching student profile with payload: {payload}")
 
         # API request
-        response = requests.post('http://api:4000/sk/studentProfile', json=payload)
+        response = requests.post('http://api:4000/r/studentProfile', json=payload)
 
         if response.status_code == 200:
             data = response.json()

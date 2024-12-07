@@ -19,7 +19,7 @@ def update_user_role(userId, roleId):
         logger.info(f"Updating user role with payload: {payload}")
         
         # API request to update the user role
-        response = requests.put('http://api:4000/system/update_user_role', json=payload)
+        response = requests.put('http://api:4000/e/update_user_role', json=payload)
 
         if response.status_code == 200:
             data = response.json()

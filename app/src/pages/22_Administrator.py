@@ -23,3 +23,8 @@ if st.button('Update User Role',
              type='primary',
              use_container_width=True):
   st.switch_page('pages/21_Update_User_Role.py')
+
+if st.button('View Students Profile',
+             type='primary',
+             use_container_width=True):
+  st.switch_page('pages/87_View_User_Details.py')
