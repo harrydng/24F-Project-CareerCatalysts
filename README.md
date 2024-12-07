@@ -73,5 +73,5 @@ In our database, the `userId` is structured to correspond to specific user profi
 
 ## Video presentation of our app
 
-https://www.youtube.com/watch?v=TnS3DpNNGBI&ab_channel=SeanIsaac
+https://www.youtube.com/watch?v=6tkxCQo6re4&ab_channel=YuvrajKapoor
 
